@@ -1,0 +1,10 @@
+:root { --primary-color: #d80d4c; }
+.admin-shell { min-height: 100vh; background: #f5f6f8; }
+.admin-sidebar { width: 280px; background: #111827; color: #d1d5db; }
+.admin-sidebar .brand { background: var(--primary-color); color: #fff; }
+.admin-sidebar .nav-link { color: #d1d5db; border-radius: .5rem; }
+.admin-sidebar .nav-link.active, .admin-sidebar .nav-link:hover { background: rgba(216,13,76,.18); color: #fff; }
+.admin-content { min-width: 0; }
+.admin-topbar { background: #fff; border-bottom: 1px solid #e5e7eb; }
+.stat-card { border-left: 4px solid var(--primary-color); }
+.login-panel { min-height: 100vh; background: linear-gradient(135deg, rgba(216,13,76,.12), #f8fafc); }

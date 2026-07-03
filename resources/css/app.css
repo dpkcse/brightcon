@@ -1,0 +1,10 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+:root {
+    --primary-color: #d80d4c;
+}
+
+.text-primary-brand { color: var(--primary-color) !important; }
+.bg-primary-brand { background-color: var(--primary-color) !important; }
+.btn-primary-brand { background-color: var(--primary-color); border-color: var(--primary-color); color: #fff; }
+.btn-primary-brand:hover { background-color: #b80b40; border-color: #b80b40; color: #fff; }
