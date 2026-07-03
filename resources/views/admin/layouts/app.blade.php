@@ -7,19 +7,22 @@
 </head>
 <body>
 <div class="admin-shell d-flex">
+    @php($unreadMessages = Cache::remember('contact_messages_unread_count', 300, fn () => \App\Models\ContactMessage::query()->unread()->count()))
     @php($groups = [
         'Dashboard' => [['Dashboard', route('admin.dashboard'), 'admin.dashboard']],
         'Settings' => [['General Settings', route('admin.settings.general.edit'), 'admin.settings.general.*'], ['Theme Settings', route('admin.settings.theme.edit'), 'admin.settings.theme.*']],
+        'Homepage' => [['Homepage Sections', route('admin.homepage-sections.index'), 'admin.homepage-sections.*'], ['Hero Sliders', route('admin.sliders.index'), 'admin.sliders.*'], ['Feature Highlights', route('admin.features.index'), 'admin.features.*']],
+        'Content' => [['Contact Messages', route('admin.contact-messages.index'), 'admin.contact-messages.*', $unreadMessages], ['Projects', '#', ''], ['Services', '#', ''], ['Gallery', '#', '']],
         'Appearance' => [['Menu Items', route('admin.menu-items.index'), 'admin.menu-items.*'], ['Social Links', route('admin.social-links.index'), 'admin.social-links.*'], ['Footer Links', route('admin.footer-links.index'), 'admin.footer-links.*']],
-        'Future Modules' => [['Homepage CMS','#',''], ['Sliders','#',''], ['Features','#',''], ['Projects','#',''], ['Services','#',''], ['Gallery','#',''], ['Contact Messages','#','']],
     ])
     <aside class="admin-sidebar d-none d-lg-flex flex-column">
         <div class="brand p-4 fw-bold fs-4">BrightCon Admin</div>
         <nav class="nav flex-column gap-1 p-3">
             @foreach($groups as $heading => $links)
                 <div class="sidebar-heading mt-3 mb-1">{{ $heading }}</div>
-                @foreach($links as [$label, $href, $pattern])
-                    <a class="nav-link {{ $pattern && request()->routeIs($pattern) ? 'active' : '' }} {{ $href === '#' ? 'disabled opacity-75' : '' }}" href="{{ $href }}">{{ $label }}</a>
+                @foreach($links as $link)
+                    @php([$label, $href, $pattern, $badge] = array_pad($link, 4, null))
+                    <a class="nav-link d-flex justify-content-between align-items-center {{ $pattern && request()->routeIs($pattern) ? 'active' : '' }} {{ $href === '#' ? 'disabled opacity-75' : '' }}" href="{{ $href }}"><span>{{ $label }}</span>@if($badge)<span class="badge text-bg-danger">{{ $badge }}</span>@endif</a>
                 @endforeach
             @endforeach
         </nav>
