@@ -1,0 +1,4 @@
+<?php
+namespace App\Http\Requests\Admin;
+use App\Support\UniqueSlug; use Illuminate\Foundation\Http\FormRequest;
+class StoreServiceRequest extends FormRequest { public function authorize(): bool { return true; } protected function prepareForValidation(): void { $this->merge(['slug'=>UniqueSlug::make('services', $this->input('slug') ?: $this->input('title', 'service'))]); } public function rules(): array { return ['title'=>['required','string','max:180'],'slug'=>['nullable','string','max:200','unique:services,slug'],'image'=>['nullable','image','mimes:jpg,jpeg,png,webp','max:4096'],'icon_class'=>['nullable','string','max:100'],'short_description'=>['nullable','string','max:1000'],'full_description'=>['nullable','string'],'status'=>['nullable','boolean'],'sort_order'=>['nullable','integer','min:0'],'seo_title'=>['nullable','string','max:180'],'seo_description'=>['nullable','string','max:500']]; } }

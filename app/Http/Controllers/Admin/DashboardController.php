@@ -15,8 +15,12 @@ class DashboardController extends Controller
     {
         return view('admin.pages.dashboard', [
             'totalProjects' => Project::query()->count(),
+            'activeProjects' => Project::query()->active()->count(),
+            'featuredProjects' => Project::query()->featured()->count(),
             'totalServices' => Service::query()->count(),
+            'activeServices' => Service::query()->active()->count(),
             'totalGalleryImages' => GalleryImage::query()->count(),
+            'activeGalleryImages' => GalleryImage::query()->active()->count(),
             'totalContactMessages' => ContactMessage::query()->count(),
             'unreadContactMessages' => ContactMessage::query()->unread()->count(),
             'recentContactMessages' => ContactMessage::query()->latest()->take(5)->get(),

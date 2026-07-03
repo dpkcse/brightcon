@@ -1,0 +1,8 @@
+@extends('admin.layouts.app')
+@section('title',$item->exists?'Edit Project Category':'Create Project Category')
+@section('page-heading',$item->exists?'Edit Project Category':'Create Project Category')
+@section('content')
+<form method="POST" action="{{ $item->exists ? route('admin.project-categories.update',$item) : route('admin.project-categories.store') }}" class="card border-0 shadow-sm"><div class="card-body row g-3">@csrf @if($item->exists) @method('PUT') @endif
+@foreach(['name'=>'Name','slug'=>'Slug','sort_order'=>'Sort Order'] as $field=>$label)<div class="col-md-4"><label class="form-label">{{ $label }}</label><input class="form-control @error($field) is-invalid @enderror" name="{{ $field }}" value="{{ old($field,$item->$field) }}">@error($field)<div class="invalid-feedback">{{ $message }}</div>@enderror</div>@endforeach
+<div class="col-12"><label class="form-label">Description</label><textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="4">{{ old('description',$item->description) }}</textarea>@error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror</div><div class="col-md-3"><label class="form-label">Status</label><select class="form-select" name="status"><option value="1" @selected(old('status',$item->status ?? true))>Active</option><option value="0" @selected(! old('status',$item->status ?? true))>Inactive</option></select></div></div><div class="card-footer bg-white d-flex justify-content-between"><a class="btn btn-outline-secondary" href="{{ route('admin.project-categories.index') }}">Back</a><button class="btn btn-primary-brand">Save</button></div></form>
+@endsection

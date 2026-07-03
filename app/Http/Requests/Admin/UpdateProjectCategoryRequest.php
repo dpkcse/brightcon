@@ -1,0 +1,4 @@
+<?php
+namespace App\Http\Requests\Admin;
+use App\Support\UniqueSlug; use Illuminate\Foundation\Http\FormRequest; use Illuminate\Validation\Rule;
+class UpdateProjectCategoryRequest extends FormRequest { public function authorize(): bool { return true; } protected function prepareForValidation(): void { $id=$this->route('project_category')?->id ?? $this->route('projectCategory')?->id; $this->merge(['slug'=>UniqueSlug::make('project_categories', $this->input('slug') ?: $this->input('name', 'category'), $id)]); } public function rules(): array { $id=$this->route('project_category')?->id ?? $this->route('projectCategory')?->id; return ['name'=>['required','string','max:150'],'slug'=>['nullable','string','max:180',Rule::unique('project_categories','slug')->ignore($id)],'description'=>['nullable','string'],'sort_order'=>['nullable','integer','min:0'],'status'=>['nullable','boolean']]; } }

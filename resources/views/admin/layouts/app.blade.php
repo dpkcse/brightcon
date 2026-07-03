@@ -12,7 +12,7 @@
         'Dashboard' => [['Dashboard', route('admin.dashboard'), 'admin.dashboard']],
         'Settings' => [['General Settings', route('admin.settings.general.edit'), 'admin.settings.general.*'], ['Theme Settings', route('admin.settings.theme.edit'), 'admin.settings.theme.*']],
         'Homepage' => [['Homepage Sections', route('admin.homepage-sections.index'), 'admin.homepage-sections.*'], ['Hero Sliders', route('admin.sliders.index'), 'admin.sliders.*'], ['Feature Highlights', route('admin.features.index'), 'admin.features.*']],
-        'Content' => [['Contact Messages', route('admin.contact-messages.index'), 'admin.contact-messages.*', $unreadMessages], ['Projects', '#', ''], ['Services', '#', ''], ['Gallery', '#', '']],
+        'Content' => [['Project Categories', route('admin.project-categories.index'), 'admin.project-categories.*'], ['Projects', route('admin.projects.index'), 'admin.projects.*'], ['Services', route('admin.services.index'), 'admin.services.*'], ['Gallery Images', route('admin.gallery-images.index'), 'admin.gallery-images.*'], ['Contact Messages', route('admin.contact-messages.index'), 'admin.contact-messages.*', $unreadMessages]],
         'Appearance' => [['Menu Items', route('admin.menu-items.index'), 'admin.menu-items.*'], ['Social Links', route('admin.social-links.index'), 'admin.social-links.*'], ['Footer Links', route('admin.footer-links.index'), 'admin.footer-links.*']],
     ])
     <aside class="admin-sidebar d-none d-lg-flex flex-column">
