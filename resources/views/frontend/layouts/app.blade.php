@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'BrightCon Construction & Engineering')</title>
     @vite(['resources/css/app.css', 'resources/css/frontend.css', 'resources/js/app.js'])
+    @include('frontend.partials.theme-css')
 </head>
 <body>
     <div class="frontend-topbar py-2">
