@@ -1,6 +1,6 @@
 <?php use App\Support\FrontendImage; ?>
 <header class="frontend-header bg-white py-3">
-    <div class="container d-flex flex-column flex-lg-row align-items-center justify-content-between gap-3">
+    <div class="container-xl d-flex flex-column flex-lg-row align-items-center justify-content-between gap-3">
         <a class="brand-wrap text-decoration-none" href="<?php echo e(route('home')); ?>">
             <?php if($siteSettings?->logo): ?>
                 <img src="<?php echo e(FrontendImage::url($siteSettings->logo)); ?>" alt="<?php echo e($siteSettings?->company_name ?: config('app.name')); ?>" class="frontend-logo">

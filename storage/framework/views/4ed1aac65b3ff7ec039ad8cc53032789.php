@@ -1,6 +1,6 @@
 <?php use App\Support\FrontendImage; ?>
 <footer class="frontend-footer py-5">
-    <div class="container">
+    <div class="container-xl">
         <?php if(session('success')): ?><div class="alert alert-success"><?php echo e(session('success')); ?></div><?php endif; ?>
         <div class="row g-4 g-lg-5">
             <div class="col-lg-4">

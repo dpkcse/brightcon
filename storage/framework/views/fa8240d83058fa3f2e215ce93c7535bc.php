@@ -4,7 +4,7 @@
     $backgroundColor = $section?->background_color ?: 'var(--primary-color)';
 ?>
 <section class="gallery-cta" style="--cta-bg: <?php echo e($backgroundColor); ?>; <?php if($backgroundImage): ?> background-image: linear-gradient(rgba(8,11,16,.70), rgba(8,11,16,.70)), url('<?php echo e($backgroundImage); ?>'); <?php endif; ?>">
-    <div class="container text-center">
+    <div class="container-xl text-center">
         <span class="section-kicker light"><?php echo e($section?->title ?: 'Our Gallery'); ?></span>
         <h2><?php echo e($section?->subtitle ?: 'In our work we have pride, quality is what we provide.'); ?></h2>
         <?php if($section?->content): ?><p><?php echo e($section->content); ?></p><?php endif; ?>
