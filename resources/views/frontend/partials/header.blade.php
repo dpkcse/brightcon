@@ -1,6 +1,6 @@
 @php use App\Support\FrontendImage; @endphp
 <header class="frontend-header bg-white py-3">
-    <div class="container d-flex flex-column flex-lg-row align-items-center justify-content-between gap-3">
+    <div class="container-xl d-flex flex-column flex-lg-row align-items-center justify-content-between gap-3">
         <a class="brand-wrap text-decoration-none" href="{{ route('home') }}">
             @if($siteSettings?->logo)
                 <img src="{{ FrontendImage::url($siteSettings->logo) }}" alt="{{ $siteSettings?->company_name ?: config('app.name') }}" class="frontend-logo">
