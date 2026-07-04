@@ -13,4 +13,6 @@ class PageController extends Controller
     public function projects(): View { return view('frontend.pages.projects'); }
     public function gallery(): View { return view('frontend.pages.gallery'); }
     public function contact(): View { return view('frontend.pages.contact'); }
+    public function competency(): View { return view('frontend.pages.competency'); }
+    public function equipment(): View { return view('frontend.pages.equipment-list'); }
 }

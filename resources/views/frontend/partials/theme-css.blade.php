@@ -1,8 +1,5 @@
 @php
-    use App\Models\ThemeSetting;
-    use Illuminate\Support\Facades\Cache;
-
-    $theme = Cache::rememberForever('theme_settings', fn () => ThemeSetting::query()->first());
+    $theme = $themeSettings ?? null;
     $cssValue = fn ($value, $fallback) => e($value ?: $fallback);
     $customCss = $theme?->custom_css ? preg_replace('/<\/?script\b[^>]*>/i', '', $theme->custom_css) : null;
 @endphp
