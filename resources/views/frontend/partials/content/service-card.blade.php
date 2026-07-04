@@ -1,10 +1,10 @@
 @php
-    use Illuminate\Support\Facades\Storage;
-    $imageUrl = $service->image && Storage::disk('public')->exists($service->image) ? Storage::url($service->image) : null;
+    use App\Support\FrontendImage;
+    $imageUrl = FrontendImage::url($service->image);
 @endphp
 <article class="service-card h-100">
     <div class="card-media">
-        @if($imageUrl)<img src="{{ $imageUrl }}" alt="{{ $service->title }}" loading="lazy">@else<div class="image-placeholder">Service</div>@endif
+        @if($imageUrl)<img src="{{ $imageUrl }}" alt="{{ $service->title }}" loading="lazy" decoding="async">@else<div class="image-placeholder">Service</div>@endif
         <span class="service-icon">@if($service->icon_class)<i class="{{ $service->icon_class }}"></i>@else⚙@endif</span>
     </div>
     <div class="card-body">

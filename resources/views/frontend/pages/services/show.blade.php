@@ -1,17 +1,20 @@
 @extends('frontend.layouts.app')
 @php
-    use Illuminate\Support\Facades\Storage;
+    use App\Support\FrontendImage;
     $companyName = $siteSettings?->company_name ?: config('app.name');
-    $imageUrl = $service->image && Storage::disk('public')->exists($service->image) ? Storage::url($service->image) : null;
+    $imageUrl = FrontendImage::url($service->image);
 @endphp
 @section('title', ($service->seo_title ?: $service->title).' | '.$companyName)
 @section('meta_description', $service->seo_description ?: ($service->short_description ?: 'Service details from '.$companyName))
+@if($imageUrl)@section('og_image', $imageUrl)@endif
+@section('og_title', ($service->seo_title ?: $service->title).' | '.$companyName)
+@section('og_description', $service->seo_description ?: ($service->short_description ?: 'Service details from '.$companyName))
 @section('content')
 @include('frontend.partials.page-header', ['title' => $service->title, 'description' => $service->short_description ?: 'Professional construction and engineering service.'])
 <section class="container section-spacing">
     <div class="row g-5 align-items-start">
         <div class="col-lg-7">
-            <div class="detail-media mb-4">@if($imageUrl)<img src="{{ $imageUrl }}" alt="{{ $service->title }}" loading="lazy">@else<div class="image-placeholder">Service</div>@endif</div>
+            <div class="detail-media mb-4">@if($imageUrl)<img src="{{ $imageUrl }}" alt="{{ $service->title }}" loading="lazy" decoding="async">@else<div class="image-placeholder">Service</div>@endif</div>
             <div class="content-body">{!! nl2br(e($service->full_description ?: $service->short_description ?: 'Detailed service information will be updated from the CMS.')) !!}</div>
         </div>
         <aside class="col-lg-5">

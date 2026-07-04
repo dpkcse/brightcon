@@ -1,4 +1,4 @@
-@php use Illuminate\Support\Facades\Storage; @endphp
+@php use App\Support\FrontendImage; @endphp
 <section class="home-projects section-spacing bg-soft">
     <div class="container">
         <div class="section-heading text-center mx-auto">
@@ -12,7 +12,7 @@
                     <div class="col-md-6 col-lg-4">
                         <article class="work-card h-100">
                             <div class="card-media">
-                                @if($project->featured_image)<img src="{{ Storage::url($project->featured_image) }}" alt="{{ $project->title }}" loading="lazy">@else<div class="image-placeholder"><span>Project</span></div>@endif
+                                @if($project->featured_image)<img src="{{ FrontendImage::url($project->featured_image) }}" alt="{{ $project->title }}" loading="lazy" decoding="async">@else<div class="image-placeholder"><span>Project</span></div>@endif
                                 <span class="progress-badge">{{ (int) $project->progress_percentage }}%</span>
                             </div>
                             <div class="card-body"><h3 class="h5">{{ $project->title }}</h3>@if($project->category)<span class="card-meta">{{ $project->category->name }}</span>@endif @if($project->short_description)<p>{{ $project->short_description }}</p>@endif <a href="{{ url('/projects/'.$project->slug) }}" class="stretched-link card-link">Read More</a></div>

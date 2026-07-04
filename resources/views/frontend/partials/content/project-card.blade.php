@@ -1,10 +1,10 @@
 @php
-    use Illuminate\Support\Facades\Storage;
-    $imageUrl = $project->featured_image && Storage::disk('public')->exists($project->featured_image) ? Storage::url($project->featured_image) : null;
+    use App\Support\FrontendImage;
+    $imageUrl = FrontendImage::url($project->featured_image);
 @endphp
 <article class="work-card h-100">
     <div class="card-media">
-        @if($imageUrl)<img src="{{ $imageUrl }}" alt="{{ $project->title }}" loading="lazy">@else<div class="image-placeholder">Project</div>@endif
+        @if($imageUrl)<img src="{{ $imageUrl }}" alt="{{ $project->title }}" loading="lazy" decoding="async">@else<div class="image-placeholder">Project</div>@endif
         <span class="progress-badge">{{ $project->progress_percentage ?? 0 }}%</span>
     </div>
     <div class="card-body">
