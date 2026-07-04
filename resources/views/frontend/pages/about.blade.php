@@ -1,11 +1,10 @@
 @extends('frontend.layouts.app')
-@section('title', 'About | BrightCon')
+@php($companyName = $siteSettings?->company_name ?: config('app.name'))
+@section('title', 'About | '.$companyName)
+@section('meta_description', $aboutSection?->content ?: 'Learn about our construction and engineering company.')
 @section('content')
-    @include('frontend.partials.page-header', ['title' => 'About Page Placeholder', 'description' => 'Company profile content will be connected in a later phase; this page now uses the dynamic frontend layout.'])
-    <section class="container section-spacing">
-        <div class="section-placeholder rounded-3 p-4 p-lg-5">
-            <h2 class="h4">CMS Section Placeholder</h2>
-            <p class="mb-0 text-muted">Reserved for future editable content, media, calls to action, and construction company information.</p>
-        </div>
-    </section>
+@include('frontend.partials.page-header', ['title' => 'About Us', 'description' => $aboutSection?->subtitle ?: 'Reliable engineering and construction delivery with safety, quality, and accountability.'])
+<section id="overview" class="container section-spacing"><div class="row g-5 align-items-center"><div class="col-lg-7"><span class="section-kicker">Company Profile</span><h2>{{ $aboutSection?->title ?: 'Building resilient infrastructure for tomorrow' }}</h2><p class="section-copy">{{ $aboutSection?->content ?: 'We plan, build, and deliver civil, structural, building, road, and power-sector projects for public and private clients. Our teams combine disciplined project management with field-tested construction expertise.' }}</p></div><div class="col-lg-5"><div class="stats-grid"> <div><strong>{{ $activeProjectsCount }}</strong><span>Completed Projects</span></div><div><strong>{{ $activeServicesCount }}</strong><span>Services</span></div><div><strong>10+</strong><span>Years Experience</span></div><div><strong>50+</strong><span>Skilled Team</span></div></div></div></div></section>
+<section id="mission-vision" class="bg-soft section-spacing"><div class="container"><div class="row g-4"><div class="col-md-6"><div class="info-card h-100"><h2 class="h4">Our Mission</h2><p>To deliver safe, durable, and cost-effective construction solutions through accountable management, skilled teams, and dependable engineering practices.</p></div></div><div class="col-md-6"><div class="info-card h-100"><h2 class="h4">Our Vision</h2><p>To be a trusted construction partner recognized for quality workmanship, timely delivery, responsible growth, and long-term client relationships.</p></div></div></div></div></section>
+<section class="container section-spacing"><div class="section-heading text-center mx-auto mb-5"><span class="section-kicker">Why Choose Us</span><h2>Built around quality, safety, and delivery</h2></div><div class="row g-4">@foreach(['Experienced project teams','Safety-first site execution','Quality-focused workmanship','Transparent communication'] as $item)<div class="col-md-6 col-xl-3"><div class="info-card h-100"><h3 class="h5">{{ $item }}</h3><p class="mb-0">Professional systems and practical field experience keep projects moving with confidence.</p></div></div>@endforeach</div></section>
 @endsection
