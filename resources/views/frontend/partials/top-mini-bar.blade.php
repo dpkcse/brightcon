@@ -1,5 +1,5 @@
 <div class="frontend-topbar py-2">
-    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+    <div class="container-xl d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
         <div class="topbar-tagline text-center text-md-start">{{ $siteSettings?->tagline ?: 'Engineering excellence built on trust.' }}</div>
         @if($socialLinks->whereNotNull('url')->isNotEmpty())
             <div class="topbar-social d-flex flex-wrap justify-content-center gap-3">

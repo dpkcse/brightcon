@@ -1,6 +1,6 @@
 @php use App\Support\FrontendImage; @endphp
 <section class="home-about section-spacing">
-    <div class="container">
+    <div class="container-xl">
         <div class="row align-items-center g-5">
             <div class="col-lg-6">
                 <span class="section-kicker">{{ $section?->title ?: 'Who We Are' }}</span>

@@ -1,6 +1,6 @@
 @php use App\Support\FrontendImage; @endphp
 <section class="home-projects section-spacing bg-soft">
-    <div class="container">
+    <div class="container-xl">
         <div class="section-heading text-center mx-auto">
             <span class="section-kicker">{{ $section?->title ?: 'Project Highlights' }}</span>
             <h2>{{ $section?->subtitle ?: 'Featured work delivered with precision.' }}</h2>
