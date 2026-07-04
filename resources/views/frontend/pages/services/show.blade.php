@@ -11,7 +11,7 @@
 @section('og_description', $service->seo_description ?: ($service->short_description ?: 'Service details from '.$companyName))
 @section('content')
 @include('frontend.partials.page-header', ['title' => $service->title, 'description' => $service->short_description ?: 'Professional construction and engineering service.'])
-<section class="container section-spacing">
+<section class="container-xl section-spacing">
     <div class="row g-5 align-items-start">
         <div class="col-lg-7">
             <div class="detail-media mb-4">@if($imageUrl)<img src="{{ $imageUrl }}" alt="{{ $service->title }}" loading="lazy" decoding="async">@else<div class="image-placeholder">Service</div>@endif</div>
@@ -28,6 +28,6 @@
     </div>
 </section>
 @if($relatedServices->isNotEmpty())
-<section class="bg-soft section-spacing"><div class="container"><div class="section-heading mb-4"><span class="section-kicker">Explore More</span><h2>Related Services</h2></div><div class="row g-4">@foreach($relatedServices as $related)<div class="col-md-6 col-xl-3">@include('frontend.partials.content.service-card', ['service' => $related])</div>@endforeach</div></div></section>
+<section class="bg-soft section-spacing"><div class="container-xl"><div class="section-heading mb-4"><span class="section-kicker">Explore More</span><h2>Related Services</h2></div><div class="row g-4">@foreach($relatedServices as $related)<div class="col-md-6 col-xl-3 d-flex">@include('frontend.partials.content.service-card', ['service' => $related])</div>@endforeach</div></div></section>
 @endif
 @endsection

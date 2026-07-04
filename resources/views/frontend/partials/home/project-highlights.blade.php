@@ -7,16 +7,10 @@
             @if($section?->content)<p>{{ $section->content }}</p>@endif
         </div>
         @if($projects->isNotEmpty())
-            <div class="row g-4 mt-2">
+            <div class="row g-4 mt-3 align-items-stretch">
                 @foreach($projects as $project)
-                    <div class="col-md-6 col-lg-4">
-                        <article class="work-card h-100">
-                            <div class="card-media">
-                                @if($project->featured_image)<img src="{{ FrontendImage::url($project->featured_image) }}" alt="{{ $project->title }}" loading="lazy" decoding="async">@else<div class="image-placeholder"><span>Project</span></div>@endif
-                                <span class="progress-badge">{{ (int) $project->progress_percentage }}%</span>
-                            </div>
-                            <div class="card-body"><h3 class="h5">{{ $project->title }}</h3>@if($project->category)<span class="card-meta">{{ $project->category->name }}</span>@endif @if($project->short_description)<p>{{ $project->short_description }}</p>@endif <a href="{{ url('/projects/'.$project->slug) }}" class="stretched-link card-link">Read More</a></div>
-                        </article>
+                    <div class="col-md-6 col-lg-4 d-flex">
+                        @include('frontend.partials.content.project-card', ['project' => $project])
                     </div>
                 @endforeach
             </div>
