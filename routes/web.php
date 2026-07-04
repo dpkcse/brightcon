@@ -4,8 +4,13 @@ use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\GalleryController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\ProjectController;
+use App\Http\Controllers\Frontend\RobotsController;
 use App\Http\Controllers\Frontend\ServiceController;
+use App\Http\Controllers\Frontend\SitemapController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+Route::get('/robots.txt', [RobotsController::class, 'index'])->name('robots');
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');

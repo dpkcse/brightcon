@@ -1,10 +1,10 @@
-@php use Illuminate\Support\Facades\Storage; @endphp
+@php use App\Support\FrontendImage; @endphp
 <section class="home-hero" aria-label="Homepage hero slider">
     @if($sliders->isNotEmpty())
         <div id="homeHeroCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 @foreach($sliders as $slide)
-                    @php $imageUrl = $slide->image ? Storage::url($slide->image) : null; @endphp
+                    @php $imageUrl = $slide->image ? FrontendImage::url($slide->image) : null; @endphp
                     <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                         <div class="hero-slide" @if($imageUrl) style="background-image: linear-gradient(90deg, rgba(8,11,16,.88), rgba(8,11,16,.58)), url('{{ $imageUrl }}');" @endif>
                             <div class="container">

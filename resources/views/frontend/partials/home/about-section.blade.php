@@ -1,4 +1,4 @@
-@php use Illuminate\Support\Facades\Storage; @endphp
+@php use App\Support\FrontendImage; @endphp
 <section class="home-about section-spacing">
     <div class="container">
         <div class="row align-items-center g-5">
@@ -9,7 +9,7 @@
                 @if($section?->button_text && $section?->button_link)<a href="{{ url($section->button_link) }}" class="btn btn-primary-brand mt-4">{{ $section->button_text }}</a>@endif
             </div>
             <div class="col-lg-6">
-                @if($section?->image)<img class="about-image" src="{{ Storage::url($section->image) }}" alt="{{ $section->subtitle ?: $section->title ?: 'About our company' }}" loading="lazy">
+                @if($section?->image)<img class="about-image" src="{{ FrontendImage::url($section->image) }}" alt="{{ $section->subtitle ?: $section->title ?: 'About our company' }}" loading="lazy" decoding="async">
                 @else<div class="image-placeholder about-placeholder"><span>Construction Excellence</span></div>@endif
             </div>
         </div>

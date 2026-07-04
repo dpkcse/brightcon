@@ -1,11 +1,11 @@
-@php use Illuminate\Support\Facades\Storage; @endphp
+@php use App\Support\FrontendImage; @endphp
 <footer class="frontend-footer py-5">
     <div class="container">
         @if(session('success'))<div class="alert alert-success">{{ session('success') }}</div>@endif
         <div class="row g-4 g-lg-5">
             <div class="col-lg-4">
                 <div class="mb-3">
-                    @if($siteSettings?->logo)<img src="{{ Storage::url($siteSettings->logo) }}" alt="{{ $siteSettings?->company_name }}" class="footer-logo">@else<h5>{{ $siteSettings?->company_name ?: config('app.name') }}</h5>@endif
+                    @if($siteSettings?->logo)<img src="{{ FrontendImage::url($siteSettings->logo) }}" alt="{{ $siteSettings?->company_name }}" class="footer-logo">@else<h5>{{ $siteSettings?->company_name ?: config('app.name') }}</h5>@endif
                 </div>
                 @if($siteSettings?->address)<p>{{ $siteSettings->address }}</p>@endif
                 @if($siteSettings?->phone)<p class="mb-1"><a href="tel:{{ $siteSettings->phone }}">{{ $siteSettings->phone }}</a></p>@endif
@@ -31,7 +31,7 @@
             </div>
             <div class="col-lg-5">
                 <h5>Send Us a Message</h5>
-                @include('frontend.partials.contact-form', ['formClass' => 'footer-contact-form mt-3', 'rows' => 4])
+                @include('frontend.partials.contact-form', ['formClass' => 'footer-contact-form mt-3', 'rows' => 4, 'formId' => 'footer-contact'])
             </div>
         </div>
     </div>

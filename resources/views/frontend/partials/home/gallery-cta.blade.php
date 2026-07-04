@@ -1,6 +1,6 @@
 @php
-    use Illuminate\Support\Facades\Storage;
-    $backgroundImage = $section?->background_image ? Storage::url($section->background_image) : null;
+    use App\Support\FrontendImage;
+    $backgroundImage = $section?->background_image ? FrontendImage::url($section->background_image) : null;
     $backgroundColor = $section?->background_color ?: 'var(--primary-color)';
 @endphp
 <section class="gallery-cta" style="--cta-bg: {{ $backgroundColor }}; @if($backgroundImage) background-image: linear-gradient(rgba(8,11,16,.70), rgba(8,11,16,.70)), url('{{ $backgroundImage }}'); @endif">
