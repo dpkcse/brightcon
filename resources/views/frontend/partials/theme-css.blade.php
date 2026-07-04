@@ -1,7 +1,7 @@
 @php
     $theme = $themeSettings ?? null;
     $cssValue = fn ($value, $fallback) => e($value ?: $fallback);
-    $customCss = $theme?->custom_css ? preg_replace('/<\/?script\b[^>]*>/i', '', $theme->custom_css) : null;
+    $customCss = $theme?->custom_css ? preg_replace(['/\<\/?script\b[^>]*>/i', '/<\/?style\b[^>]*>/i'], '', $theme->custom_css) : null;
 @endphp
 <style>
 :root {

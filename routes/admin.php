@@ -47,6 +47,5 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
         Route::patch('/contact-messages/{contactMessage}/mark-unread', [ContactMessageController::class, 'markUnread'])->name('contact-messages.mark-unread');
         Route::delete('/contact-messages/{contactMessage}', [ContactMessageController::class, 'destroy'])->name('contact-messages.destroy');
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-        Route::get('/logout', [AuthController::class, 'logout']);
     });
 });
