@@ -1,11 +1,8 @@
 @extends('frontend.layouts.app')
-@section('title', 'Competency | BrightCon')
+@php($companyName = $siteSettings?->company_name ?: config('app.name'))
+@section('title', 'Competency | '.$companyName)
+@section('meta_description', 'Explore construction and engineering competencies backed by active services and project experience.')
 @section('content')
-    @include('frontend.partials.page-header', ['title' => 'Competency Page Placeholder', 'description' => 'Competency content will be implemented in a future phase.'])
-    <section class="container section-spacing">
-        <div class="section-placeholder rounded-3 p-4 p-lg-5">
-            <h2 class="h4">CMS Section Placeholder</h2>
-            <p class="mb-0 text-muted">Reserved for future editable content, media, calls to action, and construction company information.</p>
-        </div>
-    </section>
+@include('frontend.partials.page-header', ['title' => 'Competency', 'description' => $servicesSection?->content ?: 'Core capabilities for complex construction, infrastructure, and engineering delivery.'])
+<section class="container section-spacing"><div class="row g-4">@foreach([['Civil Construction','Earthwork, foundations, concrete works, and building delivery.'],['Structural Engineering','Structural execution support for durable commercial and infrastructure assets.'],['Power & Energy Works','Power distribution and energy infrastructure construction support.'],['Road & Highway Works','Road formation, paving support, drainage, and transportation infrastructure.'],['Project Management','Planning, coordination, reporting, and milestone-driven delivery.'],['Quality & Safety Control','Inspection, safety awareness, and quality-focused construction practices.']] as [$title,$copy])<div class="col-md-6 col-xl-4"><div class="competency-card h-100"><h2 class="h5">{{ $title }}</h2><p>{{ $copy }}</p></div></div>@endforeach</div></section>
 @endsection

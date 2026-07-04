@@ -1,14 +1,19 @@
 <?php
 
 use App\Http\Controllers\Frontend\ContactController;
+use App\Http\Controllers\Frontend\GalleryController;
 use App\Http\Controllers\Frontend\PageController;
+use App\Http\Controllers\Frontend\ProjectController;
+use App\Http\Controllers\Frontend\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
-Route::get('/services', [PageController::class, 'services'])->name('services.index');
-Route::get('/projects', [PageController::class, 'projects'])->name('projects.index');
-Route::get('/gallery', [PageController::class, 'gallery'])->name('gallery.index');
+Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+Route::get('/services/{service:slug}', [ServiceController::class, 'show'])->name('services.show');
+Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
+Route::get('/projects/{project:slug}', [ProjectController::class, 'show'])->name('projects.show');
+Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact.index');
 
 Route::get('/competency', [PageController::class, 'competency'])->name('competency');

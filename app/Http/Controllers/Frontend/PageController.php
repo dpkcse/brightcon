@@ -41,12 +41,27 @@ class PageController extends Controller
         ));
     }
 
-    public function about(): View { return view('frontend.pages.about'); }
-    public function services(): View { return view('frontend.pages.services'); }
-    public function projects(): View { return view('frontend.pages.projects'); }
-    public function gallery(): View { return view('frontend.pages.gallery'); }
+    public function about(): View
+    {
+        $aboutSection = $this->homepageSection('about', 'homepage_section_about');
+        $servicesSection = $this->homepageSection('services', 'homepage_section_services');
+        $activeProjectsCount = Project::query()->active()->count();
+        $activeServicesCount = Service::query()->active()->count();
+
+        return view('frontend.pages.about', compact('aboutSection', 'servicesSection', 'activeProjectsCount', 'activeServicesCount'));
+    }
+
     public function contact(): View { return view('frontend.pages.contact'); }
-    public function competency(): View { return view('frontend.pages.competency'); }
+
+    public function competency(): View
+    {
+        $servicesSection = $this->homepageSection('services', 'homepage_section_services');
+        $activeProjectsCount = Project::query()->active()->count();
+        $activeServicesCount = Service::query()->active()->count();
+
+        return view('frontend.pages.competency', compact('servicesSection', 'activeProjectsCount', 'activeServicesCount'));
+    }
+
     public function equipment(): View { return view('frontend.pages.equipment-list'); }
 
     private function homepageSection(string $sectionKey, string $cacheKey): ?HomepageSection
