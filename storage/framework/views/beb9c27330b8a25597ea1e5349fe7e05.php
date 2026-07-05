@@ -1,8 +1,0 @@
-
-<?php $__env->startSection('title','Homepage Sections'); ?>
-<?php $__env->startSection('page-heading','Homepage Sections'); ?>
-<?php $__env->startSection('content'); ?>
-<div class="card border-0 shadow-sm"><div class="card-header bg-white"><strong>Homepage Sections</strong></div><div class="card-body p-0"><div class="table-responsive"><table class="table align-middle mb-0"><thead><tr><th>Section</th><th>Key</th><th>Title</th><th>Sort</th><th>Status</th><th class="text-end">Actions</th></tr></thead><tbody><?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><tr><td><?php echo e($labels[$item->section_key]); ?></td><td><code><?php echo e($item->section_key); ?></code></td><td><?php echo e($item->title ?? '—'); ?></td><td><?php echo e($item->sort_order); ?></td><td><span class="badge <?php echo e($item->status ? 'text-bg-success' : 'text-bg-secondary'); ?>"><?php echo e($item->status ? 'Active' : 'Inactive'); ?></span></td><td class="text-end"><a class="btn btn-sm btn-outline-primary-brand" href="<?php echo e(route('admin.homepage-sections.edit', $item)); ?>">Edit</a></td></tr><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></tbody></table></div></div></div>
-<?php $__env->stopSection(); ?>
-
-<?php echo $__env->make('admin.layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\APPLICATION\brightcon\resources\views/admin/pages/homepage-sections/index.blade.php ENDPATH**/ ?>
