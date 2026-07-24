@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\FooterLinkController;
 use App\Http\Controllers\Admin\HomepageSectionController;
 use App\Http\Controllers\Admin\GalleryImageController;
 use App\Http\Controllers\Admin\MenuItemController;
+use App\Http\Controllers\Admin\PartnerMessageController;
 use App\Http\Controllers\Admin\ProjectCategoryController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\ServiceController;
@@ -38,6 +39,7 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
         Route::resource('projects', ProjectController::class)->except(['show']);
         Route::resource('services', ServiceController::class)->except(['show']);
         Route::resource('gallery-images', GalleryImageController::class)->parameters(['gallery-images' => 'galleryImage'])->except(['show']);
+        Route::resource('partner-messages', PartnerMessageController::class)->parameters(['partner-messages' => 'partnerMessage'])->except(['show']);
         Route::get('/homepage-sections', [HomepageSectionController::class, 'index'])->name('homepage-sections.index');
         Route::get('/homepage-sections/{homepageSection}/edit', [HomepageSectionController::class, 'edit'])->name('homepage-sections.edit');
         Route::put('/homepage-sections/{homepageSection}', [HomepageSectionController::class, 'update'])->name('homepage-sections.update');

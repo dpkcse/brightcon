@@ -42,17 +42,18 @@
     "isEntry": true
   },
   "resources/css/frontend.css": {
-    "file": "assets/frontend-BfnKoc1C.css",
+    "file": "assets/frontend-NYNfBz26.css",
     "src": "resources/css/frontend.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-lhKPWNjB.js",
+    "file": "assets/app-DNV5a55u.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-Bfflz2E4.css"
+      "assets/app-Bd-mmswS.css",
+      "assets/app-CjsrhL1W.css"
     ],
     "assets": [
       "assets/fa-brands-400-D_cYUPeE.woff2",

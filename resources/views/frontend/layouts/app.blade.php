@@ -16,5 +16,6 @@
 
     @include('frontend.partials.footer')
     @include('frontend.partials.copyright')
+    @stack('scripts')
 </body>
 </html>
