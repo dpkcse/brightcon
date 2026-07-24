@@ -1,3 +1,7 @@
+@php
+    $partnerMessages = $partnerMessages ?? collect();
+@endphp
+
 @if($partnerMessages->isNotEmpty())
 <section id="partner-messages" class="partner-messages-section section-spacing" aria-labelledby="partner-messages-title">
     <div class="container-xl">
@@ -10,7 +14,7 @@
         <div class="partner-message-stage" data-partner-carousel tabindex="0" aria-label="Partner messages carousel">
             @foreach($partnerMessages as $message)
                 @php($initials = collect(preg_split('/\s+/', trim($message->name)))->filter()->map(fn ($part) => mb_substr($part, 0, 1))->take(2)->implode(''))
-                <article id="partner-message-{{ $message->id }}" class="partner-message-card {{ $loop->first ? 'is-active' : '' }}" data-partner-slide aria-hidden="{{ $loop->first ? 'false' : 'true' }}">
+                <article id="partner-message-{{ $message->id }}" class="partner-message-card {{ $loop->first ? 'is-active' : '' }}" data-partner-slide aria-hidden="{{ $loop->first ? 'false' : 'true' }}" @if(! $loop->first) hidden @endif>
                     <div class="partner-message-media">
                         <div class="partner-message-accent" aria-hidden="true"></div>
                         @if($message->image_path)
