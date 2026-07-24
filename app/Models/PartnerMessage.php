@@ -16,7 +16,11 @@ class PartnerMessage extends Model
 
     public function scopePubliclyVisible(Builder $query): Builder
     {
-        return $query->where('is_active', true)->whereNotNull('published_at')->where('published_at', '<=', now());
+        return $query
+            ->where('is_active', true)
+            ->where(function (Builder $query): void {
+                $query->whereNull('published_at')->orWhere('published_at', '<=', now());
+            });
     }
 
     public function scopeOrdered(Builder $query): Builder

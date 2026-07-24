@@ -24,11 +24,12 @@ class PartnerMessagesTest extends TestCase
         PartnerMessage::create(['name' => 'Second Partner', 'designation' => 'Director', 'full_message' => 'Second public message', 'display_order' => 2, 'is_active' => true, 'published_at' => now()->subDay()]);
         PartnerMessage::create(['name' => 'First Partner', 'designation' => 'Director', 'full_message' => 'First public message', 'display_order' => 1, 'is_active' => true, 'published_at' => now()->subDay()]);
         PartnerMessage::create(['name' => 'Hidden Partner', 'designation' => 'Director', 'full_message' => 'Hidden message', 'is_active' => false, 'published_at' => now()->subDay()]);
-        PartnerMessage::create(['name' => 'Draft Partner', 'designation' => 'Director', 'full_message' => 'Draft message', 'is_active' => true]);
+        PartnerMessage::create(['name' => 'Immediate Partner', 'designation' => 'Director', 'full_message' => 'Immediate message', 'is_active' => true]);
+        PartnerMessage::create(['name' => 'Future Partner', 'designation' => 'Director', 'full_message' => 'Future message', 'is_active' => true, 'published_at' => now()->addDay()]);
 
         $response = $this->get('/about');
 
-        $response->assertOk()->assertSee('Messages from Our Partners')->assertSeeInOrder(['First Partner', 'Second Partner'])->assertDontSee('Hidden Partner')->assertDontSee('Draft Partner')->assertSee('data-partner-prev', false);
+        $response->assertOk()->assertSee('Messages from Our Partners')->assertSeeInOrder(['First Partner', 'Second Partner', 'Immediate Partner'])->assertDontSee('Hidden Partner')->assertDontSee('Future Partner')->assertSee('data-partner-prev', false);
     }
 
     public function test_a_single_partner_omits_slider_controls(): void
