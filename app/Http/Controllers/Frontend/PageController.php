@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\FeatureItem;
 use App\Models\HomepageSection;
+use App\Models\PartnerMessage;
 use App\Models\Project;
 use App\Models\Service;
 use App\Models\Slider;
@@ -47,8 +48,13 @@ class PageController extends Controller
         $servicesSection = $this->homepageSection('services', 'homepage_section_services');
         $activeProjectsCount = Project::query()->active()->count();
         $activeServicesCount = Service::query()->active()->count();
+        $partnerMessagesSection = $this->homepageSection('partner_messages', 'homepage_section_partner_messages');
+        $partnerMessages = Cache::remember('partner_messages_public', 300, fn () => PartnerMessage::query()->publiclyVisible()->ordered()->limit(8)->get());
+        $additionalPartners = $partnerMessages->count() === 8
+            ? PartnerMessage::query()->publiclyVisible()->ordered()->skip(8)->take(12)->get(['id', 'name', 'designation', 'organization', 'image_path'])
+            : collect();
 
-        return view('frontend.pages.about', compact('aboutSection', 'servicesSection', 'activeProjectsCount', 'activeServicesCount'));
+        return view('frontend.pages.about', compact('aboutSection', 'servicesSection', 'partnerMessagesSection', 'partnerMessages', 'additionalPartners', 'activeProjectsCount', 'activeServicesCount'));
     }
 
     public function contact(): View { return view('frontend.pages.contact'); }
