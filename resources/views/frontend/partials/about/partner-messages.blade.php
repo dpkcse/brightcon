@@ -14,7 +14,7 @@
         <div class="partner-message-stage" data-partner-carousel tabindex="0" aria-label="Partner messages carousel">
             @foreach($partnerMessages as $message)
                 @php($initials = collect(preg_split('/\s+/', trim($message->name)))->filter()->map(fn ($part) => mb_substr($part, 0, 1))->take(2)->implode(''))
-                <article id="partner-message-{{ $message->id }}" class="partner-message-card {{ $loop->first ? 'is-active' : '' }}" data-partner-slide aria-hidden="{{ $loop->first ? 'false' : 'true' }}" @if(! $loop->first) hidden @endif>
+                <article id="partner-message-{{ $message->id }}" class="partner-message-card {{ $loop->first ? 'is-active' : '' }}" data-partner-slide data-slide-index="{{ $loop->index }}" aria-hidden="{{ $loop->first ? 'false' : 'true' }}" @if(! $loop->first) hidden @endif>
                     <div class="partner-message-media">
                         <div class="partner-message-accent" aria-hidden="true"></div>
                         @if($message->image_path)
@@ -47,7 +47,7 @@
                 </div>
                 <div class="partner-message-selectors" role="list" aria-label="Select a partner message">
                     @foreach($partnerMessages as $message)
-                        <button type="button" class="partner-message-selector {{ $loop->first ? 'is-active' : '' }}" data-partner-tab data-index="{{ $loop->index }}" aria-controls="partner-message-{{ $message->id }}" @if($loop->first) aria-current="true" @endif>
+                        <button type="button" class="partner-message-selector {{ $loop->first ? 'is-active' : '' }}" data-partner-tab data-slide-index="{{ $loop->index }}" aria-controls="partner-message-{{ $message->id }}" @if($loop->first) aria-current="true" @endif>
                             @if($message->image_path)<img src="{{ \App\Support\FrontendImage::url($message->image_path) }}" alt="" loading="lazy" decoding="async">@else<span class="partner-message-selector-placeholder" aria-hidden="true">{{ collect(preg_split('/\s+/', trim($message->name)))->filter()->map(fn ($part) => mb_substr($part, 0, 1))->take(2)->implode('') ?: '?' }}</span>@endif
                             <span><strong>{{ $message->name }}</strong><small>{{ $message->designation ?: $message->organization }}</small></span>
                         </button>
