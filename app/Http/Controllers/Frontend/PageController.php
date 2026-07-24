@@ -48,13 +48,12 @@ class PageController extends Controller
         $servicesSection = $this->homepageSection('services', 'homepage_section_services');
         $activeProjectsCount = Project::query()->active()->count();
         $activeServicesCount = Service::query()->active()->count();
-        $partnerMessagesSection = $this->homepageSection('partner_messages', 'homepage_section_partner_messages');
-        $partnerMessages = Cache::remember('partner_messages_public', 300, fn () => PartnerMessage::query()->publiclyVisible()->ordered()->limit(8)->get());
-        $additionalPartners = $partnerMessages->count() === 8
-            ? PartnerMessage::query()->publiclyVisible()->ordered()->skip(8)->take(12)->get(['id', 'name', 'designation', 'organization', 'image_path'])
-            : collect();
+        // Do not cache this time-sensitive public query: a message becomes visible at
+        // its publish time and must disappear immediately when an administrator
+        // deactivates it.
+        $partnerMessages = PartnerMessage::query()->publiclyVisible()->ordered()->get();
 
-        return view('frontend.pages.about', compact('aboutSection', 'servicesSection', 'partnerMessagesSection', 'partnerMessages', 'additionalPartners', 'activeProjectsCount', 'activeServicesCount'));
+        return view('frontend.pages.about', compact('aboutSection', 'servicesSection', 'partnerMessages', 'activeProjectsCount', 'activeServicesCount'));
     }
 
     public function contact(): View { return view('frontend.pages.contact'); }
