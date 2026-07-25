@@ -139,18 +139,18 @@ class DatabaseSeeder extends Seeder
         }
 
         foreach ([
-            ['title' => 'Roads & Highway', 'icon_class' => 'fa-solid fa-road', 'sort_order' => 1],
-            ['title' => 'Flyover & Bridge', 'icon_class' => 'fa-solid fa-bridge', 'sort_order' => 2],
-            ['title' => 'Power & Energy', 'icon_class' => 'fa-solid fa-bolt', 'sort_order' => 3],
-            ['title' => 'Building & Structure', 'icon_class' => 'fa-solid fa-building', 'sort_order' => 4],
+            ['slug' => 'roads-highway', 'title' => 'Civil Construction', 'icon_class' => 'fa-solid fa-building', 'description' => 'Professional construction solutions for commercial, industrial, institutional, residential, and infrastructure projects.', 'sort_order' => 1],
+            ['slug' => 'flyover-bridge', 'title' => 'Metal & Steel Works', 'icon_class' => 'fa-solid fa-industry', 'description' => 'Structural steel, metal fabrication, architectural metalwork, installation, and customized engineering solutions.', 'sort_order' => 2],
+            ['slug' => 'power-energy', 'title' => 'Modern Car Parking Solutions', 'icon_class' => 'fa-solid fa-square-parking', 'description' => 'Efficient and space-optimized modern parking systems designed for commercial, residential, and institutional developments.', 'sort_order' => 3],
+            ['slug' => 'building-structure', 'title' => 'PVC, Steel & Fire-Rated Doors', 'icon_class' => 'fa-solid fa-door-closed', 'description' => 'Durable and specialized door solutions designed for security, performance, fire safety, and long-term reliability.', 'sort_order' => 4],
         ] as $service) {
-            $slug = Str::slug($service['title']);
-            Service::query()->updateOrCreate(['slug' => $slug], [
+            Service::query()->updateOrCreate(['slug' => $service['slug']], [
                 'title' => $service['title'],
                 'icon_class' => $service['icon_class'],
-                'short_description' => 'Professional '.$service['title'].' construction and engineering services.',
+                'short_description' => $service['description'],
                 'full_description' => 'Complete service details will be maintained through CMS content management in a later phase.',
                 'status' => true,
+                'is_featured' => true,
                 'sort_order' => $service['sort_order'],
                 'seo_title' => $service['title'],
                 'seo_description' => 'Explore '.$service['title'].' services from Premium Engineering & Construction Ltd.',

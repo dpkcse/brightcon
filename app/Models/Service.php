@@ -15,6 +15,7 @@ class Service extends Model
         'short_description',
         'full_description',
         'status',
+        'is_featured',
         'sort_order',
         'seo_title',
         'seo_description',
@@ -23,14 +24,20 @@ class Service extends Model
     protected function casts(): array
     {
         return [
-        'status' => 'boolean',
-        'sort_order' => 'integer',
+            'status' => 'boolean',
+            'is_featured' => 'boolean',
+            'sort_order' => 'integer',
         ];
     }
 
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('status', true);
+    }
+
+    public function scopeFeatured(Builder $query): Builder
+    {
+        return $query->where('is_featured', true);
     }
 
     public function scopeOrdered(Builder $query): Builder

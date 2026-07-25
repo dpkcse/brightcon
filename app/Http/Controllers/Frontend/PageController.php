@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\FeatureItem;
 use App\Models\HomepageSection;
+use App\Models\Organization;
 use App\Models\PartnerMessage;
 use App\Models\Project;
 use App\Models\Service;
@@ -27,8 +28,10 @@ class PageController extends Controller
             ->active()
             ->featured()
             ->ordered()
+            ->limit(6)
             ->get());
-        $services = Cache::rememberForever('homepage_services_active', fn () => Service::query()->active()->ordered()->get());
+        $services = Cache::rememberForever('homepage_services_featured', fn () => Service::query()->active()->featured()->ordered()->limit(4)->get());
+        $organizations = Cache::rememberForever('homepage_organizations_featured', fn () => Organization::query()->active()->featured()->ordered()->limit(10)->get());
 
         return view('frontend.pages.home', compact(
             'sliders',
@@ -38,7 +41,8 @@ class PageController extends Controller
             'galleryCtaSection',
             'servicesSection',
             'featuredProjects',
-            'services'
+            'services',
+            'organizations'
         ));
     }
 
@@ -56,7 +60,10 @@ class PageController extends Controller
         return view('frontend.pages.about', compact('aboutSection', 'servicesSection', 'partnerMessages', 'activeProjectsCount', 'activeServicesCount'));
     }
 
-    public function contact(): View { return view('frontend.pages.contact'); }
+    public function contact(): View
+    {
+        return view('frontend.pages.contact');
+    }
 
     public function competency(): View
     {
@@ -67,7 +74,10 @@ class PageController extends Controller
         return view('frontend.pages.competency', compact('servicesSection', 'activeProjectsCount', 'activeServicesCount'));
     }
 
-    public function equipment(): View { return view('frontend.pages.equipment-list'); }
+    public function equipment(): View
+    {
+        return view('frontend.pages.equipment-list');
+    }
 
     private function homepageSection(string $sectionKey, string $cacheKey): ?HomepageSection
     {
