@@ -14,6 +14,7 @@
     @include('frontend.partials.home.feature-strip', ['featureItems' => $featureItems])
     @include('frontend.partials.home.about-section', ['section' => $aboutSection])
     @include('frontend.partials.home.project-highlights', ['section' => $projectHighlightsSection, 'projects' => $featuredProjects])
+    @include('frontend.partials.home.organizations-section', ['organizations' => $organizations])
     @include('frontend.partials.home.gallery-cta', ['section' => $galleryCtaSection])
     @include('frontend.partials.home.services-section', ['section' => $servicesSection, 'services' => $services])
 @endsection

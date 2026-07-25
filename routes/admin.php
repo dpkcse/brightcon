@@ -1,13 +1,14 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ContactMessageController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FeatureItemController;
 use App\Http\Controllers\Admin\FooterLinkController;
-use App\Http\Controllers\Admin\HomepageSectionController;
 use App\Http\Controllers\Admin\GalleryImageController;
+use App\Http\Controllers\Admin\HomepageSectionController;
 use App\Http\Controllers\Admin\MenuItemController;
+use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\PartnerMessageController;
 use App\Http\Controllers\Admin\ProjectCategoryController;
 use App\Http\Controllers\Admin\ProjectController;
@@ -38,6 +39,7 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
         Route::resource('project-categories', ProjectCategoryController::class)->parameters(['project-categories' => 'projectCategory'])->except(['show']);
         Route::resource('projects', ProjectController::class)->except(['show']);
         Route::resource('services', ServiceController::class)->except(['show']);
+        Route::resource('organizations', OrganizationController::class)->except(['show']);
         Route::resource('gallery-images', GalleryImageController::class)->parameters(['gallery-images' => 'galleryImage'])->except(['show']);
         Route::resource('partner-messages', PartnerMessageController::class)->parameters(['partner-messages' => 'partnerMessage'])->except(['show']);
         Route::get('/homepage-sections', [HomepageSectionController::class, 'index'])->name('homepage-sections.index');
