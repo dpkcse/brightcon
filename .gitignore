@@ -46,3 +46,6 @@ Thumbs.db
 .phpunit.result.cache
 .phpunit.cache/
 coverage/
+
+# Application-owned commercial release output
+/release/

@@ -12,4 +12,4 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Changed
 - Removed blanket public and administrator license lockout; core website, content management and data-recovery access now remain available for all license states.
-- Repository identity changed from the project-specific BrightCon foundation to Buildora CMS.
+- Repository identity changed from the legacy project-specific identity to Buildora CMS.

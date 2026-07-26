@@ -1,0 +1,13 @@
+{
+    "schema_version": 1,
+    "status": "pending",
+    "tested_at": null,
+    "archive_sha256": null,
+    "package_variant": null,
+    "extraction_audit": "pending",
+    "installation": "pending",
+    "login": "pending",
+    "public_admin_smoke": "pending",
+    "inventory_verified": "pending",
+    "note": "Installation from an approved final ZIP on a separate machine remains pending."
+}
