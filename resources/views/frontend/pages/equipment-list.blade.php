@@ -5,8 +5,8 @@
 @section('content')
 @include('frontend.partials.page-header', ['title' => 'Equipment List', 'description' => 'Representative equipment capacity for construction operations.'])
 <section class="container-xl section-spacing">
-    {{-- Future phase can replace this fallback array with a CMS-managed equipment table. --}}
-    @php($equipment = [['Excavator','Earthmoving','20 Ton','2','Available'],['Concrete Mixer','Concrete Works','500 L','4','Available'],['Dump Truck','Transport','10 m³','6','Available'],['Crane','Lifting','25 Ton','1','On Demand'],['Road Roller','Road Works','10 Ton','2','Available'],['Generator','Power Backup','100 kVA','3','Available']])
-    <div class="equipment-table rounded-4 overflow-hidden"><table class="table table-hover mb-0"><thead><tr><th>Equipment Name</th><th>Category</th><th>Capacity</th><th>Quantity</th><th>Status</th></tr></thead><tbody>@foreach($equipment as $row)<tr>@foreach($row as $cell)<td data-label="{{ ['Equipment Name','Category','Capacity','Quantity','Status'][$loop->index] }}">{{ $cell }}</td>@endforeach</tr>@endforeach</tbody></table></div>
+    @php($fallback = collect([['name'=>'Excavator','category'=>'Earthmoving','capacity'=>'20 Ton','quantity'=>2,'unit'=>'units'],['name'=>'Concrete Mixer','category'=>'Concrete Works','capacity'=>'500 L','quantity'=>4,'unit'=>'units'],['name'=>'Crane','category'=>'Lifting','capacity'=>'25 Ton','quantity'=>1,'unit'=>'unit']]))
+    @php($rows = $equipment->isNotEmpty() ? $equipment : $fallback)
+    <div class="equipment-table rounded-4 overflow-hidden"><table class="table table-hover mb-0"><thead><tr><th>Equipment Name</th><th>Category</th><th>Capacity</th><th>Quantity</th></tr></thead><tbody>@foreach($rows as $row)<tr><td data-label="Equipment Name">{{ data_get($row,'name') }}</td><td data-label="Category">{{ data_get($row,'category') ?: '—' }}</td><td data-label="Capacity">{{ data_get($row,'capacity') ?: '—' }}</td><td data-label="Quantity">{{ data_get($row,'quantity') !== null ? data_get($row,'quantity').' '.data_get($row,'unit') : '—' }}</td></tr>@endforeach</tbody></table></div>
 </section>
 @endsection

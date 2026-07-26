@@ -1,0 +1,1 @@
+<h1>New website enquiry</h1><p><strong>Name:</strong> {{ $contactMessage->full_name }}</p><p><strong>Email:</strong> {{ $contactMessage->email }}</p>@if($contactMessage->phone)<p><strong>Phone:</strong> {{ $contactMessage->phone }}</p>@endif<p><strong>Subject:</strong> {{ $contactMessage->subject ?: 'Not supplied' }}</p><p>{!! nl2br(e($contactMessage->message)) !!}</p>

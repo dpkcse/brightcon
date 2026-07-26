@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Page;
 use App\Models\Project;
 use App\Models\Service;
 use Illuminate\Http\Response;
@@ -27,6 +28,7 @@ class SitemapController extends Controller
             ->select(['slug', 'updated_at'])
             ->ordered()
             ->get());
+        $pages = Cache::remember('sitemap_pages_published', now()->addHour(), fn () => Page::query()->published()->select(['slug', 'updated_at'])->ordered()->get());
 
         $urls = collect([
             ['loc' => route('home'), 'lastmod' => $staticUpdatedAt],
@@ -44,6 +46,9 @@ class SitemapController extends Controller
 
         foreach ($projects as $project) {
             $urls->push(['loc' => route('projects.show', $project), 'lastmod' => optional($project->updated_at)->toDateString()]);
+        }
+        foreach ($pages as $page) {
+            $urls->push(['loc' => route('pages.show', $page), 'lastmod' => optional($page->updated_at)->toDateString()]);
         }
 
         $urls = $urls->merge([

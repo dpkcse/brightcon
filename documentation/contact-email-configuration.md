@@ -1,0 +1,2 @@
+# Contact email configuration
+Configure the framework mail transport through environment variables and set `contact_recipient_email` and `contact_email_subject_prefix` in General Settings. The visitor address is Reply-To only, never From. Delivery is synchronous. `delivered`, `failed`, `not_configured`, or `suppressed` is recorded using non-sensitive codes. Storage succeeds even if mail fails. Set `CMS_RUNTIME_DEMO_MODE=true` only for a read-only runtime demonstration; notification and reply delivery are suppressed. Never commit credentials.

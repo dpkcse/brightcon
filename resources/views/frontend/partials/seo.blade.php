@@ -5,6 +5,7 @@
     $defaultTitle = $siteSettings?->default_seo_title ?: trim($companyName.' | '.($siteSettings?->tagline ?: config('cms.defaults.tagline')));
     $title = trim($__env->yieldContent('title', $seo['title'] ?? $defaultTitle));
     $description = trim($__env->yieldContent('meta_description', $seo['description'] ?? ($siteSettings?->default_meta_description ?: ($siteSettings?->tagline ?: 'Construction and engineering services delivered with safety, quality, and professionalism.'))));
+    $keywords = trim($__env->yieldContent('meta_keywords', $siteSettings?->default_meta_keywords ?? ''));
     $canonicalDefault = $siteSettings?->canonical_base_url ? rtrim($siteSettings->canonical_base_url, '/').'/'.ltrim(request()->path(), '/') : url()->current();
     $canonical = $__env->yieldContent('canonical', $seo['canonical'] ?? $canonicalDefault);
     $ogTitle = trim($__env->yieldContent('og_title', $seo['og_title'] ?? $title));
@@ -18,7 +19,7 @@
 <title>{{ $title }}</title>
 @if($favicon)<link rel="icon" href="{{ $favicon }}">@endif
 <meta name="description" content="{{ $description }}">
-@if(filled($siteSettings?->default_meta_keywords))<meta name="keywords" content="{{ $siteSettings->default_meta_keywords }}">@endif
+@if(filled($keywords))<meta name="keywords" content="{{ $keywords }}">@endif
 @if(filled($siteSettings?->search_console_verification))<meta name="google-site-verification" content="{{ $siteSettings->search_console_verification }}">@endif
 <link rel="canonical" href="{{ $canonical }}">
 <meta name="robots" content="{{ $robots }}">

@@ -1,0 +1,2 @@
+# Testimonials decision
+Testimonials are intentionally not implemented in Phase H. Feature Highlights are not repurposed as testimonials, and Organizations remain clients/logos. Without approved attributable content and a public presentation design, a testimonial table would be unused duplication and demo endorsements could mislead buyers. Clean and demo seeds contain no testimonials or endorsements.

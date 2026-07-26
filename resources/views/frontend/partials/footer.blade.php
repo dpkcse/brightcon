@@ -22,8 +22,11 @@
             <div class="col-lg-3">
                 <h5>Quick Links</h5>
                 <ul class="footer-links list-unstyled mt-3">
-                    @forelse($footerLinks as $link)
-                        <li><a href="{{ str_starts_with($link->url, 'http') ? $link->url : url($link->url) }}" target="{{ in_array($link->target, ['_self', '_blank'], true) ? $link->target : '_self' }}" @if($link->target === '_blank') rel="noopener" @endif>{{ $link->label }}</a></li>
+                    @php($configuredFooter = $menuItems->where('menu_location','footer')->whereNull('parent_id'))
+                    @php($effectiveFooter = $configuredFooter->isNotEmpty() ? $configuredFooter : $footerLinks)
+                    @forelse($effectiveFooter as $link)
+                        @php($linkUrl = $link instanceof \App\Models\MenuItem ? $link->resolvedUrl() : $link->url)
+                        <li><a href="{{ str_starts_with($linkUrl, 'http') ? $linkUrl : url($linkUrl) }}" target="{{ in_array($link->target, ['_self', '_blank'], true) ? $link->target : '_self' }}" @if($link->target === '_blank') rel="noopener noreferrer" @endif>{{ $link->label }}</a></li>
                     @empty
                         <li><a href="{{ route('about') }}">About</a></li><li><a href="{{ route('services.index') }}">Services</a></li><li><a href="{{ route('contact.index') }}">Contact</a></li>
                     @endforelse

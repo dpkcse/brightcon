@@ -29,6 +29,7 @@ class DemoContentSeeder extends Seeder
             DemoSliderSeeder::class,
             DemoFeatureItemSeeder::class,
             DemoPartnerMessageSeeder::class,
+            DemoPhaseHSeeder::class,
         ]);
     }
 

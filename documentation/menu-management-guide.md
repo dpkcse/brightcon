@@ -1,0 +1,2 @@
+# Menu management
+Menu Items support header/footer locations, one child level, legacy URLs, named public routes, published custom pages, and safe HTTP(S) external URLs. Existing flat menu and Footer Link rows remain compatible. Parents and children must share a location; self-parenting, deeper nesting, unsafe schemes, admin/installer routes, deleting a parent with children, and deleting a referenced page are rejected. When no configured menu exists, public route fallbacks remain.
