@@ -214,6 +214,7 @@ class ReleaseBuilder
         return [
             'product_name' => config('commercial_release.product_name'), 'product_slug' => config('commercial_release.product_slug'),
             'version' => $version, 'edition' => 'commercial', 'variant' => $variant,
+            'license' => config('commercial_release.license_type'), 'licensor' => config('commercial_release.licensor'),
             'build_timestamp' => gmdate('Y-m-d\TH:i:s\Z'), 'source_commit' => trim(Process::path(base_path())->run(['git', 'rev-parse', 'HEAD'])->throw()->output()),
             'php_requirement' => '^8.2', 'laravel_version' => app()->version(), 'package_file_count' => count($inventory),
             'total_uncompressed_size' => array_sum(array_column($inventory, 'size')), 'included_documentation' => $docs,
@@ -228,9 +229,9 @@ class ReleaseBuilder
     /** @param array<string,mixed> $manifest */
     private function report(array $manifest): string
     {
-        $license = is_file(base_path('LICENSE')) ? 'final file present (owner approval still required)' : 'BLOCKED — final owner-approved LICENSE absent';
+        $license = is_file(base_path('LICENSE')) ? 'proprietary; owner-approved final file included' : 'BLOCKED — final owner-approved LICENSE absent';
 
-        return "# Release Report\n\n- Product/version: {$manifest['product_name']} {$manifest['version']}\n- Variant: {$manifest['variant']}\n- Source commit: {$manifest['source_commit']}\n- Build date (UTC): {$manifest['build_timestamp']}\n- Approval state: {$manifest['release_approval_status']}\n- Release audit: passed for staged files\n- Automated test summary: not asserted by builder\n- MySQL acceptance: pending\n- Fresh ZIP installation: pending\n- Asset provenance: verified build only; uploads and favicon excluded\n- Vendor decision: ".config('commercial_release.packaging.vendor')."\n- Public build decision: ".config('commercial_release.packaging.public_build')."\n- License: {$license}\n- Known limitations: no automatic updater; only offline licensing is operational; commercial approval gates remain manual\n- Archive checksum: generated as an external SHA-256 sidecar\n- Inventory file count: {$manifest['package_file_count']}\n- Uncompressed inventory size: {$manifest['total_uncompressed_size']} bytes\n";
+        return "# Release Report\n\n- Product/version: {$manifest['product_name']} {$manifest['version']}\n- Variant: {$manifest['variant']}\n- Source commit: {$manifest['source_commit']}\n- Build date (UTC): {$manifest['build_timestamp']}\n- Approval state: {$manifest['release_approval_status']}\n- Release audit: passed for staged files\n- Automated test summary: not asserted by builder\n- MySQL acceptance: pending\n- Fresh ZIP installation: pending\n- Asset provenance: verified build only; uploads and favicon excluded\n- Vendor decision: ".config('commercial_release.packaging.vendor')."\n- Public build decision: ".config('commercial_release.packaging.public_build')."\n- License: {$license}\n- Licensor: {$manifest['licensor']}\n- Known limitations: no automatic updater; only offline licensing is operational; commercial approval gates remain manual\n- Archive checksum: generated as an external SHA-256 sidecar\n- Inventory file count: {$manifest['package_file_count']}\n- Uncompressed inventory size: {$manifest['total_uncompressed_size']} bytes\n";
     }
 
     private function archive(string $root, string $destination): void

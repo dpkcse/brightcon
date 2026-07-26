@@ -1,47 +1,31 @@
 # Buildora CMS Owner Release Sign-Off
 
-**Status: UNSIGNED — COMMERCIAL RELEASE BLOCKED.** Do not auto-fill, auto-sign, or treat a typed placeholder as approval. The owner must review all acceptance evidence and complete every applicable decision.
+**Status: LICENSE APPROVED — OVERALL COMMERCIAL RELEASE BLOCKED.** This record is a textual owner sign-off for the legal identity and Single Site License principles only. It is not notarized, witnessed, digitally certified, or third-party verified, and it does not approve unrelated release gates.
 
-## Legal identity
+## Approved legal identity
 
-| Field | Owner-completed value |
+| Field | Owner-approved value |
 |---|---|
-| Legal/licensor entity name | ______________________________ |
-| Registered/licensor address | ______________________________ |
-| Contact email | ______________________________ |
-| Applicable law/jurisdiction and venue | ______________________________ |
+| Licensor | Naxas Limited |
+| Registered/business address | House # 04 (7th Floor), Main Road, Block F, Banasree, Rampura, Dhaka-1219, Bangladesh |
+| Support and legal contact | info.naxasltd@gmail.com |
+| Governing law | The laws of the People’s Republic of Bangladesh |
+| Exclusive venue | The competent courts of Dhaka, Bangladesh shall have exclusive jurisdiction. |
+| License effective date | 27 July 2026 |
+| Authorized signatory | Dipak Chakraborty |
+| Signature text | Dipak Chakraborty |
+| Approval date | 27 July 2026 |
 
-## Explicit approvals
+## Explicit approval
 
-| Approval item | Approve / Reject / N/A and details | Initials | Date (UTC) |
+| Approval item | Decision | Signatory | Date |
 |---|---|---|---|
-| Buildora CMS Single Site License terms | ____________________ | ______ | __________ |
-| One production-domain policy | ____________________ | ______ | __________ |
-| Localhost/staging policy | ____________________ | ______ | __________ |
-| Source-code modification rights | ____________________ | ______ | __________ |
-| One end-client handover | ____________________ | ______ | __________ |
-| Public-facing white-label rights | ____________________ | ______ | __________ |
-| No-resale/no-redistribution rule | ____________________ | ______ | __________ |
-| No-SaaS/no-multi-tenant rule | ____________________ | ______ | __________ |
-| Update policy | ____________________ | ______ | __________ |
-| Standard support exclusion | ____________________ | ______ | __________ |
-| Six-month Extended Support Add-on | ____________________ | ______ | __________ |
-| Refund policy and mandatory-right exception | ____________________ | ______ | __________ |
-| Vendor/dependency redistribution | ____________________ | ______ | __________ |
-| Asset provenance | ____________________ | ______ | __________ |
-| Source-package release | ____________________ | ______ | __________ |
-| Shared-hosting-package release | ____________________ | ______ | __________ |
-| Documentation-package release | ____________________ | ______ | __________ |
-| Marketplace publication and channel | ____________________ | ______ | __________ |
+| Buildora CMS Single Site License commercial principles | APPROVED | Dipak Chakraborty | 27 July 2026 |
 
-Release version: ____________________
+## Pending release gates
 
-Release date (UTC): ____________________
+The following remain pending and are not approved by this legal sign-off: MySQL/MariaDB acceptance, ZIP installation acceptance, SMTP acceptance, browser acceptance, accessibility acceptance, asset provenance, vendor redistribution, upgrade acceptance, package security acceptance, and final marketplace upload authorization.
 
-Owner legal name: ______________________________
+Release version: Pending final release acceptance
 
-Owner signature: ______________________________
-
-Signature date (UTC): __________________________
-
-Final acceptance report SHA-256: _________________________________________________
+Final acceptance report SHA-256: Pending final release acceptance

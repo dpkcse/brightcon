@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class CommercialReleaseAuditCommandTest extends TestCase
@@ -23,6 +24,7 @@ class CommercialReleaseAuditCommandTest extends TestCase
         ]);
         File::put($this->fixture.'/.env.example', "APP_NAME=Example\n");
         File::put($this->fixture.'/THIRD-PARTY-LICENSES.md', "# Notices\n");
+        File::put($this->fixture.'/composer.json', json_encode(['license' => 'proprietary'], JSON_THROW_ON_ERROR));
     }
 
     protected function tearDown(): void
@@ -136,7 +138,55 @@ class CommercialReleaseAuditCommandTest extends TestCase
         $this->assertSame(1, $this->audit());
         $this->assertStringContainsString('unresolved owner/legal placeholders', Artisan::output());
 
-        File::put($this->fixture.'/LICENSE', "OWNER-APPROVED FINAL LICENSE\nLicensor: Buildora Example Entity\n");
+        File::put($this->fixture.'/LICENSE', $this->approvedLicense());
+        $this->assertSame(0, $this->audit());
+    }
+
+    #[DataProvider('missingLegalMetadataProvider')]
+    public function test_final_license_requires_every_approved_legal_value(string $missing, string $message): void
+    {
+        config()->set('commercial_release.required_files', ['LICENSE']);
+        File::put($this->fixture.'/LICENSE', str_replace($missing, '', $this->approvedLicense()));
+
+        $this->assertSame(1, $this->audit());
+        $this->assertStringContainsString($message, Artisan::output());
+    }
+
+    public static function missingLegalMetadataProvider(): array
+    {
+        return [
+            'licensor' => ['Naxas Limited', 'missing approved licensor name'],
+            'address' => ['House # 04 (7th Floor), Main Road, Block F, Banasree, Rampura, Dhaka-1219, Bangladesh', 'missing approved registered address'],
+            'email' => ['info.naxasltd@gmail.com', 'missing approved legal contact'],
+            'law' => ['the laws of the People’s Republic of Bangladesh', 'missing approved governing law'],
+            'venue' => ['The competent courts of Dhaka, Bangladesh shall have exclusive jurisdiction.', 'missing approved jurisdiction'],
+            'effective date' => ['Effective date: 27 July 2026', 'missing approved effective date'],
+            'signatory' => ['Authorized signatory: Dipak Chakraborty', 'missing approved authorized signatory'],
+            'approval date' => ['Approval date: 27 July 2026', 'missing approved approval date'],
+        ];
+    }
+
+    public function test_placeholder_and_non_proprietary_composer_license_fail(): void
+    {
+        config()->set('commercial_release.required_files', ['LICENSE']);
+        File::put($this->fixture.'/LICENSE', $this->approvedLicense()."[placeholder]\n");
+        $this->assertSame(1, $this->audit());
+        $this->assertStringContainsString('unresolved owner/legal placeholders', Artisan::output());
+
+        File::put($this->fixture.'/LICENSE', $this->approvedLicense());
+        File::put($this->fixture.'/composer.json', json_encode(['license' => 'MIT'], JSON_THROW_ON_ERROR));
+        $this->assertSame(1, $this->audit());
+        $this->assertStringContainsString('must declare proprietary licensing', Artisan::output());
+    }
+
+    public function test_unsuperseded_draft_fails_but_superseded_draft_cannot_override_license(): void
+    {
+        config()->set('commercial_release.required_files', ['LICENSE']);
+        File::put($this->fixture.'/LICENSE', $this->approvedLicense());
+        File::put($this->fixture.'/LICENSE-DRAFT.md', 'old operative draft');
+        $this->assertSame(1, $this->audit());
+
+        File::put($this->fixture.'/LICENSE-DRAFT.md', "SUPERSEDED — THE AUTHORITATIVE LICENSE IS THE ROOT LICENSE FILE\nLEGAL REVIEW REQUIRED — NOT APPROVED FOR COMMERCIAL RELEASE\n");
         $this->assertSame(0, $this->audit());
     }
 
@@ -162,6 +212,21 @@ class CommercialReleaseAuditCommandTest extends TestCase
     private function audit(): int
     {
         return Artisan::call('commercial:audit', ['--path' => $this->fixture, '--no-git' => true]);
+    }
+
+    private function approvedLicense(): string
+    {
+        return <<<'LICENSE'
+OWNER-APPROVED FINAL LICENSE
+Licensor: Naxas Limited
+Registered address: House # 04 (7th Floor), Main Road, Block F, Banasree, Rampura, Dhaka-1219, Bangladesh
+License contact: info.naxasltd@gmail.com
+License version: 1.0 | Effective date: 27 July 2026
+This License is governed by the laws of the People’s Republic of Bangladesh.
+The competent courts of Dhaka, Bangladesh shall have exclusive jurisdiction.
+Authorized signatory: Dipak Chakraborty
+Approval date: 27 July 2026
+LICENSE;
     }
 
     /** @return array<string, string> */

@@ -19,6 +19,12 @@ class ReleasePackagingTest extends TestCase
         $docs = $builder->select('documentation');
 
         $this->assertContains('.env.example', $source);
+        $this->assertContains('LICENSE', $source);
+        $this->assertContains('LICENSE', $shared);
+        $this->assertContains('LICENSE', $docs);
+        $this->assertNotContains('LICENSE-DRAFT.md', $source);
+        $this->assertNotContains('LICENSE-DRAFT.md', $shared);
+        $this->assertNotContains('LICENSE-DRAFT.md', $docs);
         $this->assertContains('public/build/manifest.json', $source);
         $this->assertNotContains('tests/TestCase.php', $source);
         $this->assertNotContains('.env', $source);
@@ -41,6 +47,24 @@ class ReleasePackagingTest extends TestCase
         $this->assertNotEmpty($findings);
         $this->assertSame(['[REDACTED]'], array_values(array_unique(array_column($findings, 'context'))));
         $this->assertStringNotContainsString('this-must-never-print', json_encode($findings));
+    }
+
+    public function test_buyer_documents_use_the_approved_license_identity(): void
+    {
+        $documents = [
+            'README.md', 'documentation/single-site-license.md', 'documentation/white-label-policy.md',
+            'documentation/support-policy.md', 'documentation/refund-policy.md', 'documentation/client-handover-policy.md',
+            'documentation/no-saas-policy.md', 'documentation/license-activation.md', 'documentation/update-policy.md',
+            'documentation/installation-guide.md', 'documentation/shared-hosting-installation.md',
+        ];
+
+        foreach ($documents as $document) {
+            $contents = File::get(base_path($document));
+            $this->assertStringContainsString('Naxas Limited', $contents, $document);
+            $this->assertStringContainsString('info.naxasltd@gmail.com', $contents, $document);
+            $this->assertStringContainsString('27 July 2026', $contents, $document);
+            $this->assertStringNotContainsString('LEGAL REVIEW REQUIRED', $contents, $document);
+        }
     }
 
     public function test_dry_run_writes_no_archive_and_internal_acknowledgement_is_required(): void
