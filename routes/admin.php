@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\FeatureItemController;
 use App\Http\Controllers\Admin\FooterLinkController;
 use App\Http\Controllers\Admin\GalleryImageController;
 use App\Http\Controllers\Admin\HomepageSectionController;
+use App\Http\Controllers\Admin\LicenseController;
 use App\Http\Controllers\Admin\MenuItemController;
 use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\PartnerMessageController;
@@ -26,13 +27,15 @@ Route::prefix('admin')->name('admin.')->middleware('cms.installed')->group(funct
         Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
     });
 
-    Route::middleware(['auth', 'admin', 'license.valid'])->group(function (): void {
+    Route::middleware(['auth', 'admin'])->group(function (): void {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/settings/general', [GeneralSettingsController::class, 'edit'])->name('settings.general.edit');
         Route::put('/settings/general', [GeneralSettingsController::class, 'update'])->name('settings.general.update');
         Route::get('/settings/theme', [ThemeSettingsController::class, 'edit'])->name('settings.theme.edit');
         Route::put('/settings/theme', [ThemeSettingsController::class, 'update'])->name('settings.theme.update');
         Route::get('/system-information', SystemInformationController::class)->name('system-information');
+        Route::get('/license', [LicenseController::class, 'index'])->name('license.index');
+        Route::post('/license', [LicenseController::class, 'activate'])->name('license.activate');
         Route::resource('social-links', SocialLinkController::class)->parameters(['social-links' => 'socialLink'])->except(['show']);
         Route::resource('menu-items', MenuItemController::class)->parameters(['menu-items' => 'menuItem'])->except(['show']);
         Route::resource('footer-links', FooterLinkController::class)->parameters(['footer-links' => 'footerLink'])->except(['show']);

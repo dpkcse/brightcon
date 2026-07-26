@@ -3,7 +3,18 @@
 use App\Licensing\Providers\OfflineSignedLicenseProvider;
 
 return [
-    'enforce' => (bool) env('CMS_LICENSE_ENFORCE', false),
+    // Core access defaults are deliberately constants rather than environment
+    // toggles: a deployment variable must never silently take a site offline.
+    'enforcement' => [
+        'default_level' => 'updates_only',
+        'public_site_requires_valid_license' => false,
+        'admin_content_requires_valid_license' => false,
+        'backup_requires_valid_license' => false,
+        'export_requires_valid_license' => false,
+        'updates_require_valid_license' => true,
+        'premium_features_require_valid_license' => true,
+        'remote_grace_days' => 7,
+    ],
     'product_id' => env('CMS_LICENSE_PRODUCT_ID', 'buildora-cms'),
     'default_provider' => env('CMS_LICENSE_PROVIDER', 'offline'),
 

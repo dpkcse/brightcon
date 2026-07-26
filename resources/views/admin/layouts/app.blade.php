@@ -17,7 +17,7 @@
     @php($unreadMessages = Cache::remember('contact_messages_unread_count', 300, fn () => \App\Models\ContactMessage::query()->unread()->count()))
     @php($groups = [
         'Dashboard' => [['Dashboard', route('admin.dashboard'), 'admin.dashboard']],
-        'Settings' => [['General Settings', route('admin.settings.general.edit'), 'admin.settings.general.*'], ['Theme Settings', route('admin.settings.theme.edit'), 'admin.settings.theme.*'], ['System Information', route('admin.system-information'), 'admin.system-information']],
+        'Settings' => [['General Settings', route('admin.settings.general.edit'), 'admin.settings.general.*'], ['Theme Settings', route('admin.settings.theme.edit'), 'admin.settings.theme.*'], ['License', route('admin.license.index'), 'admin.license.*'], ['System Information', route('admin.system-information'), 'admin.system-information']],
         'Homepage' => [['Homepage Sections', route('admin.homepage-sections.index'), 'admin.homepage-sections.*'], ['Hero Sliders', route('admin.sliders.index'), 'admin.sliders.*'], ['Feature Highlights', route('admin.features.index'), 'admin.features.*']],
         'Content' => [['Project Categories', route('admin.project-categories.index'), 'admin.project-categories.*'], ['Projects', route('admin.projects.index'), 'admin.projects.*'], ['Services', route('admin.services.index'), 'admin.services.*'], ['Organizations', route('admin.organizations.index'), 'admin.organizations.*'], ['Gallery Images', route('admin.gallery-images.index'), 'admin.gallery-images.*'], ['Partner Messages', route('admin.partner-messages.index'), 'admin.partner-messages.*'], ['Contact Messages', route('admin.contact-messages.index'), 'admin.contact-messages.*', $unreadMessages]],
         'Appearance' => [['Menu Items', route('admin.menu-items.index'), 'admin.menu-items.*'], ['Social Links', route('admin.social-links.index'), 'admin.social-links.*'], ['Footer Links', route('admin.footer-links.index'), 'admin.footer-links.*']],
@@ -39,7 +39,11 @@
             <div><strong>@yield('page-heading', 'Dashboard')</strong><div class="small text-muted">Back office content management</div></div>
             <form method="POST" action="{{ route('admin.logout') }}">@csrf<button class="btn btn-primary-brand btn-sm" type="submit">Logout</button></form>
         </div>
-        <main class="p-4">@include('admin.partials.alerts')@yield('content')</main>
+        <main class="p-4">
+            @php($licenseDecision = app(\App\Services\Licensing\LicensePolicyService::class)->decisionFor('license.view'))
+            @if($licenseDecision->notice)<div class="alert {{ $licenseDecision->noticePriority === 'critical' ? 'alert-danger' : ($licenseDecision->noticePriority === 'warning' ? 'alert-warning' : 'alert-info') }}" role="alert">{{ $licenseDecision->notice }}</div>@endif
+            @include('admin.partials.alerts')@yield('content')
+        </main>
         <footer class="px-4 pb-3 small text-muted">{{ $productName }} · Version {{ $productVersion }}</footer>
     </div>
 </div>

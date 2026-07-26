@@ -36,6 +36,7 @@ class CommercialReleaseAudit extends Command
         $this->checkWritableDirectories($root);
         $this->checkDebugMode();
         $this->checkPackagingDecisions($root);
+        $this->checkLicenseEnforcement($root);
 
         if (! $this->option('no-git')) {
             $this->checkGit($root);
@@ -183,6 +184,34 @@ class CommercialReleaseAudit extends Command
         $build = config('commercial_release.packaging.public_build');
         $this->warning('vendor packaging decision', (string) $vendor);
         is_file($root.'/public/build/manifest.json') ? $this->pass('compiled frontend assets', (string) $build) : $this->warning('compiled frontend assets', 'public/build is absent; the release workflow must run npm build');
+    }
+
+    private function checkLicenseEnforcement(string $root): void
+    {
+        $configuration = $root.'/config/licensing.php';
+        if (! is_file($configuration)) {
+            return;
+        }
+
+        $contents = (string) file_get_contents($configuration);
+        foreach (['public_site_requires_valid_license', 'backup_requires_valid_license', 'export_requires_valid_license'] as $setting) {
+            preg_match("/'{$setting}'\\s*=>\\s*(true|false)/", $contents, $match);
+            ($match[1] ?? null) === 'false'
+                ? $this->pass('safe license default', "$setting is false")
+                : $this->reportFail('unsafe license lockout default', $setting);
+        }
+
+        foreach (['routes/web.php', 'routes/admin.php'] as $routeFile) {
+            $routeContents = is_file($root.'/'.$routeFile) ? (string) file_get_contents($root.'/'.$routeFile) : '';
+            preg_match('/license\\.(?:valid|required)|RequireValidLicense/', $routeContents) === 1
+                ? $this->reportFail('blanket license middleware', $routeFile)
+                : $this->pass('route license safety', $routeFile);
+        }
+
+        config('licensing.offline.public_key')
+            ? $this->pass('offline verification key', 'configured')
+            : $this->warning('offline verification key', 'missing; offline activation requires configuration');
+        $this->warning('marketplace provider', 'No marketplace adapter is operational; no external verification was performed');
     }
 
     private function checkGit(string $root): void

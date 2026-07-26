@@ -3,14 +3,14 @@
 namespace Tests\Feature;
 
 use App\Enums\LicenseStatus;
-use App\Http\Middleware\RequireValidLicense;
+use App\Http\Middleware\EnsureLicenseEntitlement;
 use App\Licensing\Exceptions\LicenseProviderException;
 use App\Licensing\LicenseManager;
 use App\Licensing\ProviderRegistry;
 use App\Models\LicenseActivation;
+use App\Services\Licensing\LicensePolicyService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Tests\TestCase;
 
 class LicensingFoundationTest extends TestCase
@@ -66,14 +66,59 @@ class LicensingFoundationTest extends TestCase
         $this->assertDatabaseMissing('license_activations', ['credential_hash' => $token]);
     }
 
-    public function test_license_middleware_cannot_be_bypassed_by_demo_configuration(): void
+    public function test_unlicensed_public_site_is_not_locked_and_installer_is_independent(): void
     {
-        config()->set('licensing.enforce', true);
-        $this->get('/')->assertStatus(503);
-        $this->get('/install')->assertStatus(200); // Installer state remains reachable and independent.
+        $this->get('/')->assertOk();
+        $this->get('/services')->assertOk();
+        $this->get('/projects')->assertOk();
+        $this->get('/gallery')->assertOk();
+        $this->get('/contact')->assertOk();
+        $this->get('/install')->assertOk();
+        $this->assertTrue(app(LicensePolicyService::class)->publicSiteAllowed());
+        $this->assertTrue(app(LicensePolicyService::class)->backupAllowed());
+        $this->assertTrue(app(LicensePolicyService::class)->exportAllowed());
+        $this->assertFalse(app(LicensePolicyService::class)->updatesAllowed());
+    }
 
-        $this->expectException(HttpException::class);
-        app(RequireValidLicense::class)->handle(Request::create('/protected'), fn () => response('allowed'));
+    public function test_entitlement_middleware_denies_only_named_entitlement_with_safe_json(): void
+    {
+        $response = app(EnsureLicenseEntitlement::class)->handle(
+            Request::create('/updates', 'GET', server: ['HTTP_ACCEPT' => 'application/json']),
+            fn () => response('allowed'),
+            'updates.download',
+        );
+
+        $this->assertSame(403, $response->status());
+        $this->assertSame('updates.download', $response->getData(true)['action']);
+        $allowed = app(EnsureLicenseEntitlement::class)->handle(Request::create('/backup'), fn () => response('allowed'), 'backup.export');
+        $this->assertSame(200, $allowed->status());
+    }
+
+    public function test_unavailable_default_adapter_has_distinct_safe_state_without_fallback(): void
+    {
+        config()->set('licensing.default_provider', 'gumroad');
+
+        $this->assertSame(LicenseStatus::AdapterUnavailable, app(LicenseManager::class)->status());
+        $this->assertTrue(app(LicensePolicyService::class)->adminContentAllowed());
+        $this->assertFalse(app(LicensePolicyService::class)->updatesAllowed());
+        $this->assertSame(LicenseStatus::AdapterUnavailable, app(LicenseManager::class)->activate('gumroad', 'secret-token', 'example.com')->status);
+        $this->assertDatabaseCount('license_activations', 0);
+    }
+
+    public function test_unreadable_encrypted_metadata_enters_recovery_without_erasure(): void
+    {
+        LicenseActivation::query()->insert([
+            'installation_id' => app(LicenseManager::class)->installationId(),
+            'provider' => 'offline', 'status' => LicenseStatus::Active->value,
+            'credential_hash' => str_repeat('a', 64), 'host_hash' => str_repeat('b', 64),
+            'provider_data' => 'preserved-unreadable-ciphertext',
+            'created_at' => now(), 'updated_at' => now(),
+        ]);
+
+        $this->assertSame(LicenseStatus::RecoveryRequired, app(LicenseManager::class)->status());
+        $this->assertTrue(app(LicensePolicyService::class)->publicSiteAllowed());
+        $this->assertTrue(app(LicensePolicyService::class)->licenseManagementAllowed());
+        $this->assertSame('preserved-unreadable-ciphertext', LicenseActivation::query()->toBase()->value('provider_data'));
     }
 
     private function encode(string $value): string

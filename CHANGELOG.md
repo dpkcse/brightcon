@@ -5,9 +5,11 @@ All notable changes to this project will be documented in this file. The format 
 ## [Unreleased]
 
 ### Added
+- Central named-action license policy, update-entitlement middleware, safe administrator notices, and offline recovery guidance.
 - Commercial release audit foundation.
 - Centralized settings service.
 - Generic product identity foundation.
 
 ### Changed
+- Removed blanket public and administrator license lockout; core website, content management and data-recovery access now remain available for all license states.
 - Repository identity changed from the project-specific BrightCon foundation to Buildora CMS.

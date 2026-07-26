@@ -2,12 +2,12 @@
 
 ## Security and core boundary
 
-Licensing is disabled by default so source installs and upgrades cannot be locked by
-an incomplete marketplace integration. A commercial distribution enables
-`CMS_LICENSE_ENFORCE=true` only after configuring and testing an operational adapter.
-The `license.valid` middleware protects public CMS routes and authenticated admin
-routes. Installer, login, health, recovery, and CLI activation tooling remain
-reachable so a license failure cannot prevent remediation.
+Licensing uses a non-destructive named-action policy. Public routes and the core
+authenticated administrator group do not carry blanket license middleware. Public
+content, login, installation, health, ordinary content management, backup/export,
+system recovery and license remediation remain reachable in every license state.
+Only future update downloads and explicitly named premium activation actions use
+`license.entitlement`; there is no updater in this release.
 
 Core code uses `LicenseProvider`, `ProviderCapabilities`, `ActivationRequest`, and
 `LicenseDecision`. Marketplace payloads, endpoints, terminology, and rules belong in
@@ -17,8 +17,8 @@ credentials are never persisted or accepted as command-line arguments.
 
 Demo data never activates, grants, extends, or bypasses a license. The clean/demo
 seed choice and production demo acknowledgements remain content safeguards only.
-Turning enforcement off is a deliberate distribution configuration decision, not a
-runtime demo-mode feature.
+Demo settings cannot strengthen or weaken license decisions. Installation, license
+and demo data selection are three independent states.
 
 ## Provider status
 
@@ -33,7 +33,8 @@ runtime demo-mode feature.
 | Shopify / other commerce | Contract placeholder | No operational adapter is claimed. |
 | Custom API | Contract placeholder | No operational adapter is claimed. |
 
-Placeholder providers fail closed in `ProviderRegistry`. To add one, implement the
+Placeholder providers return a distinct safe unavailable state at the application
+boundary, with no fallback and no false verification success. To add one, implement the
 provider contract, map its response into a neutral decision, declare only its tested
 capabilities, add provider-specific contract tests based on the current official API,
 and only then set its configuration entry to operational.

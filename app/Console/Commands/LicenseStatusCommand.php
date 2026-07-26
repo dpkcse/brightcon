@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Licensing\LicenseManager;
 use Illuminate\Console\Command;
+use Throwable;
 
 class LicenseStatusCommand extends Command
 {
@@ -13,7 +14,13 @@ class LicenseStatusCommand extends Command
 
     public function handle(LicenseManager $licenses): int
     {
-        $activation = $licenses->current();
+        try {
+            $activation = $licenses->current();
+        } catch (Throwable) {
+            $this->warn('License status is unavailable because local storage could not be read. No license secret was displayed.');
+
+            return self::FAILURE;
+        }
         if ($activation === null) {
             $this->warn('No license activation is stored.');
 
