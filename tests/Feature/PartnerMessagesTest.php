@@ -41,7 +41,7 @@ class PartnerMessagesTest extends TestCase
     public function test_guests_cannot_manage_partner_messages_and_admins_can_create_them(): void
     {
         $this->get('/admin/partner-messages')->assertRedirect('/admin/login');
-        $admin = User::query()->create(['name' => 'Admin', 'email' => 'admin@example.test', 'password' => Hash::make('password')]);
+        $admin = User::query()->create(['name' => 'Admin', 'email' => 'admin@example.test', 'password' => Hash::make('password'), 'is_admin' => true]);
         $this->actingAs($admin)->post('/admin/partner-messages', ['name' => 'Partner', 'designation' => 'Chair', 'full_message' => 'A safe message', 'linkedin_url' => 'not-a-url'])->assertSessionHasErrors('linkedin_url');
         $this->actingAs($admin)->post('/admin/partner-messages', ['name' => 'Partner', 'designation' => 'Chair', 'full_message' => 'A safe message', 'is_active' => 1, 'published_at' => now()->format('Y-m-d H:i:s')])->assertRedirect(route('admin.partner-messages.index'));
         $this->assertDatabaseHas('partner_messages', ['name' => 'Partner', 'is_active' => 1]);

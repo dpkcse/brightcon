@@ -1,0 +1,2 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Maintenance</title></head>
+<body><main style="max-width:720px;margin:15vh auto;padding:2rem;font-family:system-ui;text-align:center"><h1>We’ll be back soon</h1><p>{{ $message ?: 'The website is temporarily unavailable for scheduled maintenance.' }}</p></main></body></html>

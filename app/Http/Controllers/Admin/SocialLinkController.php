@@ -15,18 +15,22 @@ class SocialLinkController extends Controller
     public function index(): View
     {
         $items = SocialLink::query()->ordered()->paginate(15);
+
         return view('admin.pages.social-links.index', compact('items'));
     }
 
     public function create(): View
     {
-        return view('admin.pages.social-links.form', ['item' => new SocialLink()]);
+        return view('admin.pages.social-links.form', ['item' => new SocialLink]);
     }
 
     public function store(StoreSocialLinkRequest $request): RedirectResponse
     {
         SocialLink::create($this->payload($request->validated()));
         Cache::forget('social_links_active_ordered');
+        Cache::forget(config('cms.cache.frontend'));
+        Cache::forget(config('cms.cache.social'));
+
         return redirect()->route('admin.social-links.index')->with('success', 'Record created successfully.');
     }
 
@@ -39,6 +43,9 @@ class SocialLinkController extends Controller
     {
         $socialLink->update($this->payload($request->validated()));
         Cache::forget('social_links_active_ordered');
+        Cache::forget(config('cms.cache.frontend'));
+        Cache::forget(config('cms.cache.social'));
+
         return redirect()->route('admin.social-links.index')->with('success', 'Record updated successfully.');
     }
 
@@ -46,6 +53,9 @@ class SocialLinkController extends Controller
     {
         $socialLink->delete();
         Cache::forget('social_links_active_ordered');
+        Cache::forget(config('cms.cache.frontend'));
+        Cache::forget(config('cms.cache.social'));
+
         return back()->with('success', 'Record deleted successfully.');
     }
 
@@ -53,6 +63,7 @@ class SocialLinkController extends Controller
     {
         $data['status'] = (bool) ($data['status'] ?? false);
         $data['sort_order'] = (int) ($data['sort_order'] ?? 0);
+
         return $data;
     }
 }
