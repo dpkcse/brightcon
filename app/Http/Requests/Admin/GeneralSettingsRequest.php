@@ -59,7 +59,6 @@ class GeneralSettingsRequest extends FormRequest
             'map_latitude' => ['nullable', 'numeric', 'between:-90,90'],
             'map_longitude' => ['nullable', 'numeric', 'between:-180,180'],
             'map_zoom' => ['nullable', 'integer', 'between:1,20'],
-            'product_name' => ['nullable', 'string', 'max:255'], 'product_version' => ['nullable', 'regex:/^v?\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/'],
             'company_short_name' => ['nullable', 'string', 'max:100'], 'company_description' => ['nullable', 'string', 'max:3000'],
             'dark_logo_path' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'], 'light_logo_path' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'powered_by_text' => ['nullable', 'string', 'max:255'], 'show_powered_by' => ['required', 'boolean'],

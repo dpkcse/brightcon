@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Page Not Found | '.($siteSettings?->company_name ?: config('app.name')))
+@section('title', 'Page Not Found | '.($siteSettings?->company_name ?: config('cms.defaults.company_name') ?: config('cms.product.name')))
 @section('meta_description', 'The page you requested could not be found.')
 @section('robots', 'noindex, follow')
 

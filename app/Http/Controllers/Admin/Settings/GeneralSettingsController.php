@@ -14,14 +14,14 @@ class GeneralSettingsController extends Controller
 {
     public function edit(): View
     {
-        $setting = SiteSetting::query()->firstOrCreate([], ['company_name' => 'BrightCon']);
+        $setting = SiteSetting::query()->firstOrCreate([], ['company_name' => config('cms.defaults.company_name')]);
 
         return view('admin.pages.settings.general', compact('setting'));
     }
 
     public function update(GeneralSettingsRequest $request, FileUploadService $uploader, SettingsRepositoryInterface $settings): RedirectResponse
     {
-        $setting = SiteSetting::query()->firstOrCreate([], ['company_name' => 'BrightCon']);
+        $setting = SiteSetting::query()->firstOrCreate([], ['company_name' => config('cms.defaults.company_name')]);
         $data = $request->safe()->except(['logo', 'favicon', 'profile_pdf', 'dark_logo_path', 'light_logo_path', 'open_graph_image_path', 'twitter_card_image_path']);
         $data['map_zoom'] ??= 15;
         $data['logo'] = $uploader->replace($request->file('logo'), $setting->logo, 'uploads/site/logo');

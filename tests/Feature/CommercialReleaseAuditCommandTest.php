@@ -18,7 +18,7 @@ class CommercialReleaseAuditCommandTest extends TestCase
         config()->set('commercial_release.required_files', ['.env.example', 'THIRD-PARTY-LICENSES.md']);
         config()->set('commercial_release.unverified_assets', []);
         config()->set('commercial_release.forbidden_branding', [
-            ['term' => 'BrightCon', 'severity' => 'warning'],
+            ['term' => 'BrightCon', 'severity' => 'fail'],
         ]);
         File::put($this->fixture.'/.env.example', "APP_NAME=Example\n");
         File::put($this->fixture.'/THIRD-PARTY-LICENSES.md', "# Notices\n");
@@ -57,12 +57,12 @@ class CommercialReleaseAuditCommandTest extends TestCase
         $this->assertStringContainsString('sensitive/generated extension', Artisan::output());
     }
 
-    public function test_forbidden_branding_warns_without_changing_exit_code(): void
+    public function test_forbidden_branding_is_a_blocking_failure(): void
     {
         File::put($this->fixture.'/readme.txt', 'BrightCon placeholder');
 
-        $this->assertSame(0, $this->audit());
-        $this->assertStringContainsString('WARNING [forbidden branding]', Artisan::output());
+        $this->assertSame(1, $this->audit());
+        $this->assertStringContainsString('FAIL [forbidden branding]', Artisan::output());
     }
 
     public function test_database_dump_extension_fails(): void
@@ -92,6 +92,35 @@ class CommercialReleaseAuditCommandTest extends TestCase
 
         $this->assertSame(1, $this->audit());
         $this->assertStringContainsString('FAIL [forbidden branding]', Artisan::output());
+    }
+
+    public function test_exact_historical_branding_exclusion_is_allowed_but_active_file_is_not(): void
+    {
+        config()->set('commercial_release.branding_excluded_files', ['documentation/historical.md']);
+        File::makeDirectory($this->fixture.'/documentation');
+        File::put($this->fixture.'/documentation/historical.md', 'BrightCon historical evidence');
+
+        $this->assertSame(0, $this->audit());
+
+        File::put($this->fixture.'/runtime.php', '<?php // BrightCon runtime');
+        $this->assertSame(1, $this->audit());
+    }
+
+    public function test_production_brand_domain_is_a_blocking_branding_failure(): void
+    {
+        File::put($this->fixture.'/runtime.php', '<?php $domain = "https://brightconeng.com";');
+
+        $this->assertSame(1, $this->audit());
+        $this->assertStringContainsString('FAIL [forbidden branding]', Artisan::output());
+    }
+
+    public function test_license_draft_does_not_satisfy_final_license_requirement(): void
+    {
+        config()->set('commercial_release.required_files', ['LICENSE']);
+        File::put($this->fixture.'/LICENSE-DRAFT.md', 'Not operative');
+
+        $this->assertSame(1, $this->audit());
+        $this->assertStringContainsString('missing required file', Artisan::output());
     }
 
     private function audit(): int

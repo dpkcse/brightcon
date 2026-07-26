@@ -1,4 +1,4 @@
-# Developer Notes
+# Buildora CMS Developer Guide
 
 ## Architecture summary
 This is a Laravel CMS website with public frontend controllers, protected admin controllers, Eloquent CMS models, Blade views, Vite assets, and filesystem uploads stored on the public disk.
@@ -37,7 +37,7 @@ This is a Laravel CMS website with public frontend controllers, protected admin 
 - Gallery: `uploads/gallery`
 
 ## Seeder behavior
-`DatabaseSeeder` creates baseline CMS records and an initial admin user. Review seed credentials before production use and rotate the password after launch.
+`DatabaseSeeder` creates baseline CMS content. It creates an administrator only when `CMS_ADMIN_PASSWORD` is explicitly supplied; the optional email/name variables are `CMS_ADMIN_EMAIL` and `CMS_ADMIN_NAME`. It never changes an existing administrator. Clean/demo separation remains deferred to Phase D.
 
 ## Adding a future CMS module
 Add a migration, model with fillable/casts/scopes, form requests, admin controller, admin views, protected resource routes, cache invalidation, and frontend display only if required. Keep route names consistent and document any new cache keys.

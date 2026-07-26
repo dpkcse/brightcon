@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 @php
     use App\Support\FrontendImage;
-    $companyName = $siteSettings?->company_name ?: config('app.name');
+    $companyName = $siteSettings?->company_name ?: config('cms.defaults.company_name') ?: config('cms.product.name');
     $imageUrl = FrontendImage::url($service->image);
 @endphp
 @section('title', ($service->seo_title ?: $service->title).' | '.$companyName)

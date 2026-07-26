@@ -1,5 +1,5 @@
 @extends('frontend.layouts.app')
-@section('title', 'Projects | BrightCon')
+@section('title', 'Projects | '.($siteSettings?->company_name ?: config('cms.defaults.company_name')))
 @section('content')
     @include('frontend.partials.page-header', ['title' => 'Projects Page Placeholder', 'description' => 'Project listing and detail content will be implemented later while keeping this CMS-ready shell in place.'])
     <section class="container section-spacing">

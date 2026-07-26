@@ -1,5 +1,5 @@
 @extends('frontend.layouts.app')
-@php($companyName = $siteSettings?->company_name ?: config('app.name'))
+@php($companyName = $siteSettings?->company_name ?: config('cms.defaults.company_name') ?: config('cms.product.name'))
 @section('title', 'Competency | '.$companyName)
 @section('meta_description', 'Explore construction and engineering competencies backed by active services and project experience.')
 @section('content')

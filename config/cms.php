@@ -1,10 +1,24 @@
 <?php
 
 return [
-    'product_version' => env('CMS_PRODUCT_VERSION', '1.0.0'),
+    'product' => [
+        'name' => env('CMS_PRODUCT_NAME', 'Buildora CMS'),
+        'short_name' => env('CMS_PRODUCT_SHORT_NAME', 'Buildora'),
+        'description' => 'Construction, Engineering and Corporate Website Management System',
+        'version' => env('CMS_VERSION', env('CMS_PRODUCT_VERSION', '1.0.0')),
+        'website' => env('CMS_PRODUCT_WEBSITE'),
+        'documentation_label' => 'Buildora CMS Documentation',
+        'powered_by_text' => 'Powered by Buildora CMS',
+        'edition' => 'Commercial Edition',
+    ],
+    // Backward-compatible alias for integrations introduced before Phase C.
+    'product_version' => env('CMS_VERSION', env('CMS_PRODUCT_VERSION', '1.0.0')),
     'defaults' => [
-        'company_name' => 'BrightCon',
-        'tagline' => 'Construction & Engineering',
+        'company_name' => 'Your Company',
+        'tagline' => 'Building Strong Foundations for the Future',
+        'product_name' => env('CMS_PRODUCT_NAME', 'Buildora CMS'),
+        'product_version' => env('CMS_VERSION', env('CMS_PRODUCT_VERSION', '1.0.0')),
+        'powered_by_text' => 'Powered by Buildora CMS',
         'logo' => null,
         'favicon' => null,
         'primary_color' => '#d80d4c',

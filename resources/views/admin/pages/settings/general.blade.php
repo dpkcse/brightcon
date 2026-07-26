@@ -7,7 +7,7 @@
 @foreach(['company_name'=>'Company Name','tagline'=>'Tagline','email'=>'Email','phone'=>'Phone','default_language'=>'Default Language','timezone'=>'Timezone','copyright_text'=>'Copyright Text','developer_name'=>'Developer Name','developer_link'=>'Developer Link'] as $field=>$label)
 <div class="col-md-6"><label class="form-label">{{ $label }}</label><input class="form-control @error($field) is-invalid @enderror" name="{{ $field }}" value="{{ old($field, $setting->$field) }}">@error($field)<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
 @endforeach
-@foreach(['product_name'=>'Product Name','product_version'=>'Product Version','company_short_name'=>'Company Short Name','date_format'=>'Date Format','powered_by_text'=>'Powered By Text'] as $field=>$label)
+@foreach(['company_short_name'=>'Company Short Name','date_format'=>'Date Format','powered_by_text'=>'Powered By Text'] as $field=>$label)
 <div class="col-md-6"><label class="form-label">{{ $label }}</label><input class="form-control @error($field) is-invalid @enderror" name="{{ $field }}" value="{{ old($field,$setting->$field) }}">@error($field)<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
 @endforeach
 <div class="col-12"><label class="form-label">Company Description</label><textarea class="form-control" name="company_description" rows="3">{{ old('company_description',$setting->company_description) }}</textarea></div>

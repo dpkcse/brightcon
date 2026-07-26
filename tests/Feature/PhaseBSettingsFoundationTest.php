@@ -51,7 +51,7 @@ class PhaseBSettingsFoundationTest extends TestCase
         SiteSetting::query()->delete();
         ThemeSetting::query()->delete();
         $settings->refresh();
-        $this->assertSame('BrightCon', $settings->string('company_name'));
+        $this->assertSame('Your Company', $settings->string('company_name'));
         $this->assertSame(15, $settings->int('map_zoom'));
     }
 
@@ -61,7 +61,7 @@ class PhaseBSettingsFoundationTest extends TestCase
         Schema::drop('theme_settings');
         $settings = app(SettingsRepositoryInterface::class);
         $settings->refresh();
-        $this->assertSame('BrightCon', $settings->site()->company_name);
+        $this->assertSame('Your Company', $settings->site()->company_name);
         $this->assertSame('#d80d4c', $settings->theme()->primary_color);
     }
 

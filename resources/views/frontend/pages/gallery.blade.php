@@ -1,5 +1,5 @@
 @extends('frontend.layouts.app')
-@section('title', 'Gallery | BrightCon')
+@section('title', 'Gallery | '.($siteSettings?->company_name ?: config('cms.defaults.company_name')))
 @section('content')
     @include('frontend.partials.page-header', ['title' => 'Gallery Page Placeholder', 'description' => 'Gallery content will be implemented later while keeping this CMS-ready shell in place.'])
     <section class="container section-spacing">

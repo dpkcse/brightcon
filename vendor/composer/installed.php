@@ -1,6 +1,6 @@
 <?php return array(
     'root' => array(
-        'name' => 'brightcon/construction-cms-foundation',
+        'name' => 'buildora/construction-cms',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
         'reference' => 'bc5e2ee8a04f9e640f20450cd935e30acd2cf66f',
@@ -19,7 +19,7 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'brightcon/construction-cms-foundation' => array(
+        'buildora/construction-cms' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
             'reference' => 'bc5e2ee8a04f9e640f20450cd935e30acd2cf66f',

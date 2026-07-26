@@ -1,7 +1,7 @@
 @php
     use App\Support\FrontendImage;
 
-    $companyName = $siteSettings?->company_name ?: config('app.name');
+    $companyName = $siteSettings?->company_name ?: config('cms.defaults.company_name') ?: config('cms.product.name', 'Buildora CMS');
     $defaultTitle = $siteSettings?->default_seo_title ?: trim($companyName.' | '.($siteSettings?->tagline ?: config('cms.defaults.tagline')));
     $title = trim($__env->yieldContent('title', $seo['title'] ?? $defaultTitle));
     $description = trim($__env->yieldContent('meta_description', $seo['description'] ?? ($siteSettings?->default_meta_description ?: ($siteSettings?->tagline ?: 'Construction and engineering services delivered with safety, quality, and professionalism.'))));
@@ -13,8 +13,10 @@
     $fallbackImage = FrontendImage::url($siteSettings?->open_graph_image_path) ?: FrontendImage::url($siteSettings?->logo) ?: FrontendImage::url($siteSettings?->favicon);
     $ogImage = $__env->yieldContent('og_image', $seo['og_image'] ?? $fallbackImage);
     $twitterImage = FrontendImage::url($siteSettings?->twitter_card_image_path) ?: $ogImage;
+    $favicon = FrontendImage::url($siteSettings?->favicon);
 @endphp
 <title>{{ $title }}</title>
+@if($favicon)<link rel="icon" href="{{ $favicon }}">@endif
 <meta name="description" content="{{ $description }}">
 @if(filled($siteSettings?->default_meta_keywords))<meta name="keywords" content="{{ $siteSettings->default_meta_keywords }}">@endif
 @if(filled($siteSettings?->search_console_verification))<meta name="google-site-verification" content="{{ $siteSettings->search_console_verification }}">@endif

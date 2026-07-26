@@ -1,5 +1,5 @@
 @extends('frontend.layouts.app')
-@php($companyName = $siteSettings?->company_name ?: config('app.name'))
+@php($companyName = $siteSettings?->company_name ?: config('cms.defaults.company_name') ?: config('cms.product.name'))
 @section('title', 'Equipment List | '.$companyName)
 @section('meta_description', 'Representative equipment capability list for construction and engineering works.')
 @section('content')

@@ -10,7 +10,7 @@
 @endphp
 <nav class="navbar navbar-expand-lg frontend-nav sticky-top" data-bs-theme="dark">
     <div class="container-xl">
-        <a class="navbar-brand d-lg-none" href="{{ route('home') }}">{{ $siteSettings?->company_name ?: config('app.name') }}</a>
+        <a class="navbar-brand d-lg-none" href="{{ route('home') }}">{{ $siteSettings?->company_name ?: config('cms.defaults.company_name') ?: config('cms.product.name') }}</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

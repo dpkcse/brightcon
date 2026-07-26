@@ -5,7 +5,7 @@
         <div class="row g-4 g-lg-5">
             <div class="col-lg-4">
                 <div class="mb-3">
-                    @if($siteSettings?->logo)<img src="{{ FrontendImage::url($siteSettings->logo) }}" alt="{{ $siteSettings?->company_name }}" class="footer-logo">@else<h5>{{ $siteSettings?->company_name ?: config('app.name') }}</h5>@endif
+                    @if($siteSettings?->logo)<img src="{{ FrontendImage::url($siteSettings->logo) }}" alt="{{ $siteSettings?->company_name }}" class="footer-logo">@else<h5>{{ $siteSettings?->company_name ?: config('cms.defaults.company_name') ?: config('cms.product.name') }}</h5>@endif
                 </div>
                 @if($siteSettings?->address)<p>{{ $siteSettings->address }}</p>@endif
                 @if($siteSettings?->phone)<p class="mb-1"><a href="tel:{{ $siteSettings->phone }}">{{ $siteSettings->phone }}</a></p>@endif

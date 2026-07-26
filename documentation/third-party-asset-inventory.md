@@ -17,3 +17,7 @@ No repository presence alone establishes commercial redistribution rights. The r
 | Copied frontend template/design | no license/provenance record found | **STATUS: UNVERIFIED — design provenance must be cleared before commercial release** |
 
 Seeded paths and tracked upload trees must be reviewed together: a path reference is not proof that the referenced binary is licensed. Phase A does not replace or alter any asset.
+
+## Phase C safe fallback decision
+
+No new binary logo, favicon, or placeholder was introduced. Empty logo/favicon states use text or omit the icon, while existing buyer-uploaded paths retain precedence. This text-based fallback is original project implementation and is approved for commercial distribution; it carries no third-party asset provenance claim. Repository favicon and upload binaries remain unverified and excluded from an approved commercial candidate until individually cleared.
