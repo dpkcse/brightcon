@@ -18,6 +18,9 @@ class CommercialReleaseAudit extends Command
 
     public function handle(): int
     {
+        // Artisan command instances may be reused by the test runner or an
+        // embedding process; findings from an earlier invocation must not leak.
+        $this->failures = 0;
         $root = realpath((string) ($this->option('path') ?: base_path()));
         if ($root === false || ! is_dir($root)) {
             $this->reportFail('release root', 'The requested release path does not exist.');
@@ -37,6 +40,7 @@ class CommercialReleaseAudit extends Command
         $this->checkDebugMode();
         $this->checkPackagingDecisions($root);
         $this->checkLicenseEnforcement($root);
+        $this->checkAcceptanceReports($root);
         $this->checkReleaseFoundation($root);
 
         if (! $this->option('no-git')) {
@@ -231,11 +235,45 @@ class CommercialReleaseAudit extends Command
         }
         $ignore = is_file($root.'/.gitignore') ? (string) file_get_contents($root.'/.gitignore') : '';
         str_contains($ignore, '/release/') ? $this->pass('release output', 'release directory is ignored') : $this->reportFail('release output', 'release directory is not ignored');
-        foreach (config('commercial_release.acceptance_reports', []) as $gate => $report) {
-            $data = is_file($root.'/'.$report) ? json_decode((string) file_get_contents($root.'/'.$report), true) : null;
-            ($data['status'] ?? null) === 'passed'
-                ? $this->pass("{$gate} acceptance", 'structured report passed')
-                : $this->warning("{$gate} acceptance", 'not passed; commercial approval remains blocked');
+    }
+
+    private function checkAcceptanceReports(string $root): void
+    {
+        foreach (config('commercial_release.acceptance_reports', []) as $gate => $definition) {
+            $definition = is_string($definition) ? ['path' => $definition, 'required' => ['schema_version', 'status']] : $definition;
+            $path = $definition['path'] ?? null;
+            if (! is_string($path) || ! is_file($root.'/'.$path)) {
+                $this->reportFail("{$gate} acceptance", 'structured report is missing');
+
+                continue;
+            }
+
+            try {
+                $data = json_decode((string) file_get_contents($root.'/'.$path), true, flags: JSON_THROW_ON_ERROR);
+            } catch (\JsonException) {
+                $this->reportFail("{$gate} acceptance", 'report is not valid JSON');
+
+                continue;
+            }
+            if (! is_array($data)) {
+                $this->reportFail("{$gate} acceptance", 'report root must be an object');
+
+                continue;
+            }
+            $missing = array_values(array_filter($definition['required'] ?? [], fn ($field) => ! array_key_exists($field, $data)));
+            if ($missing !== []) {
+                $this->reportFail("{$gate} acceptance", 'missing required fields: '.implode(', ', $missing));
+
+                continue;
+            }
+            $statusField = $definition['status_field'] ?? 'status';
+            $status = strtoupper((string) ($data[$statusField] ?? ''));
+            if ($status !== 'PASSED') {
+                $this->reportFail("{$gate} acceptance", 'status is '.($status ?: 'missing').'; commercial approval remains blocked');
+
+                continue;
+            }
+            $this->pass("{$gate} acceptance", 'structured report passed');
         }
     }
 

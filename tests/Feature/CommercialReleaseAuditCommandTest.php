@@ -17,6 +17,7 @@ class CommercialReleaseAuditCommandTest extends TestCase
         File::makeDirectory($this->fixture, 0755, true);
         config()->set('commercial_release.required_files', ['.env.example', 'THIRD-PARTY-LICENSES.md']);
         config()->set('commercial_release.unverified_assets', []);
+        config()->set('commercial_release.acceptance_reports', []);
         config()->set('commercial_release.forbidden_branding', [
             ['term' => 'BrightCon', 'severity' => 'fail'],
         ]);
@@ -121,6 +122,25 @@ class CommercialReleaseAuditCommandTest extends TestCase
 
         $this->assertSame(1, $this->audit());
         $this->assertStringContainsString('missing required file', Artisan::output());
+    }
+
+    public function test_acceptance_report_requires_valid_structured_contents_and_passed_status(): void
+    {
+        config()->set('commercial_release.acceptance_reports', [
+            'browser' => ['path' => 'acceptance/browser.json', 'required' => ['schema_version', 'status', 'widths']],
+        ]);
+        File::makeDirectory($this->fixture.'/acceptance');
+        File::put($this->fixture.'/acceptance/browser.json', '{"schema_version":1,"status":"pending"}');
+
+        $this->assertSame(1, $this->audit());
+        $this->assertStringContainsString('missing required fields: widths', Artisan::output());
+
+        File::put($this->fixture.'/acceptance/browser.json', '{"schema_version":1,"status":"BLOCKED","widths":[]}');
+        $this->assertSame(1, $this->audit());
+        $this->assertStringContainsString('commercial approval remains blocked', Artisan::output());
+
+        File::put($this->fixture.'/acceptance/browser.json', '{"schema_version":1,"status":"PASSED","widths":[360]}');
+        $this->assertSame(0, $this->audit());
     }
 
     private function audit(): int

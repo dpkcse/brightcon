@@ -56,5 +56,13 @@ return [
     ],
     'operational_license_providers' => ['offline'],
     'supported_license_providers' => ['offline'],
-    'acceptance_reports' => ['mysql' => 'documentation/acceptance/mysql.json', 'fresh_zip' => 'documentation/acceptance/fresh-zip.json'],
+    'acceptance_reports' => [
+        'mysql' => ['path' => 'documentation/acceptance/mysql.json', 'required' => ['schema_version', 'status', 'tested_at', 'database_product', 'database_version', 'scenarios']],
+        'fresh_zip' => ['path' => 'documentation/acceptance/fresh-zip.json', 'required' => ['schema_version', 'status', 'tested_at', 'archive_sha256', 'package_variant', 'inventory_verified']],
+        'asset_provenance' => ['path' => 'documentation/acceptance/asset-provenance.json', 'required' => ['schema_version', 'status', 'assets', 'owner_approved']],
+        'vendor_redistribution' => ['path' => 'documentation/acceptance/vendor-redistribution.json', 'required' => ['schema_version', 'status', 'shared_hosting_enabled', 'dependencies', 'owner_approved']],
+        'smtp' => ['path' => 'documentation/acceptance/smtp.json', 'required' => ['schema_version', 'status', 'sandbox', 'submission', 'reply', 'failure_handling']],
+        'browser' => ['path' => 'documentation/acceptance/browser.json', 'required' => ['schema_version', 'status', 'browser', 'widths', 'screenshots']],
+        'final_report' => ['path' => 'documentation/acceptance/final-commercial-acceptance.json', 'required' => ['schema_version', 'decision', 'product_version', 'source_commit', 'gates'], 'status_field' => 'decision'],
+    ],
 ];

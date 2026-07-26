@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "status": "BLOCKED",
+  "tested_at": null,
+  "browser": null,
+  "widths": [360, 390, 768, 1024, 1440, 1920],
+  "pages_tested": [],
+  "screenshots": [],
+  "accessibility": "NOT_RUN",
+  "blocking_issue": "No browser runtime is installed and no approved remote browser environment was supplied."
+}

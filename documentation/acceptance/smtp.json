@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "status": "BLOCKED",
+  "tested_at": null,
+  "sandbox": null,
+  "submission": "NOT_RUN",
+  "reply": "NOT_RUN",
+  "failure_handling": "NOT_RUN",
+  "demo_suppression": "AUTOMATED_TESTS_ONLY",
+  "blocking_issue": "No approved real SMTP sandbox or credentials are available in this environment."
+}

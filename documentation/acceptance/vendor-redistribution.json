@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "status": "BLOCKED",
+  "reviewed_at": null,
+  "shared_hosting_enabled": false,
+  "owner_approved": false,
+  "dependencies": [],
+  "blocking_issue": "Production dependency redistribution and notices have not received owner/legal approval.",
+  "required_action": "Generate and review the production-only dependency inventory, record every license/notice obligation, then obtain owner approval before enabling shared-hosting distribution."
+}

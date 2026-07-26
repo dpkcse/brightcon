@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "BLOCKED",
+  "reviewed_at": null,
+  "owner_approved": false,
+  "assets": [
+    {"path": "public/build", "status": "GENERATED BUILD ASSET — VERIFIED", "evidence": "Vite manifest and dependency notices"},
+    {"path": "public/favicon.ico", "status": "EXCLUDED", "evidence": "Excluded by release configuration pending provenance"},
+    {"path": "public/storage", "status": "EXCLUDED", "evidence": "Customer/runtime uploads excluded"},
+    {"path": "storage/app/public/uploads", "status": "EXCLUDED", "evidence": "Customer/runtime uploads excluded"},
+    {"path": "frontend design/template", "status": "UNVERIFIED", "evidence": null}
+  ],
+  "blocking_issue": "Owner has not approved the frontend design/template provenance.",
+  "required_action": "Owner must document provenance and approve the complete included-asset inventory."
+}
