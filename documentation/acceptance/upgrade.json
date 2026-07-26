@@ -1,16 +1,46 @@
 {
-  "schema_version": 1,
+  "environment": {
+    "operating_system": "Linux 6.12.13 x86_64 container",
+    "php_version": "8.5.7-dev",
+    "composer_version": "2.9.7",
+    "node_version": "24.15.0",
+    "npm_version": "11.4.2",
+    "database_engine": null,
+    "database_version": null,
+    "character_set": null,
+    "collation": null,
+    "web_server": null,
+    "https_domain": null,
+    "smtp_sandbox": null,
+    "browser": null,
+    "isolation": "No production environment, customer data, or production credentials were used."
+  },
+  "started_at": "2026-07-26T00:00:00Z",
+  "completed_at": "2026-07-26T00:00:00Z",
+  "evidence": [
+    "documentation/acceptance/phase-j-final-execution.md"
+  ],
+  "defects": [],
+  "fixes": [],
+  "retest": "Required after the blocking preconditions are supplied.",
+  "approver": null,
   "status": "BLOCKED",
   "tested_at": null,
   "baseline": null,
   "checks": {
-    "backup_restore": "NOT_RUN",
-    "environment_preserved": "NOT_RUN",
-    "uploads_preserved": "NOT_RUN",
-    "data_preserved": "NOT_RUN",
-    "license_state_preserved": "NOT_RUN",
-    "migrations": "NOT_RUN",
-    "smoke_test": "NOT_RUN"
+    "backup_restore": "BLOCKED",
+    "environment_preserved": "BLOCKED",
+    "uploads_preserved": "BLOCKED",
+    "data_preserved": "BLOCKED",
+    "license_state_preserved": "BLOCKED",
+    "migrations": "BLOCKED",
+    "smoke_test": "BLOCKED"
   },
-  "blocking_issue": "No approved prior-version baseline and disposable upgrade environment were provided."
+  "commands": [],
+  "result": "No owner-approved prior-version baseline or disposable database was provided; no upgrade command ran.",
+  "limitations": [
+    "Preservation checks cannot be inferred from current-version automated tests."
+  ],
+  "blocking_issue": "Approved prior-version baseline and database unavailable.",
+  "schema_version": 1
 }

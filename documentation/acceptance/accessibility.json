@@ -1,19 +1,52 @@
 {
-  "schema_version": 1,
+  "environment": {
+    "operating_system": "Linux 6.12.13 x86_64 container",
+    "php_version": "8.5.7-dev",
+    "composer_version": "2.9.7",
+    "node_version": "24.15.0",
+    "npm_version": "11.4.2",
+    "database_engine": null,
+    "database_version": null,
+    "character_set": null,
+    "collation": null,
+    "web_server": null,
+    "https_domain": null,
+    "smtp_sandbox": null,
+    "browser": null,
+    "isolation": "No production environment, customer data, or production credentials were used."
+  },
+  "started_at": "2026-07-26T00:00:00Z",
+  "completed_at": "2026-07-26T00:00:00Z",
+  "evidence": [
+    "documentation/acceptance/phase-j-final-execution.md"
+  ],
+  "defects": [],
+  "fixes": [],
+  "retest": "Required after the blocking preconditions are supplied.",
+  "approver": null,
   "status": "BLOCKED",
   "tested_at": null,
   "tools": [],
   "checks": {
-    "keyboard": "NOT_RUN",
-    "focus": "NOT_RUN",
-    "headings": "NOT_RUN",
-    "forms_and_errors": "NOT_RUN",
-    "alternative_text": "NOT_RUN",
-    "iframe_titles": "NOT_RUN",
-    "lightbox_focus": "NOT_RUN",
-    "contrast": "NOT_RUN",
-    "responsive_tables": "NOT_RUN"
+    "keyboard": "BLOCKED",
+    "focus": "BLOCKED",
+    "headings": "BLOCKED",
+    "forms_and_errors": "BLOCKED",
+    "alternative_text": "BLOCKED",
+    "iframe_titles": "BLOCKED",
+    "lightbox_focus": "BLOCKED",
+    "contrast": "BLOCKED",
+    "responsive_tables": "BLOCKED"
   },
-  "blocking_issue": "No real browser/accessibility runtime or manual acceptance evidence is available.",
-  "required_action": "Run automated and manual checks in an approved disposable browser environment at all required widths."
+  "commands": [
+    "command -v chromium",
+    "command -v firefox",
+    "command -v playwright"
+  ],
+  "result": "Browser-assisted and manual accessibility acceptance could not run.",
+  "limitations": [
+    "No claim of standards certification is made."
+  ],
+  "blocking_issue": "Actual browser and accessibility tooling unavailable.",
+  "schema_version": 1
 }
