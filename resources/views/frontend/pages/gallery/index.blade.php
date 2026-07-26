@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 @php use App\Support\FrontendImage; @endphp
-@php($companyName = $siteSettings?->company_name ?: config('app.name'))
+@php($companyName = $siteSettings?->company_name ?: config('cms.defaults.company_name') ?: config('cms.product.name'))
 @section('title', 'Gallery | '.$companyName)
 @section('meta_description', 'Browse construction site, project, and equipment gallery images.')
 

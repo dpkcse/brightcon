@@ -1,10 +1,10 @@
-# Commercial Readiness Audit
+# Buildora CMS Commercial Readiness Audit
 
 ## Phase status
 
-**Phase A — Repository Hygiene and Release Safety Foundation**
+**Historical Phase A — Repository Hygiene and Release Safety Foundation**
 
-Audit date: 2026-07-26. Approval status: **Phase A implemented; commercial distribution is not approved.** Later phases remain unimplemented and require explicit approval.
+Audit date: 2026-07-26. Approval status: **Phase A implemented; Phase C identity remediation recorded below; commercial distribution is not approved.** Later phases require explicit approval.
 
 ## Existing architecture and CMS modules
 
@@ -57,3 +57,7 @@ Risks are limited to packaging omissions, scanner false positives/negatives and 
 ## Approval status
 
 Phase A is ready for review. **Gumroad release approval is withheld** until the vendor-package strategy, upload/asset provenance, branding phase and final legal/release checklist are resolved. Do not begin later phases without approval.
+
+## Phase C identity remediation (current state)
+
+Runtime and active metadata now use Buildora CMS product defaults while preserving buyer-configured company identity. The hard-coded branding inventory above is retained as historical audit evidence, not a description of active runtime branding. Existing database rows and uploaded company assets are not rewritten. The final owner-approved `LICENSE`, upload/design provenance, and packaging decisions remain release blockers.

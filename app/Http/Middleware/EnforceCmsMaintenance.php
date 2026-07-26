@@ -13,7 +13,10 @@ class EnforceCmsMaintenance
     {
         $settings = app(SettingsRepositoryInterface::class);
         if ($settings->string('website_status', 'active') === 'maintenance') {
-            return response()->view('frontend.maintenance', ['message' => $settings->string('maintenance_message')], 503);
+            return response()->view('frontend.maintenance', [
+                'message' => $settings->string('maintenance_message'),
+                'companyName' => $settings->string('company_name') ?: config('cms.defaults.company_name'),
+            ], 503);
         }
 
         return $next($request);

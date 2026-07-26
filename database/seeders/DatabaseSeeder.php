@@ -23,13 +23,13 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        User::query()->firstOrCreate(
-            ['email' => 'admin@example.com'],
-            [
-                'name' => 'Local Admin',
-                'password' => Hash::make('password'),
-            ]
-        );
+        $adminPassword = env('CMS_ADMIN_PASSWORD');
+        if (filled($adminPassword)) {
+            User::query()->firstOrCreate(
+                ['email' => env('CMS_ADMIN_EMAIL', 'admin@example.com')],
+                ['name' => env('CMS_ADMIN_NAME', 'CMS Administrator'), 'password' => Hash::make($adminPassword), 'is_admin' => true]
+            );
+        }
 
         SiteSetting::query()->updateOrCreate(['id' => 1], [
             'company_name' => 'Premium Engineering & Construction Ltd.',

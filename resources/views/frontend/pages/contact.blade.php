@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 @php
-    $companyName = $siteSettings?->company_name ?: config('app.name');
+    $companyName = $siteSettings?->company_name ?: config('cms.defaults.company_name') ?: config('cms.product.name');
 @endphp
 @section('title', 'Contact | '.$companyName)
 @section('meta_description', 'Contact '.$companyName.' for construction and engineering inquiries.')

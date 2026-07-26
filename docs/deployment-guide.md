@@ -1,4 +1,4 @@
-# Production Deployment Guide
+# Buildora CMS Production Deployment Guide
 
 ## Pre-launch requirements
 - PHP 8.2 or newer with common Laravel extensions: BCMath, Ctype, cURL, DOM/XML, Fileinfo, JSON, Mbstring, OpenSSL, PDO MySQL, Tokenizer, and Zip.

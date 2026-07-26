@@ -25,7 +25,7 @@ class ContactMapTest extends TestCase
         $admin = User::create(['name' => 'Admin', 'email' => 'admin@example.com', 'password' => 'password', 'is_admin' => true]);
 
         $response = $this->actingAs($admin)->put(route('admin.settings.general.update'), [
-            'company_name' => 'BrightCon',
+            'company_name' => 'Example Construction',
             'show_contact_map' => '1',
             'google_map_embed_url' => '<iframe src="https://www.google.com/maps/embed?pb=test&amp;zoom=15" onload="alert(1)"></iframe><script>alert(2)</script>',
             'map_location_name' => 'Main Office',
@@ -60,7 +60,7 @@ class ContactMapTest extends TestCase
     public function test_contact_page_renders_map_directions_and_existing_company_content(): void
     {
         SiteSetting::create([
-            'company_name' => 'BrightCon HQ',
+            'company_name' => 'Example Construction HQ',
             'address' => 'Company address',
             'phone' => '+880123456',
             'email' => 'hello@example.com',
@@ -70,7 +70,7 @@ class ContactMapTest extends TestCase
             'map_latitude' => '23.8103',
             'map_longitude' => '90.4125',
         ]);
-        SocialLink::create(['platform' => 'LinkedIn', 'url' => 'https://linkedin.com/company/brightcon', 'status' => true]);
+        SocialLink::create(['platform' => 'LinkedIn', 'url' => 'https://linkedin.com/company/example', 'status' => true]);
 
         $this->get(route('contact.index'))
             ->assertOk()

@@ -3,7 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Login | BrightCon</title>
+    @php
+        $settings = app(\App\Contracts\SettingsRepositoryInterface::class);
+        $companyName = $settings->string('company_name') ?: config('cms.defaults.company_name');
+        $productName = $settings->string('product_name') ?: config('cms.product.name', 'Buildora CMS');
+        $companyLogo = $settings->string('logo');
+    @endphp
+    <title>Admin Login | {{ $companyName }}</title>
     @vite(['resources/css/app.css', 'resources/css/admin.css', 'resources/js/app.js'])
 </head>
 <body>
@@ -14,8 +20,10 @@
                 <div class="card border-0 shadow-sm">
                     <div class="card-body p-4 p-lg-5">
                         <div class="text-center mb-4">
-                            <div class="brand-mark h3">BrightCon Admin</div>
-                            <p class="text-muted mb-0">Sign in to the back office.</p>
+                            @if($companyLogo)<img src="{{ \App\Support\FrontendImage::url($companyLogo) }}" alt="{{ $companyName }}" class="frontend-logo mb-3">@endif
+                            <div class="brand-mark h3">{{ $companyName }}</div>
+                            <p class="text-muted mb-1">Website Administration</p>
+                            @if($settings->bool('show_powered_by', true))<p class="text-muted small mb-0">{{ $settings->string('powered_by_text') ?: 'Powered by '.$productName }}</p>@endif
                         </div>
                         <form method="POST" action="{{ route('admin.login.submit') }}">
                             @csrf
@@ -34,7 +42,7 @@
                         </form>
                     </div>
                 </div>
-                <p class="text-center text-muted small mt-3">Default local credentials are seeded for development only.</p>
+                <p class="text-center text-muted small mt-3">{{ config('cms.product.description') }}</p>
             </div>
         </div>
     </div>

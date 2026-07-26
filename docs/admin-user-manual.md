@@ -1,4 +1,4 @@
-# Admin User Manual
+# Buildora CMS Admin User Manual
 
 ## How to login
 1. Open `/admin/login`.
@@ -7,6 +7,9 @@
 
 ## Dashboard overview
 The dashboard shows counts for projects, services, gallery images, and contact messages. It also provides quick links to common CMS sections.
+
+## Product and company identity
+Buildora CMS is the protected product identity. The company identity belongs to the buyer and is configured independently. Product name/version are system values and are not edited on the general settings form.
 
 ## Company information
 Open **Settings > General Settings** to update company name, tagline, email, phone, address, copyright text, and developer credit.

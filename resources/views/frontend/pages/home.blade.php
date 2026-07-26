@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 
 @php
-    $companyName = $siteSettings?->company_name ?: config('app.name');
+    $companyName = $siteSettings?->company_name ?: config('cms.defaults.company_name') ?: config('cms.product.name');
     $homeTitle = 'Home | '.$companyName;
     $homeDescription = $siteSettings?->tagline ?: 'Construction and engineering services delivered with safety, quality, and professionalism.';
 @endphp

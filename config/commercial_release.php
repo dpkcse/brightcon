@@ -12,14 +12,22 @@ return [
         '.git', 'vendor', 'node_modules', 'storage/framework', 'storage/logs', 'bootstrap/cache',
     ],
     'excluded_content_files' => ['composer.lock', 'package-lock.json'],
+    'branding_excluded_files' => [
+        'config/commercial_release.php',
+        'tests/Feature/CommercialReleaseAuditCommandTest.php',
+        'documentation/commercial-readiness-audit.md',
+        'documentation/phase-b-settings-audit.md',
+        'documentation/phase-c-branding-audit.md',
+        'CHANGELOG.md',
+    ],
     'blocking_extensions' => [
         'log', 'sql', 'sqlite', 'sqlite3', 'db', 'dump', 'bak', 'backup', 'zip', 'tar', 'gz',
         'tgz', 'pem', 'key', 'p12', 'pfx',
     ],
     'forbidden_branding' => [
-        ['term' => 'BrightCon', 'severity' => 'warning'],
-        ['term' => 'Bright Construction', 'severity' => 'warning'],
-        ['term' => 'brightconeng.com', 'severity' => 'warning'],
+        ['term' => 'BrightCon', 'severity' => 'fail'],
+        ['term' => 'Bright Construction', 'severity' => 'fail'],
+        ['term' => 'brightconeng.com', 'severity' => 'fail'],
     ],
     'sensitive_content_rules' => [
         'credential assignment' => '/\b(?:password|secret|api[_-]?key|access[_-]?token|private[_-]?key)\s*[:=]\s*[\'\"][^\'\"]{4,}/i',

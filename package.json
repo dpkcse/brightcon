@@ -1,4 +1,6 @@
 {
+  "name": "buildora-cms",
+  "description": "Frontend assets for Buildora CMS",
   "private": true,
   "type": "module",
   "scripts": {

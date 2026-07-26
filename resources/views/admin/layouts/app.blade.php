@@ -2,7 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Admin Dashboard') | BrightCon</title>
+    @php
+        $settings = app(\App\Contracts\SettingsRepositoryInterface::class);
+        $companyName = $settings->string('company_name') ?: config('cms.defaults.company_name');
+        $companyShortName = $settings->string('company_short_name') ?: $companyName;
+        $productName = $settings->string('product_name') ?: config('cms.product.name', 'Buildora CMS');
+        $productVersion = $settings->string('installed_version') ?: $settings->string('product_version') ?: config('cms.product.version');
+    @endphp
+    <title>@yield('title', 'Admin Dashboard') | {{ $companyName }}</title>
     @vite(['resources/css/app.css', 'resources/css/admin.css', 'resources/js/app.js'])
 </head>
 <body>
@@ -16,7 +23,7 @@
         'Appearance' => [['Menu Items', route('admin.menu-items.index'), 'admin.menu-items.*'], ['Social Links', route('admin.social-links.index'), 'admin.social-links.*'], ['Footer Links', route('admin.footer-links.index'), 'admin.footer-links.*']],
     ])
     <aside class="admin-sidebar d-none d-lg-flex flex-column">
-        <div class="brand p-4 fw-bold fs-4">BrightCon Admin</div>
+        <div class="brand p-4 fw-bold fs-4">{{ $companyShortName }}<div class="small fw-normal">{{ $productName }}</div></div>
         <nav class="nav flex-column gap-1 p-3">
             @foreach($groups as $heading => $links)
                 <div class="sidebar-heading mt-3 mb-1">{{ $heading }}</div>
@@ -33,7 +40,7 @@
             <form method="POST" action="{{ route('admin.logout') }}">@csrf<button class="btn btn-primary-brand btn-sm" type="submit">Logout</button></form>
         </div>
         <main class="p-4">@include('admin.partials.alerts')@yield('content')</main>
-        <footer class="px-4 pb-3 small text-muted">Version {{ app(\App\Contracts\SettingsRepositoryInterface::class)->string('installed_version') ?: config('cms.product_version') }}</footer>
+        <footer class="px-4 pb-3 small text-muted">{{ $productName }} · Version {{ $productVersion }}</footer>
     </div>
 </div>
 </body>

@@ -123,7 +123,8 @@ class CommercialReleaseAudit extends Command
                     }
                 }
                 foreach (config('commercial_release.forbidden_branding', []) as $rule) {
-                    if (stripos($line, (string) $rule['term']) !== false) {
+                    if (! in_array($relative, config('commercial_release.branding_excluded_files', []), true)
+                        && stripos($line, (string) $rule['term']) !== false) {
                         $message = "$relative: line ".($index + 1).' (branding context redacted)';
                         ($rule['severity'] ?? 'warning') === 'fail' ? $this->reportFail('forbidden branding', $message) : $this->warning('forbidden branding', $message);
                     }
