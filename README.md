@@ -18,7 +18,7 @@ Copy `.env.example` to `.env`, generate an application key, and supply environme
 
 See `documentation/seed-modes.md` for clean and fictional demo seed commands, production acknowledgements, collision behavior, and administrator automation.
 
-See `docs/deployment-guide.md`, `docs/admin-user-manual.md`, and `docs/developer-notes.md`. Buildora CMS is proprietary software offered under the Buildora CMS Single Site License; it is not open-source software. The authoritative terms are in `LICENSE`, while buyer policies in `documentation/` summarize installation, handover, white-label, update, support, and refund rules. Commercial distribution remains blocked until legal placeholders, owner signature, and external acceptance gates are resolved.
+See `docs/deployment-guide.md`, `docs/admin-user-manual.md`, and `docs/developer-notes.md`. Buildora CMS is proprietary software licensed by Naxas Limited under the Buildora CMS Single Site License, effective 27 July 2026; it is not open-source software. The authoritative terms are in `LICENSE`, while buyer policies in `documentation/` summarize installation, handover, white-label, update, support, and refund rules. Legal and support enquiries may be sent to info.naxasltd@gmail.com. Commercial distribution remains blocked until the independent external and manual acceptance gates are resolved.
 
 ## Secure installation
 

@@ -34,6 +34,7 @@ class CommercialReleaseAudit extends Command
 
         $this->checkRequiredFiles($root);
         $this->checkFinalLicenseStatus($root);
+        $this->checkComposerLicense($root);
         $this->checkSensitiveFilenames($relativeFiles);
         $this->checkContent($files);
         $this->checkUnverifiedAssets($root);
@@ -102,19 +103,60 @@ class CommercialReleaseAudit extends Command
         }
 
         $license = (string) file_get_contents($root.'/LICENSE');
-        if (preg_match('/^OWNER-APPROVED FINAL LICENSE\h*$/m', $license) !== 1) {
+        $identity = config('commercial_release.license_identity');
+        if (preg_match('/^'.preg_quote($identity['status'], '/').'\h*$/m', $license) !== 1) {
             $this->reportFail('final license approval', 'LICENSE is not marked OWNER-APPROVED FINAL LICENSE');
 
             return;
         }
 
-        if (preg_match('/\[(?:OWNER|LEGAL)[^\]]*(?:MUST COMPLETE|TO COMPLETE)/i', $license) === 1) {
+        if (preg_match('/\[[^\]]*(?:placeholder|must complete|to complete)[^\]]*\]|TODO[^\r\n]*license/i', $license) === 1) {
             $this->reportFail('final license approval', 'LICENSE contains unresolved owner/legal placeholders');
 
             return;
         }
 
-        $this->pass('final license approval', 'owner-approved status and placeholder checks passed');
+        $required = [
+            'licensor name' => '/Licensor:\h*'.preg_quote($identity['licensor'], '/').'/i',
+            'registered address' => '/Registered address:\h*'.preg_quote($identity['address'], '/').'/i',
+            'legal contact' => '/License contact:\h*'.preg_quote($identity['contact'], '/').'/i',
+            'governing law' => '/governed by '.preg_quote(strtolower($identity['governing_law']), '/').'/i',
+            'jurisdiction' => '/'.preg_quote($identity['jurisdiction'], '/').'/i',
+            'effective date' => '/License version:[^\r\n]*Effective date:\h*'.preg_quote($identity['effective_date'], '/').'/i',
+            'authorized signatory' => '/Authorized signatory:\h*'.preg_quote($identity['signatory'], '/').'/i',
+            'approval date' => '/Approval date:\h*'.preg_quote($identity['approval_date'], '/').'/i',
+        ];
+        $normalizedLicense = preg_replace('/\s+/', ' ', $license);
+        foreach ($required as $field => $pattern) {
+            if (preg_match($pattern, $normalizedLicense) !== 1) {
+                $this->reportFail('final license approval', "LICENSE is missing approved {$field}");
+
+                return;
+            }
+        }
+
+        $draft = $root.'/LICENSE-DRAFT.md';
+        if (is_file($draft) && ! str_contains((string) file_get_contents($draft), 'SUPERSEDED — THE AUTHORITATIVE LICENSE IS THE ROOT LICENSE FILE')) {
+            $this->reportFail('draft license disposition', 'LICENSE-DRAFT.md is not prominently superseded');
+
+            return;
+        }
+
+        $this->pass('final license approval', 'owner-approved identity, status, sign-off, and placeholder checks passed');
+    }
+
+    private function checkComposerLicense(string $root): void
+    {
+        $path = $root.'/composer.json';
+        if (! is_file($path)) {
+            $this->reportFail('composer license', 'composer.json is missing');
+
+            return;
+        }
+        $composer = json_decode((string) file_get_contents($path), true);
+        ($composer['license'] ?? null) === 'proprietary'
+            ? $this->pass('composer license', 'proprietary')
+            : $this->reportFail('composer license', 'composer.json must declare proprietary licensing');
     }
 
     private function checkSensitiveFilenames(array $files): void

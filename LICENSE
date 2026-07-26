@@ -1,14 +1,13 @@
 BUILDORA CMS SINGLE SITE LICENSE
-LEGAL REVIEW REQUIRED — NOT APPROVED FOR COMMERCIAL RELEASE
-License version: 1.0-draft | Effective date: [OWNER MUST COMPLETE]
+OWNER-APPROVED FINAL LICENSE
+License version: 1.0 | Effective date: 27 July 2026
 
-IMPORTANT RELEASE NOTICE
-This document incorporates the commercial terms approved in principle by the product owner, but it is not approved for commercial release because the bracketed licensor, address, contact, governing-law, venue, and effective-date fields have not been completed or legally approved. The release must remain BLOCKED. No repository contributor may remove this notice or replace it with “OWNER-APPROVED FINAL LICENSE” without documented owner/legal approval.
-
-Licensor: [OWNER MUST COMPLETE LEGAL/LICENSOR ENTITY NAME]
-Registered address: [OWNER MUST COMPLETE REGISTERED ADDRESS]
-License contact: [OWNER MUST COMPLETE CONTACT EMAIL]
-Governing law and venue: [OWNER/LEGAL MUST COMPLETE JURISDICTION AND VENUE]
+Licensor: Naxas Limited
+Registered address: House # 04 (7th Floor), Main Road, Block F, Banasree, Rampura,
+Dhaka-1219, Bangladesh
+License contact: info.naxasltd@gmail.com
+Authorized signatory: Dipak Chakraborty
+Approval date: 27 July 2026
 
 1. DEFINITIONS
 “Buildora CMS” or “Software” means the proprietary Buildora CMS application, source code, documentation, and supplied files, excluding Third-Party Components. “Licensor” means the legal person identified above. “Buyer” means the person or entity that lawfully purchased this license. “Production Website” means the single live website serving its intended public or commercial purpose. “Production Domain” means its normalized registrable domain; the bare domain and its www subdomain (for example, example.com and www.example.com) are treated as one domain. “Non-Production Installation” means a copy used only for development, testing, backup, or deployment preparation. “End Client” means the one client receiving the completed Production Website. “Third-Party Components” means separately authored software or assets governed by their own notices or licenses. “Extended Support Add-on” means the optional support service described in section 10 and is not an extended software license.
@@ -69,7 +68,7 @@ TO THE MAXIMUM EXTENT PERMITTED BY LAW, BUILDORA CMS AND DOCUMENTATION ARE PROVI
 TO THE MAXIMUM EXTENT PERMITTED BY LAW, LICENSOR WILL NOT BE LIABLE FOR INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, PUNITIVE, OR CONSEQUENTIAL LOSS, OR LOSS OF PROFITS, REVENUE, BUSINESS, GOODWILL, DATA, OR USE. LICENSOR’S AGGREGATE LIABILITY ARISING FROM THIS LICENSE OR SOFTWARE WILL NOT EXCEED THE AMOUNT BUYER PAID FOR THE APPLICABLE SOFTWARE LICENSE DURING THE TWELVE MONTHS BEFORE THE EVENT GIVING RISE TO THE CLAIM. THESE LIMITS DO NOT APPLY WHERE LIABILITY CANNOT LEGALLY BE EXCLUDED OR LIMITED.
 
 19. GOVERNING LAW AND DISPUTES
-This License is governed by [OWNER/LEGAL MUST COMPLETE APPLICABLE LAW], without its conflict-of-law rules. The parties submit to [OWNER/LEGAL MUST COMPLETE COURTS/VENUE], except where mandatory law requires otherwise. This section is incomplete and blocks commercial approval.
+This License is governed by the laws of the People’s Republic of Bangladesh, without its conflict-of-law rules. The competent courts of Dhaka, Bangladesh shall have exclusive jurisdiction. Mandatory law remains unaffected where it requires otherwise.
 
 20. SEVERABILITY; WAIVER; ASSIGNMENT
 If a provision is unenforceable, it will be limited to the minimum extent necessary and the remainder stays effective. Failure to enforce is not a waiver. Buyer may not assign this License except through the section 5 completed-site handover. Licensor may assign it with the Software business, subject to applicable law.
@@ -80,5 +79,6 @@ This License, the applicable purchase description, and mandatory marketplace/pay
 22. AMENDMENTS AND LICENSE VERSIONS
 Licensor may publish a new license version for future purchases or releases. A new version does not retroactively reduce rights already granted for a lawfully acquired version unless Buyer expressly agrees or mandatory law requires it. Material amendments for an existing license require written agreement. Documentation corrections that do not change legal rights may be published without amendment. The applicable version must be included with the distributed package.
 
-END OF LEGAL-REVIEW DRAFT
-Owner approval record/signature/date: [MUST BE COMPLETED IN documentation/acceptance/owner-release-signoff.md]
+END OF LICENSE
+Owner-approved textual sign-off: Dipak Chakraborty
+Approval date: 27 July 2026

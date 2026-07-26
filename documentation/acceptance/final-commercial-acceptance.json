@@ -4,7 +4,7 @@
   "product_name": "Buildora CMS",
   "product_version": "1.0.0",
   "source_commit": "332ec2330124cb952d28f76e3146e0e0e97e5266",
-  "report_date": "2026-07-26",
+  "report_date": "2026-07-27",
   "environment": {
     "operating_system": "Ubuntu 24.04.4 LTS",
     "php_version": "8.5.7-dev",
@@ -32,8 +32,8 @@
   "package_variants_tested": [],
   "gates": {
     "license_approval": {
-      "status": "BLOCKED",
-      "evidence": "LICENSE contains owner-approved commercial terms but is marked LEGAL REVIEW REQUIRED because licensor identity, address, contact, governing law, venue, effective date, and signature remain unresolved."
+      "status": "PASSED",
+      "evidence": "The root LICENSE is marked OWNER-APPROVED FINAL LICENSE and contains the Naxas Limited legal identity and owner-approved textual sign-off dated 27 July 2026."
     },
     "mysql": {
       "status": "BLOCKED",
@@ -61,7 +61,7 @@
     },
     "source_zip": {
       "status": "NOT_RUN",
-      "evidence": "No approved final LICENSE; release-candidate build acceptance remains pending."
+      "evidence": "License gate passed; release-candidate ZIP installation acceptance remains pending."
     },
     "shared_hosting_zip": {
       "status": "DISABLED",
@@ -69,7 +69,7 @@
     },
     "documentation_zip": {
       "status": "NOT_RUN",
-      "evidence": "Final LICENSE absent."
+      "evidence": "License gate passed; documentation ZIP inspection remains pending."
     },
     "manifest_inventory": {
       "status": "NOT_RUN",
@@ -109,7 +109,7 @@
     },
     "owner_signoff": {
       "status": "BLOCKED",
-      "evidence": "owner-release-signoff.md remains unsigned."
+      "evidence": "Legal identity and Single Site License principles are textually signed off; final release authorization remains blocked pending all other gates."
     }
   },
   "known_limitations": [
@@ -121,7 +121,6 @@
   "generated_packages": [],
   "package_checksums": {},
   "required_owner_actions": [
-    "Complete and legally approve the licensor identity, address, contact, governing law, venue, and effective date in LICENSE; then record owner approval without auto-signing.",
     "Approve complete asset provenance.",
     "Approve production dependency redistribution or retain source-only distribution.",
     "Provide or approve isolated MySQL/MariaDB, SMTP sandbox, and browser acceptance environments.",
