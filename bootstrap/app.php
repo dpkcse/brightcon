@@ -4,8 +4,8 @@ use App\Contracts\InstallationStateInterface;
 use App\Http\Middleware\EnforceCmsMaintenance;
 use App\Http\Middleware\EnsureApplicationInstalled;
 use App\Http\Middleware\EnsureApplicationNotInstalled;
+use App\Http\Middleware\EnsureLicenseEntitlement;
 use App\Http\Middleware\EnsureUserIsAdmin;
-use App\Http\Middleware\RequireValidLicense;
 use App\Providers\FrontendViewServiceProvider;
 use App\Providers\LicensingServiceProvider;
 use App\Services\Installation\InstallationStateService;
@@ -48,7 +48,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withBindings([InstallationStateInterface::class => InstallationStateService::class])
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->redirectGuestsTo(fn () => route('admin.login'));
-        $middleware->alias(['admin' => EnsureUserIsAdmin::class, 'cms.maintenance' => EnforceCmsMaintenance::class, 'cms.installed' => EnsureApplicationInstalled::class, 'install.open' => EnsureApplicationNotInstalled::class, 'license.valid' => RequireValidLicense::class]);
+        $middleware->alias(['admin' => EnsureUserIsAdmin::class, 'cms.maintenance' => EnforceCmsMaintenance::class, 'cms.installed' => EnsureApplicationInstalled::class, 'install.open' => EnsureApplicationNotInstalled::class, 'license.entitlement' => EnsureLicenseEntitlement::class]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

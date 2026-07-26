@@ -9,7 +9,7 @@ use App\Http\Controllers\Frontend\ServiceController;
 use App\Http\Controllers\Frontend\SitemapController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['cms.installed', 'license.valid'])->group(function (): void {
+Route::middleware('cms.installed')->group(function (): void {
     Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
     Route::get('/robots.txt', [RobotsController::class, 'index'])->name('robots');
 

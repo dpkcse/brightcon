@@ -26,8 +26,11 @@ final class OfflineSignedLicenseProvider implements LicenseProvider
     {
         $parts = explode('.', trim($request->credential));
         $publicKey = $this->decode((string) config('licensing.offline.public_key'));
-        if (count($parts) !== 2 || $publicKey === false || openssl_pkey_get_public($publicKey) === false) {
-            return $this->invalid('The offline license or verification key is malformed.');
+        if ($publicKey === false || openssl_pkey_get_public($publicKey) === false) {
+            return new LicenseDecision(LicenseStatus::ConfigurationMissing, reason: 'The offline public verification key is missing or invalid.');
+        }
+        if (count($parts) !== 2) {
+            return $this->invalid('The offline license is malformed.');
         }
 
         [$encodedPayload, $encodedSignature] = $parts;
@@ -44,12 +47,12 @@ final class OfflineSignedLicenseProvider implements LicenseProvider
         }
 
         if (! is_array($claims) || ! hash_equals($request->product, (string) ($claims['product'] ?? ''))) {
-            return $this->invalid('The offline license is for another product.');
+            return new LicenseDecision(LicenseStatus::WrongProduct, reason: 'The offline license is for another product.');
         }
 
         $hosts = $claims['hosts'] ?? [];
         if ($hosts !== [] && (! is_array($hosts) || array_filter($hosts, 'is_string') !== $hosts || ! in_array($this->normalizeHost($request->host), array_map([$this, 'normalizeHost'], $hosts), true))) {
-            return $this->invalid('The offline license is not valid for this host.');
+            return new LicenseDecision(LicenseStatus::DomainMismatch, reason: 'The offline license is not valid for this host.');
         }
 
         $expiresAt = isset($claims['expires_at']) ? DateTimeImmutable::createFromFormat(DateTimeImmutable::ATOM, (string) $claims['expires_at']) : null;

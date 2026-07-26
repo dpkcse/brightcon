@@ -5,7 +5,9 @@ namespace App\Licensing;
 use App\Enums\LicenseStatus;
 use App\Licensing\Data\ActivationRequest;
 use App\Licensing\Data\LicenseDecision;
+use App\Licensing\Exceptions\LicenseProviderException;
 use App\Models\LicenseActivation;
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -16,12 +18,13 @@ final class LicenseManager
     public function activate(string $provider, string $credential, string $host): LicenseDecision
     {
         $installationId = $this->installationId();
-        $decision = $this->providers->provider($provider)->activate(new ActivationRequest(
-            $credential,
-            $installationId,
-            $host,
-            (string) config('licensing.product_id'),
-        ));
+        try {
+            $decision = $this->providers->provider($provider)->activate(new ActivationRequest(
+                $credential, $installationId, $host, (string) config('licensing.product_id'),
+            ));
+        } catch (LicenseProviderException) {
+            return new LicenseDecision(LicenseStatus::AdapterUnavailable, reason: 'The selected license provider is unavailable.');
+        }
 
         DB::transaction(function () use ($provider, $credential, $host, $installationId, $decision): void {
             LicenseActivation::query()->updateOrCreate(
@@ -54,6 +57,28 @@ final class LicenseManager
         return $activation !== null
             && $activation->status === LicenseStatus::Active
             && ($activation->expires_at === null || $activation->expires_at->isFuture());
+    }
+
+    public function status(): LicenseStatus
+    {
+        $activation = $this->current();
+        if ($activation === null) {
+            $configured = (string) config('licensing.default_provider');
+            $definition = config("licensing.providers.{$configured}");
+
+            return is_array($definition) && ! ($definition['operational'] ?? false)
+                ? LicenseStatus::AdapterUnavailable : LicenseStatus::Inactive;
+        }
+
+        try {
+            // Force encrypted metadata recovery to be checked without changing it.
+            $activation->provider_data;
+        } catch (DecryptException) {
+            return LicenseStatus::RecoveryRequired;
+        }
+
+        return $activation->status === LicenseStatus::Active && $activation->expires_at?->isPast()
+            ? LicenseStatus::Expired : $activation->status;
     }
 
     public function installationId(): string
