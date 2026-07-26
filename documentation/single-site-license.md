@@ -1,6 +1,6 @@
 # Buildora CMS Single Site License — buyer summary
 
-> **Release status: BLOCKED.** `LICENSE` is authoritative and still requires completion and owner/legal approval. This guide does not grant additional rights.
+> **License status: OWNER-APPROVED FINAL LICENSE.** Naxas Limited is the licensor; the license is effective 27 July 2026. `LICENSE` is authoritative, and this guide grants no additional rights. Overall commercial release readiness remains blocked by independent acceptance gates. Legal enquiries: info.naxasltd@gmail.com.
 
 One license covers one production website on one normalized production domain; the bare domain and `www` form count as one. It also permits localhost, loopback, local, `.test`, `.local`, and associated staging/development subdomains used only for development, testing, backup, or deployment preparation. They may not become separate commercial sites.
 

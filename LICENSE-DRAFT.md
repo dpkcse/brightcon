@@ -1,6 +1,6 @@
-# LICENSE DRAFT ARCHIVE — SUPERSEDED FOR DRAFTING, NOT OWNER-APPROVED
+# SUPERSEDED — THE AUTHORITATIVE LICENSE IS THE ROOT LICENSE FILE
 
-The owner-approved commercial terms have been incorporated into `LICENSE`, which is now the authoritative legal-review document. Because the licensor identity, address, contact, governing law, venue, effective date, and owner signature remain incomplete, `LICENSE` is explicitly **not approved for commercial release**. This archive grants no rights and must not be used instead of `LICENSE`.
+This historical drafting aid is non-operative, grants no rights, is excluded from buyer-facing packages, and must not be used instead of the owner-approved root `LICENSE`.
 
 ## Sections requiring owner and legal approval
 
@@ -15,4 +15,4 @@ The owner-approved commercial terms have been incorporated into `LICENSE`, which
 - Governing law, venue, severability, and complete agreement
 - Effective date, version, and acceptance mechanism
 
-The commercial audit must remain blocked until counsel completes the placeholders, the owner changes the `LICENSE` status only after approval, and the owner signs the release form.
+The root `LICENSE` alone contains the approved legal identity, effective date, and textual owner sign-off. Remaining non-license acceptance gates continue to control overall commercial release readiness.

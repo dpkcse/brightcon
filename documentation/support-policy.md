@@ -7,3 +7,5 @@ Personal installation, hosting administration, domain/DNS/SMTP configuration, cu
 ## Extended Support Add-on
 
 A separately purchased Extended Support Add-on lasts six months from purchase or activation. It provides reasonable assistance with confirmed Buildora CMS defects, official documentation, standard installation/configuration, and features in the purchased version. It excludes custom/new-feature development, server/domain/DNS/email administration, migration/data entry, redesign, extensive debugging of modified code, third-party failures, emergency response, and guaranteed resolution unless separately agreed in writing. Another support-period purchase may renew it. The add-on is not an Extended License. `LICENSE` controls.
+
+License metadata: Naxas Limited is the licensor; the owner-approved license is effective 27 July 2026. Legal and support contact: info.naxasltd@gmail.com. `LICENSE` controls.

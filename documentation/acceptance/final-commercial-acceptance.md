@@ -1,17 +1,17 @@
 # Phase I Final Commercial Acceptance Report
 
-**Decision: BLOCKED**  
-**Product:** Buildora CMS 1.0.0  
-**Report date:** 2026-07-26 UTC  
+**Decision: BLOCKED**
+**Product:** Buildora CMS 1.0.0
+**Report date:** 2026-07-27 UTC
 **Baseline source commit:** `332ec2330124cb952d28f76e3146e0e0e97e5266`
 
-The release is not commercially approved. This report deliberately does not substitute automated coverage for the required real MySQL/MariaDB, extracted-ZIP, SMTP, browser, accessibility, legal, provenance, redistribution, or owner acceptance.
+The release is not commercially approved. The legal license gate has passed, but this report deliberately does not substitute automated coverage for the required real MySQL/MariaDB, extracted-ZIP, SMTP, browser, accessibility, provenance, redistribution, or final owner release acceptance.
 
 ## Final gate matrix
 
 | Gate | Requirement | Environment | Current status | Evidence | Blocking issue | Required action | Retest | Owner approval |
 |---|---|---|---|---|---|---|---|---|
-| Final LICENSE | Approved operative commercial terms and aligned metadata/docs | Owner/legal | BLOCKED | `LICENSE` is a legal-review draft with unresolved identity/law placeholders | Legal completion and owner approval absent | Owner/legal completes placeholders, approves text, and changes status only after approval | Commercial audit and package rebuild | Required |
+| Final LICENSE | Approved operative commercial terms and aligned metadata/docs | Owner/legal | PASSED | Root `LICENSE` has the owner-approved Naxas Limited identity and textual sign-off dated 27 July 2026 | None for this gate | Preserve exact metadata and authoritative status | Commercial audit | Approved |
 | MySQL/MariaDB | Five isolated databases and lifecycle evidence | Real isolated DB | BLOCKED | Connection to local MySQL refused; `pdo_mysql` present | Server unavailable | Provision clean isolated DBs and record engine/version/charset/collation | All install/adoption/recovery scenarios | Required review |
 | Clean web install | Extracted package, empty DB, 21 checks, screenshots/HTTP | Real DB + web server | NOT RUN | None | DB/web runtime absent | Execute checklist without production data | Required | Review |
 | Demo web install | Separate DB, safe deterministic demo | Real DB + web server | NOT RUN | Automated suite only | External environment absent | Execute checklist and capture evidence | Required | Review |
@@ -31,7 +31,7 @@ The release is not commercially approved. This report deliberately does not subs
 | Production mode | Cache and smoke checks after installation | Installed RC | NOT RUN | None | Installation unavailable | Run with production environment after install | Required | Review |
 | Manual upgrade | Preserve environment/uploads/data/license | Prior baseline clone | NOT RUN | None | Upgrade fixture not provisioned | Execute documented non-destructive upgrade | Required | Review |
 | Final report | Structured decision must be PASSED | All gates | BLOCKED | This JSON/Markdown pair | Mandatory gates pending | Update evidence only after real acceptance | Commercial audit | Required |
-| Owner sign-off | Explicit signature/date and commercial decisions | Owner | BLOCKED | Unsigned form | Owner action | Sign only after all gates pass | Final verification | Required |
+| Owner sign-off | Legal sign-off plus final release decisions | Owner | BLOCKED | Legal identity and license principles are textually signed off | Unrelated release gates and final upload authorization remain pending | Review all remaining evidence before final release authorization | Final verification | Legal portion approved; final release pending |
 
 ## Acceptance audit and results
 
@@ -55,7 +55,6 @@ There is no automatic updater; only offline licensing is operational. External a
 
 ## Owner actions still required
 
-1. Complete licensor identity, address, contact, governing law, venue, and effective date; obtain legal approval of `LICENSE`; then record owner approval of the Single Site terms and policies.
-2. Approve asset provenance and vendor redistribution (or explicitly approve source-only distribution).
-3. Provide/approve isolated database, sandbox SMTP, and browser environments.
-4. Review resulting evidence and explicitly sign `owner-release-signoff.md`.
+1. Approve asset provenance and vendor redistribution (or explicitly approve source-only distribution).
+2. Provide/approve isolated database, sandbox SMTP, and browser environments.
+3. Review the resulting evidence and explicitly authorize the final marketplace upload.

@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file. The format 
 - Generic product identity foundation.
 
 ### Changed
+- Applied the Naxas Limited owner-approved legal identity, effective date, jurisdiction, and textual sign-off to the final Single Site License and aligned buyer/release metadata without clearing independent acceptance gates.
 - Classified Composer package metadata as proprietary and made unresolved legal and external acceptance blockers explicit.
 - Removed blanket public and administrator license lockout; core website, content management and data-recovery access now remain available for all license states.
 - Repository identity changed from the legacy project-specific identity to Buildora CMS.
