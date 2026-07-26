@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class ThemeSetting extends Model
@@ -22,11 +21,13 @@ class ThemeSetting extends Model
         'button_radius',
         'section_spacing',
         'custom_css',
+        'accent_color', 'header_background_color', 'header_text_color',
+        'button_background_color', 'button_text_color', 'link_color', 'link_hover_color',
+        'card_border_radius', 'input_border_radius', 'header_logo_variant', 'custom_css_enabled',
     ];
 
     protected function casts(): array
     {
-        return [
-        ];
+        return ['custom_css_enabled' => 'boolean'];
     }
 }

@@ -15,18 +15,22 @@ class MenuItemController extends Controller
     public function index(): View
     {
         $items = MenuItem::query()->ordered()->paginate(15);
+
         return view('admin.pages.menu-items.index', compact('items'));
     }
 
     public function create(): View
     {
-        return view('admin.pages.menu-items.form', ['item' => new MenuItem()]);
+        return view('admin.pages.menu-items.form', ['item' => new MenuItem]);
     }
 
     public function store(StoreMenuItemRequest $request): RedirectResponse
     {
         MenuItem::create($this->payload($request->validated()));
         Cache::forget('menu_items_active_ordered');
+        Cache::forget(config('cms.cache.frontend'));
+        Cache::forget(config('cms.cache.header'));
+
         return redirect()->route('admin.menu-items.index')->with('success', 'Record created successfully.');
     }
 
@@ -39,6 +43,9 @@ class MenuItemController extends Controller
     {
         $menuItem->update($this->payload($request->validated()));
         Cache::forget('menu_items_active_ordered');
+        Cache::forget(config('cms.cache.frontend'));
+        Cache::forget(config('cms.cache.header'));
+
         return redirect()->route('admin.menu-items.index')->with('success', 'Record updated successfully.');
     }
 
@@ -46,6 +53,9 @@ class MenuItemController extends Controller
     {
         $menuItem->delete();
         Cache::forget('menu_items_active_ordered');
+        Cache::forget(config('cms.cache.frontend'));
+        Cache::forget(config('cms.cache.header'));
+
         return back()->with('success', 'Record deleted successfully.');
     }
 
@@ -53,6 +63,7 @@ class MenuItemController extends Controller
     {
         $data['status'] = (bool) ($data['status'] ?? false);
         $data['sort_order'] = (int) ($data['sort_order'] ?? 0);
+
         return $data;
     }
 }

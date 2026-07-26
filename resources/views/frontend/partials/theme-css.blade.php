@@ -1,11 +1,11 @@
 @php
     $theme = $themeSettings ?? null;
     $cssValue = fn ($value, $fallback) => e($value ?: $fallback);
-    $customCss = $theme?->custom_css ? preg_replace(['/\<\/?script\b[^>]*>/i', '/<\/?style\b[^>]*>/i'], '', $theme->custom_css) : null;
+    $customCss = $theme?->custom_css_enabled && \App\Support\CustomCssPolicy::isSafe($theme?->custom_css) ? $theme->custom_css : null;
 @endphp
 <style>
 :root {
-  --primary-color: {{ $cssValue($theme?->primary_color, '#d80d4c') }};
+  --primary-color: {{ $cssValue($theme?->primary_color, config('cms.defaults.primary_color')) }};
   --secondary-color: {{ $cssValue($theme?->secondary_color, '#ffffff') }};
   --footer-background-color: {{ $cssValue($theme?->footer_background_color, '#111827') }};
   --body-text-color: {{ $cssValue($theme?->body_text_color, '#374151') }};

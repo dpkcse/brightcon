@@ -15,18 +15,22 @@ class FooterLinkController extends Controller
     public function index(): View
     {
         $items = FooterLink::query()->ordered()->paginate(15);
+
         return view('admin.pages.footer-links.index', compact('items'));
     }
 
     public function create(): View
     {
-        return view('admin.pages.footer-links.form', ['item' => new FooterLink()]);
+        return view('admin.pages.footer-links.form', ['item' => new FooterLink]);
     }
 
     public function store(StoreFooterLinkRequest $request): RedirectResponse
     {
         FooterLink::create($this->payload($request->validated()));
         Cache::forget('footer_links_active_ordered');
+        Cache::forget(config('cms.cache.frontend'));
+        Cache::forget(config('cms.cache.footer'));
+
         return redirect()->route('admin.footer-links.index')->with('success', 'Record created successfully.');
     }
 
@@ -39,6 +43,9 @@ class FooterLinkController extends Controller
     {
         $footerLink->update($this->payload($request->validated()));
         Cache::forget('footer_links_active_ordered');
+        Cache::forget(config('cms.cache.frontend'));
+        Cache::forget(config('cms.cache.footer'));
+
         return redirect()->route('admin.footer-links.index')->with('success', 'Record updated successfully.');
     }
 
@@ -46,6 +53,9 @@ class FooterLinkController extends Controller
     {
         $footerLink->delete();
         Cache::forget('footer_links_active_ordered');
+        Cache::forget(config('cms.cache.frontend'));
+        Cache::forget(config('cms.cache.footer'));
+
         return back()->with('success', 'Record deleted successfully.');
     }
 
@@ -53,6 +63,7 @@ class FooterLinkController extends Controller
     {
         $data['status'] = (bool) ($data['status'] ?? false);
         $data['sort_order'] = (int) ($data['sort_order'] ?? 0);
+
         return $data;
     }
 }

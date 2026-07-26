@@ -15,7 +15,9 @@ class FileUploadService
 
         $newPath = $file->store($directory, 'public');
 
-        if ($newPath && $oldPath && $oldPath !== $newPath && Storage::disk('public')->exists($oldPath)) {
+        $ownedPrefix = trim($directory, '/').'/';
+        if ($newPath && $oldPath && str_starts_with($oldPath, $ownedPrefix)
+            && $oldPath !== $newPath && Storage::disk('public')->exists($oldPath)) {
             Storage::disk('public')->delete($oldPath);
         }
 

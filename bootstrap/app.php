@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Middleware\EnforceCmsMaintenance;
+use App\Http\Middleware\EnsureUserIsAdmin;
+use App\Providers\FrontendViewServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use App\Providers\FrontendViewServiceProvider;
 use Illuminate\Support\Facades\Route;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -20,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ])
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->redirectGuestsTo(fn () => route('admin.login'));
+        $middleware->alias(['admin' => EnsureUserIsAdmin::class, 'cms.maintenance' => EnforceCmsMaintenance::class]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

@@ -22,7 +22,7 @@ class ContactMapTest extends TestCase
 
     public function test_admin_can_save_iframe_as_only_a_trusted_embed_url(): void
     {
-        $admin = User::create(['name' => 'Admin', 'email' => 'admin@example.com', 'password' => 'password']);
+        $admin = User::create(['name' => 'Admin', 'email' => 'admin@example.com', 'password' => 'password', 'is_admin' => true]);
 
         $response = $this->actingAs($admin)->put(route('admin.settings.general.update'), [
             'company_name' => 'BrightCon',
@@ -44,7 +44,7 @@ class ContactMapTest extends TestCase
 
     public function test_admin_rejects_non_google_and_insecure_map_urls(): void
     {
-        $admin = User::create(['name' => 'Admin', 'email' => 'admin@example.com', 'password' => 'password']);
+        $admin = User::create(['name' => 'Admin', 'email' => 'admin@example.com', 'password' => 'password', 'is_admin' => true]);
 
         foreach (['https://evil.example/maps/embed', 'javascript:alert(1)', 'http://www.google.com/maps/embed?pb=test'] as $url) {
             $this->actingAs($admin)->put(route('admin.settings.general.update'), [
