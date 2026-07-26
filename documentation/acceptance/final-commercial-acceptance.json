@@ -3,31 +3,22 @@
   "decision": "BLOCKED",
   "product_name": "Buildora CMS",
   "product_version": "1.0.0",
-  "source_commit": "332ec2330124cb952d28f76e3146e0e0e97e5266",
-  "report_date": "2026-07-27",
+  "source_commit": "cf36f4c7f54fd10367ddfeef83ff0e29df88fce5",
+  "report_date": "2026-07-26",
   "environment": {
-    "operating_system": "Ubuntu 24.04.4 LTS",
+    "operating_system": "Linux 6.12.13 x86_64 container",
     "php_version": "8.5.7-dev",
     "laravel_version": "12.62.0",
+    "composer_version": "2.9.7",
+    "node_version": "24.15.0",
+    "npm_version": "11.4.2",
     "database_engine": null,
     "database_version": null,
     "character_set": null,
     "collation": null,
     "web_server": null,
-    "php_extensions": [
-      "ctype",
-      "curl",
-      "fileinfo",
-      "gd",
-      "json",
-      "mbstring",
-      "openssl",
-      "pdo",
-      "pdo_mysql",
-      "tokenizer",
-      "xml",
-      "zip"
-    ]
+    "smtp_sandbox": null,
+    "browser": null
   },
   "package_variants_tested": [],
   "gates": {
@@ -37,42 +28,42 @@
     },
     "mysql": {
       "status": "BLOCKED",
-      "evidence": "Local TCP connection refused; no isolated server available."
+      "evidence": "No MySQL/MariaDB executable or protected disposable database configuration was available."
     },
     "clean_web_installation": {
-      "status": "NOT_RUN",
+      "status": "BLOCKED",
       "evidence": null
     },
     "demo_web_installation": {
-      "status": "NOT_RUN",
+      "status": "BLOCKED",
       "evidence": null
     },
     "cli_installation": {
-      "status": "NOT_RUN",
+      "status": "BLOCKED",
       "evidence": null
     },
     "legacy_adoption": {
-      "status": "NOT_RUN",
+      "status": "BLOCKED",
       "evidence": null
     },
     "recovery": {
-      "status": "NOT_RUN",
+      "status": "BLOCKED",
       "evidence": null
     },
     "source_zip": {
-      "status": "NOT_RUN",
-      "evidence": "License gate passed; release-candidate ZIP installation acceptance remains pending."
+      "status": "BLOCKED",
+      "evidence": "Not built: release-candidate prerequisites remain blocked."
     },
     "shared_hosting_zip": {
-      "status": "DISABLED",
+      "status": "BLOCKED",
       "evidence": "Vendor redistribution approval absent."
     },
     "documentation_zip": {
-      "status": "NOT_RUN",
-      "evidence": "License gate passed; documentation ZIP inspection remains pending."
+      "status": "BLOCKED",
+      "evidence": "Not built: release-candidate prerequisites remain blocked."
     },
     "manifest_inventory": {
-      "status": "NOT_RUN",
+      "status": "BLOCKED",
       "evidence": null
     },
     "asset_provenance": {
@@ -96,15 +87,15 @@
       "evidence": "Browser-assisted acceptance not run."
     },
     "security": {
-      "status": "PARTIAL",
-      "evidence": "Automated suite and commercial audit run; package scans await generated accepted ZIPs."
+      "status": "BLOCKED",
+      "evidence": "Automated repository baseline only; no extracted package exists."
     },
     "production_mode": {
-      "status": "NOT_RUN",
+      "status": "BLOCKED",
       "evidence": null
     },
     "manual_upgrade": {
-      "status": "NOT_RUN",
+      "status": "BLOCKED",
       "evidence": null
     },
     "owner_signoff": {
@@ -125,5 +116,34 @@
     "Approve production dependency redistribution or retain source-only distribution.",
     "Provide or approve isolated MySQL/MariaDB, SMTP sandbox, and browser acceptance environments.",
     "Review and sign owner-release-signoff.md after all evidence passes."
-  ]
+  ],
+  "started_at": "2026-07-26T00:00:00Z",
+  "completed_at": "2026-07-26T00:00:00Z",
+  "evidence": [
+    "documentation/acceptance/phase-j-final-execution.md"
+  ],
+  "commands": [
+    "git status --short --branch",
+    "git rev-parse HEAD",
+    "php artisan route:list --json",
+    "php artisan test --compact",
+    "php artisan test --compact --filter='CommercialReleaseAuditCommandTest|ReleasePackagingTest|LicensingFoundationTest|PhaseHCmsTest'",
+    "composer validate --no-check-publish",
+    "npm ci",
+    "npm run build",
+    "php vendor/bin/pint --dirty",
+    "php artisan commercial:audit --no-ansi",
+    "git diff --check"
+  ],
+  "result": "BLOCKED: the legal gate passed, while the commercial audit correctly reported 10 blocking structured gates.",
+  "defects": [],
+  "fixes": [],
+  "retest": "Repeat Phase J after external environments, provenance, distribution decision, prior baseline, and final owner authorization are supplied.",
+  "limitations": [
+    "No database, web server, SMTP sandbox, or browser runtime was available.",
+    "No approved prior-version baseline was supplied.",
+    "No explicit owner distribution decision or final marketplace authorization was supplied.",
+    "No archive was eligible to be generated."
+  ],
+  "approver": null
 }

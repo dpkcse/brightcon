@@ -1,11 +1,53 @@
 {
-  "schema_version": 1,
+  "environment": {
+    "operating_system": "Linux 6.12.13 x86_64 container",
+    "php_version": "8.5.7-dev",
+    "composer_version": "2.9.7",
+    "node_version": "24.15.0",
+    "npm_version": "11.4.2",
+    "database_engine": null,
+    "database_version": null,
+    "character_set": null,
+    "collation": null,
+    "web_server": null,
+    "https_domain": null,
+    "smtp_sandbox": null,
+    "browser": null,
+    "isolation": "No production environment, customer data, or production credentials were used."
+  },
+  "started_at": "2026-07-26T00:00:00Z",
+  "completed_at": "2026-07-26T00:00:00Z",
+  "evidence": [
+    "documentation/acceptance/phase-j-final-execution.md"
+  ],
+  "defects": [],
+  "fixes": [],
+  "retest": "Required after the blocking preconditions are supplied.",
+  "approver": null,
   "status": "BLOCKED",
   "tested_at": null,
   "browser": null,
-  "widths": [360, 390, 768, 1024, 1440, 1920],
+  "widths": [
+    360,
+    390,
+    768,
+    1024,
+    1440,
+    1920
+  ],
   "pages_tested": [],
   "screenshots": [],
-  "accessibility": "NOT_RUN",
-  "blocking_issue": "No browser runtime is installed and no approved remote browser environment was supplied."
+  "accessibility": "BLOCKED",
+  "commands": [
+    "command -v chromium",
+    "command -v google-chrome",
+    "command -v firefox",
+    "command -v playwright"
+  ],
+  "result": "No actual browser or browser automation runtime was installed.",
+  "limitations": [
+    "No responsive screenshots or manual interaction evidence could be captured."
+  ],
+  "blocking_issue": "Browser runtime unavailable.",
+  "schema_version": 1
 }

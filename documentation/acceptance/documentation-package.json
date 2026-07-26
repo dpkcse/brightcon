@@ -24,21 +24,13 @@
   "fixes": [],
   "retest": "Required after the blocking preconditions are supplied.",
   "approver": null,
+  "schema_version": 1,
   "status": "BLOCKED",
-  "tested_at": null,
+  "archive": null,
   "archive_sha256": null,
-  "package_variant": null,
-  "extraction_audit": "BLOCKED",
-  "installation": "BLOCKED",
-  "login": "BLOCKED",
-  "public_admin_smoke": "BLOCKED",
-  "inventory_verified": "BLOCKED",
   "commands": [],
-  "result": "No release-candidate archive was built because mandatory external and owner-decision prerequisites remain blocked.",
+  "result": "Documentation release candidate was not built because release-candidate prerequisites and owner decisions remain blocked.",
   "limitations": [
-    "Archive filename, size, checksum, extraction, and installation evidence do not exist."
-  ],
-  "note": "Package generation was intentionally withheld under the release safety rules.",
-  "required_action": "Clear prerequisite gates, build a release_candidate archive, and accept the actual extraction.",
-  "schema_version": 1
+    "Contents, relative links, archive size, and checksum have not been inspected."
+  ]
 }
