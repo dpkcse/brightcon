@@ -3,11 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Models\User;
+use App\Services\Administration\AdminCreator;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rules\Password;
 
 class CreateAdminCommand extends Command
 {
@@ -19,7 +17,7 @@ class CreateAdminCommand extends Command
 
     protected $description = 'Create a CMS administrator using explicit, validated credentials';
 
-    public function handle(): int
+    public function handle(AdminCreator $creator): int
     {
         $interactive = $this->input->isInteractive();
         $name = $this->option('name') ?: ($interactive ? $this->ask('Administrator name') : null);
@@ -35,11 +33,7 @@ class CreateAdminCommand extends Command
             }
         }
 
-        $validator = Validator::make(compact('name', 'email', 'password'), [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email:rfc', 'max:255'],
-            'password' => ['required', Password::min(12)->mixedCase()->numbers()->symbols()],
-        ]);
+        $validator = Validator::make(compact('name', 'email', 'password'), AdminCreator::rules());
 
         if ($validator->fails()) {
             $this->error($validator->errors()->first());
@@ -67,12 +61,7 @@ class CreateAdminCommand extends Command
             return self::SUCCESS;
         }
 
-        DB::transaction(fn () => User::query()->create([
-            'name' => $name,
-            'email' => $email,
-            'password' => Hash::make($password),
-            'is_admin' => true,
-        ]));
+        $creator->create(compact('name', 'email', 'password'));
 
         $this->info('Administrator created successfully.');
 
