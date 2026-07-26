@@ -2,11 +2,24 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Support\GoogleMapsUrl;
+use Closure;
 use Illuminate\Foundation\Http\FormRequest;
 
 class GeneralSettingsRequest extends FormRequest
 {
-    public function authorize(): bool { return true; }
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'show_contact_map' => $this->boolean('show_contact_map'),
+            'google_map_embed_url' => GoogleMapsUrl::extractEmbedUrl($this->input('google_map_embed_url')),
+        ]);
+    }
 
     public function rules(): array
     {
@@ -24,6 +37,22 @@ class GeneralSettingsRequest extends FormRequest
             'copyright_text' => ['nullable', 'string', 'max:255'],
             'developer_name' => ['nullable', 'string', 'max:255'],
             'developer_link' => ['nullable', 'url', 'max:255'],
+            'show_contact_map' => ['required', 'boolean'],
+            'google_map_embed_url' => [
+                'nullable',
+                'url',
+                'max:2048',
+                function (string $attribute, mixed $value, Closure $fail): void {
+                    if (! GoogleMapsUrl::isTrustedEmbedUrl($value)) {
+                        $fail('The Google Maps embed URL must be an HTTPS URL hosted by Google Maps.');
+                    }
+                },
+            ],
+            'map_location_name' => ['nullable', 'string', 'max:255'],
+            'map_address' => ['nullable', 'string', 'max:500'],
+            'map_latitude' => ['nullable', 'numeric', 'between:-90,90'],
+            'map_longitude' => ['nullable', 'numeric', 'between:-180,180'],
+            'map_zoom' => ['nullable', 'integer', 'between:1,20'],
         ];
     }
 }

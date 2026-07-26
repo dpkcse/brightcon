@@ -10,5 +10,26 @@
 @foreach(['logo'=>'Logo','favicon'=>'Favicon','profile_pdf'=>'Profile PDF'] as $field=>$label)
 <div class="col-md-4"><label class="form-label">{{ $label }}</label><input type="file" class="form-control @error($field) is-invalid @enderror" name="{{ $field }}">@if($setting->$field)<div class="form-help mt-1">Current: <a href="{{ asset('storage/'.$setting->$field) }}" target="_blank">View file</a></div>@endif @error($field)<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
 @endforeach
+
+<div class="col-12"><hr class="my-3"><h2 class="h5 mb-1">Contact Map</h2><p class="text-muted mb-2">Configure the map shown with the company information on the Contact page.</p></div>
+<div class="col-12">
+    <div class="form-check form-switch">
+        <input type="hidden" name="show_contact_map" value="0">
+        <input class="form-check-input @error('show_contact_map') is-invalid @enderror" type="checkbox" role="switch" id="show_contact_map" name="show_contact_map" value="1" @checked(old('show_contact_map', $setting->show_contact_map))>
+        <label class="form-check-label fw-semibold" for="show_contact_map">Show Map on Contact Page</label>
+        @error('show_contact_map')<div class="invalid-feedback">{{ $message }}</div>@enderror
+    </div>
+</div>
+<div class="col-12">
+    <label class="form-label" for="google_map_embed_url">Google Maps Embed URL</label>
+    <textarea class="form-control @error('google_map_embed_url') is-invalid @enderror" id="google_map_embed_url" name="google_map_embed_url" rows="3" placeholder="https://www.google.com/maps/embed?...">{{ old('google_map_embed_url', $setting->google_map_embed_url) }}</textarea>
+    <div class="form-text">Google Maps → Search location → Share → Embed a map → Copy HTML or map URL. Complete iframe code is accepted; only its safe Google-hosted src URL will be saved.</div>
+    @error('google_map_embed_url')<div class="invalid-feedback">{{ $message }}</div>@enderror
+</div>
+<div class="col-md-6"><label class="form-label" for="map_location_name">Map Location Name</label><input class="form-control @error('map_location_name') is-invalid @enderror" id="map_location_name" name="map_location_name" value="{{ old('map_location_name', $setting->map_location_name) }}" maxlength="255">@error('map_location_name')<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
+<div class="col-md-6"><label class="form-label" for="map_address">Map Address</label><input class="form-control @error('map_address') is-invalid @enderror" id="map_address" name="map_address" value="{{ old('map_address', $setting->map_address) }}" maxlength="500">@error('map_address')<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
+<div class="col-md-4"><label class="form-label" for="map_latitude">Latitude <span class="text-muted fw-normal">(optional)</span></label><input class="form-control @error('map_latitude') is-invalid @enderror" type="number" step="any" min="-90" max="90" id="map_latitude" name="map_latitude" value="{{ old('map_latitude', $setting->map_latitude) }}">@error('map_latitude')<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
+<div class="col-md-4"><label class="form-label" for="map_longitude">Longitude <span class="text-muted fw-normal">(optional)</span></label><input class="form-control @error('map_longitude') is-invalid @enderror" type="number" step="any" min="-180" max="180" id="map_longitude" name="map_longitude" value="{{ old('map_longitude', $setting->map_longitude) }}">@error('map_longitude')<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
+<div class="col-md-4"><label class="form-label" for="map_zoom">Zoom Level <span class="text-muted fw-normal">(1–20)</span></label><input class="form-control @error('map_zoom') is-invalid @enderror" type="number" min="1" max="20" id="map_zoom" name="map_zoom" value="{{ old('map_zoom', $setting->map_zoom ?? 15) }}">@error('map_zoom')<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
 </div><div class="card-footer bg-white text-end"><button class="btn btn-primary-brand">Save Settings</button></div></form>
 @endsection

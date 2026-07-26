@@ -185,7 +185,11 @@ img { max-width: 100%; }
 .equipment-table td { padding: 1rem; vertical-align: middle; }
 .contact-panel a { color: var(--primary-color); font-weight: 700; text-decoration: none; }
 .social-pill { border: 1px solid #edf0f4; border-radius: 999px; padding: .45rem .9rem; }
-.map-placeholder { align-items: center; background: linear-gradient(135deg, #eef1f6, #d9dee8); border-radius: 1rem; color: #687386; display: flex; font-weight: 800; justify-content: center; min-height: 180px; padding: 1.5rem; text-align: center; }
+.contact-map { border: 1px solid #dfe4ec; border-radius: 1rem; height: 290px; overflow: hidden; width: 100%; }
+.contact-map iframe { border: 0; display: block; height: 100%; width: 100%; }
+.contact-map-fallback { align-items: flex-start; background: #f7f8fb; border: 1px solid #e2e7ee; border-radius: 1rem; color: #687386; display: flex; flex-direction: column; gap: .35rem; min-height: 120px; justify-content: center; padding: 1.5rem; }
+.contact-map-fallback strong { color: #263241; }
+.contact-map-section .btn { font-weight: 800; }
 .contact-form .form-control { border-color: #dfe4ec; min-height: 48px; }
 .contact-form textarea.form-control { min-height: 150px; }
 .contact-form .form-control:focus { border-color: var(--primary-color); box-shadow: 0 0 0 .2rem rgba(216,13,76,.14); }
@@ -360,6 +364,7 @@ body.gallery-lightbox-open { overflow: hidden; }
     .home-feature-text { font-size: 14.5px; }
     .filter-pills { gap: .6rem; }
     .filter-pills .btn { padding: .6rem .88rem; }
+    .contact-map { height: 260px; }
 }
 @media (max-width: 575.98px) {
     .content-card-title { font-size: 1.125rem; }
