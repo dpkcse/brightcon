@@ -26,7 +26,7 @@ Route::prefix('admin')->name('admin.')->middleware('cms.installed')->group(funct
         Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
     });
 
-    Route::middleware(['auth', 'admin'])->group(function (): void {
+    Route::middleware(['auth', 'admin', 'license.valid'])->group(function (): void {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/settings/general', [GeneralSettingsController::class, 'edit'])->name('settings.general.edit');
         Route::put('/settings/general', [GeneralSettingsController::class, 'update'])->name('settings.general.update');
