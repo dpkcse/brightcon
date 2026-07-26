@@ -37,6 +37,7 @@ class CommercialReleaseAudit extends Command
         $this->checkDebugMode();
         $this->checkPackagingDecisions($root);
         $this->checkLicenseEnforcement($root);
+        $this->checkReleaseFoundation($root);
 
         if (! $this->option('no-git')) {
             $this->checkGit($root);
@@ -212,6 +213,30 @@ class CommercialReleaseAudit extends Command
             ? $this->pass('offline verification key', 'configured')
             : $this->warning('offline verification key', 'missing; offline activation requires configuration');
         $this->warning('marketplace provider', 'No marketplace adapter is operational; no external verification was performed');
+    }
+
+    private function checkReleaseFoundation(string $root): void
+    {
+        if ($root !== realpath(base_path())) {
+            return;
+        }
+        is_file($root.'/app/Console/Commands/CmsReleaseCommand.php')
+            ? $this->pass('release builder', 'cms:release command exists')
+            : $this->reportFail('release builder', 'cms:release command is missing');
+        config('commercial_release.variants.source') && config('commercial_release.variants.shared_hosting') && config('commercial_release.variants.documentation')
+            ? $this->pass('release configuration', 'all package variants are configured')
+            : $this->reportFail('release configuration', 'package variant policy is incomplete');
+        foreach (['documentation/read-me-first.md', 'documentation/update-policy.md', 'documentation/support-policy-template.md'] as $document) {
+            is_file($root.'/'.$document) ? $this->pass('buyer documentation', $document) : $this->reportFail('buyer documentation', $document);
+        }
+        $ignore = is_file($root.'/.gitignore') ? (string) file_get_contents($root.'/.gitignore') : '';
+        str_contains($ignore, '/release/') ? $this->pass('release output', 'release directory is ignored') : $this->reportFail('release output', 'release directory is not ignored');
+        foreach (config('commercial_release.acceptance_reports', []) as $gate => $report) {
+            $data = is_file($root.'/'.$report) ? json_decode((string) file_get_contents($root.'/'.$report), true) : null;
+            ($data['status'] ?? null) === 'passed'
+                ? $this->pass("{$gate} acceptance", 'structured report passed')
+                : $this->warning("{$gate} acceptance", 'not passed; commercial approval remains blocked');
+        }
     }
 
     private function checkGit(string $root): void
