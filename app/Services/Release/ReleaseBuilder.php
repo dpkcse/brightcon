@@ -130,8 +130,13 @@ class ReleaseBuilder
         }
         if ($state === 'commercially_approved') {
             foreach (config('commercial_release.acceptance_reports') as $report) {
-                $data = is_file(base_path($report)) ? json_decode((string) file_get_contents(base_path($report)), true) : null;
-                if (($data['status'] ?? null) !== 'passed') {
+                $definition = is_string($report) ? ['path' => $report] : $report;
+                $path = $definition['path'] ?? null;
+                $data = is_string($path) && is_file(base_path($path))
+                    ? json_decode((string) file_get_contents(base_path($path)), true)
+                    : null;
+                $statusField = $definition['status_field'] ?? 'status';
+                if (strtoupper((string) ($data[$statusField] ?? '')) !== 'PASSED') {
                     throw new RuntimeException('Commercial approval requires structured passed acceptance reports.');
                 }
             }

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "status": "BLOCKED",
+  "tested_at": null,
+  "baseline": null,
+  "checks": {
+    "backup_restore": "NOT_RUN",
+    "environment_preserved": "NOT_RUN",
+    "uploads_preserved": "NOT_RUN",
+    "data_preserved": "NOT_RUN",
+    "license_state_preserved": "NOT_RUN",
+    "migrations": "NOT_RUN",
+    "smoke_test": "NOT_RUN"
+  },
+  "blocking_issue": "No approved prior-version baseline and disposable upgrade environment were provided."
+}

@@ -1,6 +1,6 @@
-# DRAFT COMMERCIAL LICENSE — NOT APPROVED OR OPERATIVE
+# LICENSE DRAFT ARCHIVE — SUPERSEDED FOR DRAFTING, NOT OWNER-APPROVED
 
-This file is a drafting checklist only. It does **not** grant any license, redistribution right, warranty, support entitlement, or other permission. Legal approval and an owner-issued final `LICENSE` are required before commercial distribution.
+The owner-approved commercial terms have been incorporated into `LICENSE`, which is now the authoritative legal-review document. Because the licensor identity, address, contact, governing law, venue, effective date, and owner signature remain incomplete, `LICENSE` is explicitly **not approved for commercial release**. This archive grants no rights and must not be used instead of `LICENSE`.
 
 ## Sections requiring owner and legal approval
 
@@ -15,4 +15,4 @@ This file is a drafting checklist only. It does **not** grant any license, redis
 - Governing law, venue, severability, and complete agreement
 - Effective date, version, and acceptance mechanism
 
-Until approved terms replace this draft in `LICENSE`, the commercial audit must remain blocked.
+The commercial audit must remain blocked until counsel completes the placeholders, the owner changes the `LICENSE` status only after approval, and the owner signs the release form.
