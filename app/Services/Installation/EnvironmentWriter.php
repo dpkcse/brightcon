@@ -22,7 +22,7 @@ class EnvironmentWriter
             if (! preg_match('/^[A-Z][A-Z0-9_]*$/', $key) || str_contains((string) $value, "\n") || str_contains((string) $value, "\r")) {
                 throw new InvalidArgumentException('An environment value is malformed.');
             }
-            $encoded = '"'.str_replace(['\\', '"'], ['\\\\', '\\"'], (string) $value).'"';
+            $encoded = $value === '' ? '' : '"'.str_replace(['\\', '"'], ['\\\\', '\\"'], (string) $value).'"';
             $line = $key.'='.$encoded;
             $pattern = '/^'.preg_quote($key, '/').'=.*$/m';
             $contents = preg_match($pattern, $contents) ? preg_replace($pattern, $line, $contents) : rtrim($contents).PHP_EOL.$line.PHP_EOL;

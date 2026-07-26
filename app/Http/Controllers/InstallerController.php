@@ -36,6 +36,7 @@ class InstallerController extends Controller
     public function review(Request $request): View
     {
         $safe = $request->validate($this->rules(false));
+        $safe['db_password'] = $safe['db_password'] ?? '';
         session(['installer.safe' => collect($safe)->except(['db_password', 'admin_password', 'admin_password_confirmation'])->all()]);
 
         return view('installer.review', ['summary' => session('installer.safe')]);
@@ -44,6 +45,7 @@ class InstallerController extends Controller
     public function process(Request $request, InstallationManager $manager): RedirectResponse
     {
         $input = $request->validate($this->rules(true));
+        $input['db_password'] = $input['db_password'] ?? '';
         abort_unless($request->boolean('confirm'), 422, 'Explicit confirmation is required.');
         try {
             $result = $manager->install($input, is_file(base_path('.env')) && $request->boolean('approve_env_update'));
@@ -65,6 +67,6 @@ class InstallerController extends Controller
 
     private function rules(bool $processing): array
     {
-        return ['app_name' => ['required', 'string', 'max:100'], 'app_url' => ['required', 'url:http,https', 'max:255'], 'db_host' => ['required', 'string', 'max:255'], 'db_port' => ['required', 'integer', 'between:1,65535'], 'db_name' => ['required', 'regex:/^[A-Za-z0-9_$-]+$/', 'max:64'], 'db_user' => ['required', 'string', 'max:128'], 'db_password' => ['required', 'string', 'max:1024'], 'admin_name' => ['required', 'string', 'max:255'], 'admin_email' => ['required', 'email:rfc', 'max:255'], 'admin_password' => ['required', 'confirmed', Password::min(12)->mixedCase()->numbers()->symbols()], 'seed' => ['required', 'in:clean,demo'], 'storage_link' => ['nullable', 'boolean'], 'approve_env_update' => ['nullable', 'boolean'], ...($processing ? ['confirm' => ['accepted']] : [])];
+        return ['app_name' => ['required', 'string', 'max:100'], 'app_url' => ['required', 'url:http,https', 'max:255'], 'db_host' => ['required', 'string', 'max:255'], 'db_port' => ['required', 'integer', 'between:1,65535'], 'db_name' => ['required', 'regex:/^[A-Za-z0-9_$-]+$/', 'max:64'], 'db_user' => ['required', 'string', 'max:128'], 'db_password' => ['nullable', 'string', 'max:1024'], 'admin_name' => ['required', 'string', 'max:255'], 'admin_email' => ['required', 'email:rfc', 'max:255'], 'admin_password' => ['required', 'confirmed', Password::min(12)->mixedCase()->numbers()->symbols()], 'seed' => ['required', 'in:clean,demo'], 'storage_link' => ['nullable', 'boolean'], 'approve_env_update' => ['nullable', 'boolean'], ...($processing ? ['confirm' => ['accepted']] : [])];
     }
 }
