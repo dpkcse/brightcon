@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "status": "BLOCKED",
+  "tested_at": null,
+  "tools": [],
+  "checks": {
+    "keyboard": "NOT_RUN",
+    "focus": "NOT_RUN",
+    "headings": "NOT_RUN",
+    "forms_and_errors": "NOT_RUN",
+    "alternative_text": "NOT_RUN",
+    "iframe_titles": "NOT_RUN",
+    "lightbox_focus": "NOT_RUN",
+    "contrast": "NOT_RUN",
+    "responsive_tables": "NOT_RUN"
+  },
+  "blocking_issue": "No real browser/accessibility runtime or manual acceptance evidence is available.",
+  "required_action": "Run automated and manual checks in an approved disposable browser environment at all required widths."
+}

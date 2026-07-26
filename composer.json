@@ -3,6 +3,7 @@
     "name": "buildora/construction-cms",
     "type": "project",
     "description": "Buildora CMS — Construction, Engineering and Corporate Website Management System.",
+    "license": "proprietary",
     "require": {
         "php": "^8.2",
         "laravel/framework": "^12.0",

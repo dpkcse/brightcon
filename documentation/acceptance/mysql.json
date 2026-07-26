@@ -1,17 +1,18 @@
 {
-    "schema_version": 1,
-    "status": "pending",
-    "tested_at": null,
-    "database_product": null,
-    "database_version": null,
-    "php_version": null,
-    "package_variant": "shared_hosting",
-    "scenarios": {
-        "clean_web": "pending",
-        "demo_web": "pending",
-        "cli": "pending",
-        "legacy_adoption": "pending",
-        "recovery": "pending"
-    },
-    "note": "A real isolated MySQL or MariaDB server has not yet been validated."
+  "schema_version": 1,
+  "status": "BLOCKED",
+  "tested_at": null,
+  "database_product": null,
+  "database_version": null,
+  "php_version": null,
+  "package_variant": "shared_hosting",
+  "scenarios": {
+    "clean_web": "pending",
+    "demo_web": "pending",
+    "cli": "pending",
+    "legacy_adoption": "pending",
+    "recovery": "pending"
+  },
+  "note": "A real isolated MySQL or MariaDB server has not yet been validated.",
+  "required_action": "Provision a disposable supported MySQL/MariaDB server and five isolated databases, then record engine/version/utf8mb4 collation and every scenario."
 }

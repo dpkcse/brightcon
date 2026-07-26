@@ -5,12 +5,15 @@ All notable changes to this project will be documented in this file. The format 
 ## [Unreleased]
 
 ### Added
+- Added the legal-review Buildora CMS Single Site License and aligned buyer policies for white-label use, client handover, updates, support, refunds, no-SaaS use, and offline activation.
+- Added final installation and recovery guidance plus an expanded unsigned owner release sign-off form.
 - Central named-action license policy, update-entitlement middleware, safe administrator notices, and offline recovery guidance.
 - Commercial release audit foundation.
 - Centralized settings service.
 - Generic product identity foundation.
 
 ### Changed
+- Classified Composer package metadata as proprietary and made unresolved legal and external acceptance blockers explicit.
 - Removed blanket public and administrator license lockout; core website, content management and data-recovery access now remain available for all license states.
 - Repository identity changed from the legacy project-specific identity to Buildora CMS.
 

@@ -1,3 +1,3 @@
-# Refund Policy Template — Owner/Legal Review Required
+# Refund policy template — superseded
 
-No refund terms are established by this repository. The owner must define jurisdiction-appropriate eligibility, request windows, evidence requirements, exclusions, delivery-platform handling, and contact method before commercial publication. This template is non-operative and must not be represented as final policy.
+This non-operative historical template is superseded by `refund-policy.md`. It grants no refund right or exclusion. The authoritative terms and mandatory-law/platform exception are in `LICENSE`, which remains blocked pending owner/legal completion and approval.

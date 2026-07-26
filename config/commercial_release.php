@@ -44,6 +44,9 @@ return [
         'documentation/leadership-or-partner-message-guide.md', 'documentation/testimonials-guide.md',
         'documentation/backup-and-recovery.md', 'documentation/installation-recovery.md', 'documentation/server-requirements.md',
         'documentation/security-recommendations.md', 'documentation/support-policy-template.md', 'documentation/refund-policy-template.md',
+        'documentation/single-site-license.md', 'documentation/white-label-policy.md', 'documentation/support-policy.md',
+        'documentation/refund-policy.md', 'documentation/client-handover-policy.md', 'documentation/no-saas-policy.md',
+        'documentation/license-activation.md',
     ],
     'asset_provenance' => [
         'approved' => ['public/build'],
@@ -63,6 +66,9 @@ return [
         'vendor_redistribution' => ['path' => 'documentation/acceptance/vendor-redistribution.json', 'required' => ['schema_version', 'status', 'shared_hosting_enabled', 'dependencies', 'owner_approved']],
         'smtp' => ['path' => 'documentation/acceptance/smtp.json', 'required' => ['schema_version', 'status', 'sandbox', 'submission', 'reply', 'failure_handling']],
         'browser' => ['path' => 'documentation/acceptance/browser.json', 'required' => ['schema_version', 'status', 'browser', 'widths', 'screenshots']],
+        'accessibility' => ['path' => 'documentation/acceptance/accessibility.json', 'required' => ['schema_version', 'status', 'tested_at', 'tools', 'checks']],
+        'upgrade' => ['path' => 'documentation/acceptance/upgrade.json', 'required' => ['schema_version', 'status', 'tested_at', 'baseline', 'checks']],
+        'security' => ['path' => 'documentation/acceptance/security.json', 'required' => ['schema_version', 'status', 'tested_at', 'source_scan', 'package_scans']],
         'final_report' => ['path' => 'documentation/acceptance/final-commercial-acceptance.json', 'required' => ['schema_version', 'decision', 'product_version', 'source_commit', 'gates'], 'status_field' => 'decision'],
     ],
 ];

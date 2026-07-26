@@ -1,0 +1,84 @@
+BUILDORA CMS SINGLE SITE LICENSE
+LEGAL REVIEW REQUIRED — NOT APPROVED FOR COMMERCIAL RELEASE
+License version: 1.0-draft | Effective date: [OWNER MUST COMPLETE]
+
+IMPORTANT RELEASE NOTICE
+This document incorporates the commercial terms approved in principle by the product owner, but it is not approved for commercial release because the bracketed licensor, address, contact, governing-law, venue, and effective-date fields have not been completed or legally approved. The release must remain BLOCKED. No repository contributor may remove this notice or replace it with “OWNER-APPROVED FINAL LICENSE” without documented owner/legal approval.
+
+Licensor: [OWNER MUST COMPLETE LEGAL/LICENSOR ENTITY NAME]
+Registered address: [OWNER MUST COMPLETE REGISTERED ADDRESS]
+License contact: [OWNER MUST COMPLETE CONTACT EMAIL]
+Governing law and venue: [OWNER/LEGAL MUST COMPLETE JURISDICTION AND VENUE]
+
+1. DEFINITIONS
+“Buildora CMS” or “Software” means the proprietary Buildora CMS application, source code, documentation, and supplied files, excluding Third-Party Components. “Licensor” means the legal person identified above. “Buyer” means the person or entity that lawfully purchased this license. “Production Website” means the single live website serving its intended public or commercial purpose. “Production Domain” means its normalized registrable domain; the bare domain and its www subdomain (for example, example.com and www.example.com) are treated as one domain. “Non-Production Installation” means a copy used only for development, testing, backup, or deployment preparation. “End Client” means the one client receiving the completed Production Website. “Third-Party Components” means separately authored software or assets governed by their own notices or licenses. “Extended Support Add-on” means the optional support service described in section 10 and is not an extended software license.
+
+2. ACCEPTANCE AND GRANT
+Subject to payment, lawful acquisition, and compliance with this License, Licensor grants Buyer a limited, non-exclusive, non-sublicensable, and non-transferable license to install, use, and modify Buildora CMS for one Production Website on one Production Domain. The sole transfer exception is the completed-site handover in section 5. No ownership, copyright, trademark, patent, or other intellectual-property interest is sold.
+
+3. SINGLE PRODUCTION DOMAIN
+One license permits one Production Website on one Production Domain. Buyer must not reuse it for a second website, domain, client project, or independent commercial deployment. Redirects or aliases do not create permission for another website. A license permanently assigned to a completed website remains assigned to that website/domain even after handover; Buyer may not retain or recycle it for another project.
+
+4. LOCAL AND STAGING RIGHTS
+Buyer may maintain localhost, 127.0.0.1, ::1, local-development, .test, and .local installations, and one or more development/staging subdomains associated with the licensed Production Website. Each must be used only for development, testing, backup, or deployment preparation, must not operate as a separate public commercial website, and must not bypass the one-Production-Domain limit. These installations do not replace or change the production binding.
+
+5. MODIFICATION AND END-CLIENT HANDOVER
+Buyer may modify PHP, Laravel, Blade, CSS, JavaScript, and database-related application code; customize modules, layouts, branding, logos, colors, and frontend design; add private features; and integrate third-party services for the licensed website. Buyer may hand the modified application to one End Client solely as part of the completed licensed Production Website. The End Client takes the site subject to this License, and the license stays permanently assigned to it. Buyer must provide this License and applicable third-party notices and must not retain a reusable production copy.
+
+6. PUBLIC-FACING WHITE-LABEL RIGHTS
+Buyer may remove public “Powered by Buildora CMS” attribution; display Buyer or End Client names, logos, colors, and copyright text; brand the public website; and use supported company branding on the administrator login and ordinary admin interface. These presentation rights do not allow Buyer to claim authorship or ownership of Buildora CMS, remove source copyright notices, this License, or required third-party notices, falsify protected identity in System Information, rename and resell the Software, remove licensing for redistribution, or operate prohibited SaaS. Protected product identity may remain in System Information, license information and management, diagnostics, source headers, release manifests, and third-party notices.
+
+7. PROHIBITED RESALE, DISCLOSURE, AND REDISTRIBUTION
+Buyer must not sell, sublicense, rent, lease, share, give away, publish, or redistribute the original or modified Software as a CMS, template, source code, standalone product, marketplace item, public repository, or part of another downloadable software package. Buyer must not upload the full source to a public Git repository; create and sell a competing CMS based substantially on Buildora CMS; extract and redistribute major modules as another commercial product; bypass verification to facilitate redistribution; or use one license for multiple client websites. Sharing is limited to personnel and contractors who need access to build or operate the licensed website and are bound by confidentiality and use restrictions at least as protective as these terms, and to the permitted End Client handover.
+
+8. NO SAAS OR MULTI-TENANT USE
+This License does not permit SaaS, multi-tenant software, a hosted website builder, subscription website platform, reseller platform, multi-customer CMS, white-label hosted CMS service, or any platform through which multiple customers manage separate websites. Such use requires a separately negotiated written SaaS or Extended Commercial License; no terms for either are granted here.
+
+9. UPDATES
+Buyer may access updates released for the purchased edition while Licensor continues to develop and publish them. No minimum frequency, future feature, perpetual development obligation, or fixed compatibility period is guaranteed. Access may require a valid license. Updates may be delivered through the original marketplace, a seller portal, or another authorized channel. There is currently no automatic updater; Buyer installs versioned packages using documented migration steps and is responsible for backups and merging modifications.
+
+10. SUPPORT AND EXTENDED SUPPORT ADD-ON
+Standard support is not included. The product includes its files, installation/administrator/configuration documentation, changelog, published security notices, and update access under section 9. It excludes personal installation, hosting/server administration, domain/DNS/SMTP configuration, custom development, content entry, redesign, migration, extensive debugging of Buyer-modified code, third-party service support, emergency service, and guaranteed response time.
+
+A separately purchased Extended Support Add-on lasts six months from its purchase or activation. It includes reasonable help with confirmed product defects, official documentation clarification, standard installation/configuration guidance, and included-version features. It excludes custom or new-feature development, hosting/server/domain/DNS/email administration, content migration/entry, redesign, extensive debugging of modified code, third-party failures, emergency response, and guaranteed resolution unless separately agreed in writing. It may be renewed by purchasing another support period. It is not an Extended License.
+
+11. REFUNDS
+Because Buildora CMS is downloadable source-code software, all sales are final once files are accessed, downloaded, delivered, or the license is activated. Refunds are not provided for change of mind; lack of technical knowledge; failure to review requirements; unsupported hosting/server environments; customization difficulty; Buyer-modified-code problems; third-party hosting, email, API, or service failure; unused purchases; or features not included in the product description.
+
+This policy does not limit any refund, remedy or mandatory consumer right that cannot legally be excluded under applicable law or the mandatory rules of the marketplace or payment platform through which the product was sold.
+
+12. OWNERSHIP AND BUYER MATERIALS
+Buildora CMS remains Licensor’s intellectual property. Source access does not transfer copyright ownership. Buyer-created content remains Buyer’s property. Ownership of Buyer-created custom code is governed by applicable agreements, but neither that code nor an agreement concerning it may grant rights to redistribute Buildora CMS core code. All rights not expressly granted are reserved.
+
+13. SOURCE CONFIDENTIALITY AND SECURITY
+Buyer must protect non-public source and license materials using reasonable administrative, technical, and access controls; restrict access to authorized personnel and contractors; use private repositories; avoid committing private signing keys, license credentials, secrets, or customer data; and promptly revoke unnecessary access. The RSA/SHA-256 private signing key is Licensor-only and must never be requested, distributed, embedded, or disclosed. Buyer must not defeat safeguards for prohibited use.
+
+14. ACTIVATION AND ENFORCEMENT
+The current operational provider verifies manual/offline RSA/SHA-256 signed licenses using only a distributed public verification key and binds one normalized Production Domain. License, installation, and demo states are independent. Missing or invalid licensing does not delete data; by default it does not disable the public website, ordinary admin content management, backup, or export. Update access and future premium entitlements may require a valid license, and warnings are administrator-only by default. Marketplace adapters are non-operational unless separately implemented and tested. These operational safeguards do not expand the license grant.
+
+15. THIRD-PARTY COMPONENTS
+Third-Party Components remain governed by their respective licenses and notices, including THIRD-PARTY-LICENSES.md. If a third-party term conflicts regarding that component, its term controls only that component. Buyer must preserve required notices. This License does not grant rights that a third-party licensor has not granted.
+
+16. TERMINATION AND EFFECT
+This License terminates automatically upon a material breach that is not cured within 14 days after written notice when cure is possible; deliberate redistribution, public source disclosure, license reuse, or prohibited SaaS use may be terminated immediately. On termination, Buyer must stop using Buildora CMS and delete all copies under its control, except legally required archival evidence inaccessible for operational use, and must ensure contractors do likewise. Accrued payment obligations and sections concerning ownership, confidentiality, restrictions, disclaimers, liability, termination effect, and dispute terms survive. Termination does not require or authorize Licensor to delete Buyer data.
+
+17. WARRANTY DISCLAIMER
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, BUILDORA CMS AND DOCUMENTATION ARE PROVIDED “AS IS” AND “AS AVAILABLE,” WITHOUT EXPRESS, IMPLIED, OR STATUTORY WARRANTIES, INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, NON-INFRINGEMENT, ERROR-FREE OPERATION, SECURITY, COMPATIBILITY, OR RESULTS. MANDATORY WARRANTIES THAT CANNOT BE EXCLUDED REMAIN UNAFFECTED.
+
+18. LIMITATION OF LIABILITY
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, LICENSOR WILL NOT BE LIABLE FOR INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, PUNITIVE, OR CONSEQUENTIAL LOSS, OR LOSS OF PROFITS, REVENUE, BUSINESS, GOODWILL, DATA, OR USE. LICENSOR’S AGGREGATE LIABILITY ARISING FROM THIS LICENSE OR SOFTWARE WILL NOT EXCEED THE AMOUNT BUYER PAID FOR THE APPLICABLE SOFTWARE LICENSE DURING THE TWELVE MONTHS BEFORE THE EVENT GIVING RISE TO THE CLAIM. THESE LIMITS DO NOT APPLY WHERE LIABILITY CANNOT LEGALLY BE EXCLUDED OR LIMITED.
+
+19. GOVERNING LAW AND DISPUTES
+This License is governed by [OWNER/LEGAL MUST COMPLETE APPLICABLE LAW], without its conflict-of-law rules. The parties submit to [OWNER/LEGAL MUST COMPLETE COURTS/VENUE], except where mandatory law requires otherwise. This section is incomplete and blocks commercial approval.
+
+20. SEVERABILITY; WAIVER; ASSIGNMENT
+If a provision is unenforceable, it will be limited to the minimum extent necessary and the remainder stays effective. Failure to enforce is not a waiver. Buyer may not assign this License except through the section 5 completed-site handover. Licensor may assign it with the Software business, subject to applicable law.
+
+21. ENTIRE AGREEMENT AND ORDER OF PRECEDENCE
+This License, the applicable purchase description, and mandatory marketplace/payment terms form the agreement concerning the Software and supersede prior statements on that subject. `LICENSE` is authoritative over buyer-guide summaries. Mandatory law and component-specific third-party licenses retain their required priority. Separate signed agreements control only to the extent they expressly amend this License.
+
+22. AMENDMENTS AND LICENSE VERSIONS
+Licensor may publish a new license version for future purchases or releases. A new version does not retroactively reduce rights already granted for a lawfully acquired version unless Buyer expressly agrees or mandatory law requires it. Material amendments for an existing license require written agreement. Documentation corrections that do not change legal rights may be published without amendment. The applicable version must be included with the distributed package.
+
+END OF LEGAL-REVIEW DRAFT
+Owner approval record/signature/date: [MUST BE COMPLETED IN documentation/acceptance/owner-release-signoff.md]

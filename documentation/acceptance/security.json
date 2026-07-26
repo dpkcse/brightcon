@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "status": "BLOCKED",
+  "tested_at": null,
+  "source_scan": "AUTOMATED_BASELINE_ONLY",
+  "package_scans": [],
+  "blocking_issue": "Commercially approved extracted packages do not exist, so final inventory, secret, runtime-data, and dependency scans cannot pass."
+}

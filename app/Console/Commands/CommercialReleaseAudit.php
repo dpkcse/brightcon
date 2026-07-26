@@ -33,6 +33,7 @@ class CommercialReleaseAudit extends Command
         $relativeFiles = array_keys($files);
 
         $this->checkRequiredFiles($root);
+        $this->checkFinalLicenseStatus($root);
         $this->checkSensitiveFilenames($relativeFiles);
         $this->checkContent($files);
         $this->checkUnverifiedAssets($root);
@@ -92,6 +93,28 @@ class CommercialReleaseAudit extends Command
         foreach (config('commercial_release.required_files', []) as $file) {
             is_file($root.'/'.$file) ? $this->pass('required file', $file) : $this->reportFail('missing required file', $file);
         }
+    }
+
+    private function checkFinalLicenseStatus(string $root): void
+    {
+        if (! in_array('LICENSE', config('commercial_release.required_files', []), true) || ! is_file($root.'/LICENSE')) {
+            return;
+        }
+
+        $license = (string) file_get_contents($root.'/LICENSE');
+        if (preg_match('/^OWNER-APPROVED FINAL LICENSE\h*$/m', $license) !== 1) {
+            $this->reportFail('final license approval', 'LICENSE is not marked OWNER-APPROVED FINAL LICENSE');
+
+            return;
+        }
+
+        if (preg_match('/\[(?:OWNER|LEGAL)[^\]]*(?:MUST COMPLETE|TO COMPLETE)/i', $license) === 1) {
+            $this->reportFail('final license approval', 'LICENSE contains unresolved owner/legal placeholders');
+
+            return;
+        }
+
+        $this->pass('final license approval', 'owner-approved status and placeholder checks passed');
     }
 
     private function checkSensitiveFilenames(array $files): void
@@ -230,7 +253,7 @@ class CommercialReleaseAudit extends Command
         config('commercial_release.variants.source') && config('commercial_release.variants.shared_hosting') && config('commercial_release.variants.documentation')
             ? $this->pass('release configuration', 'all package variants are configured')
             : $this->reportFail('release configuration', 'package variant policy is incomplete');
-        foreach (['documentation/read-me-first.md', 'documentation/update-policy.md', 'documentation/support-policy-template.md'] as $document) {
+        foreach (['documentation/read-me-first.md', 'documentation/single-site-license.md', 'documentation/update-policy.md', 'documentation/support-policy.md', 'documentation/refund-policy.md'] as $document) {
             is_file($root.'/'.$document) ? $this->pass('buyer documentation', $document) : $this->reportFail('buyer documentation', $document);
         }
         $ignore = is_file($root.'/.gitignore') ? (string) file_get_contents($root.'/.gitignore') : '';

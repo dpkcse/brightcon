@@ -124,6 +124,22 @@ class CommercialReleaseAuditCommandTest extends TestCase
         $this->assertStringContainsString('missing required file', Artisan::output());
     }
 
+    public function test_final_license_must_be_owner_approved_and_have_no_legal_placeholders(): void
+    {
+        config()->set('commercial_release.required_files', ['LICENSE']);
+        File::put($this->fixture.'/LICENSE', "LEGAL REVIEW REQUIRED — NOT APPROVED FOR COMMERCIAL RELEASE\n");
+
+        $this->assertSame(1, $this->audit());
+        $this->assertStringContainsString('not marked OWNER-APPROVED FINAL LICENSE', Artisan::output());
+
+        File::put($this->fixture.'/LICENSE', "OWNER-APPROVED FINAL LICENSE\nLicensor: [OWNER MUST COMPLETE]\n");
+        $this->assertSame(1, $this->audit());
+        $this->assertStringContainsString('unresolved owner/legal placeholders', Artisan::output());
+
+        File::put($this->fixture.'/LICENSE', "OWNER-APPROVED FINAL LICENSE\nLicensor: Buildora Example Entity\n");
+        $this->assertSame(0, $this->audit());
+    }
+
     public function test_acceptance_report_requires_valid_structured_contents_and_passed_status(): void
     {
         config()->set('commercial_release.acceptance_reports', [

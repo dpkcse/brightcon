@@ -1,6 +1,6 @@
 # Shared-hosting installation
 
-Point the domain document root to `public/`. Upload prebuilt `vendor/` and `public/build/` when Composer or Node is unavailable. Give PHP write access (not ownership changes or world-write permission) to `storage/`, its runtime subdirectories, `bootstrap/cache/`, and initially the project root if the web installer must create `.env`.
+Point the domain document root to `public/`. The commercially approved shared-hosting package is currently disabled because dependency redistribution has not been approved. Do not claim a no-Composer installation. Use the source package and run Composer/Node through the host or a compatible build environment unless a later release explicitly includes approved `vendor/` and `public/build/`. Give PHP write access (not ownership changes or world-write permission) to `storage/`, its runtime subdirectories, `bootstrap/cache/`, and initially the project root if the web installer must create `.env`.
 
 Create a MySQL/MariaDB database and user in cPanel/Plesk, visit `/install`, use an HTTPS `APP_URL`, and retain file cache/session, sync queue, and public filesystem defaults. Core pages need no queue worker or Supervisor and no cron. After setup, reduce `.env` write access.
 

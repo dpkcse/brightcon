@@ -11,16 +11,16 @@ The release is not commercially approved. This report deliberately does not subs
 
 | Gate | Requirement | Environment | Current status | Evidence | Blocking issue | Required action | Retest | Owner approval |
 |---|---|---|---|---|---|---|---|---|
-| Final LICENSE | Approved operative commercial terms and aligned metadata/docs | Owner/legal | BLOCKED | `LICENSE` absent; draft non-operative | Terms and legal approval not supplied | Owner/legal supplies final text and confirms every Phase I.1 term | Commercial audit and package rebuild | Required |
+| Final LICENSE | Approved operative commercial terms and aligned metadata/docs | Owner/legal | BLOCKED | `LICENSE` is a legal-review draft with unresolved identity/law placeholders | Legal completion and owner approval absent | Owner/legal completes placeholders, approves text, and changes status only after approval | Commercial audit and package rebuild | Required |
 | MySQL/MariaDB | Five isolated databases and lifecycle evidence | Real isolated DB | BLOCKED | Connection to local MySQL refused; `pdo_mysql` present | Server unavailable | Provision clean isolated DBs and record engine/version/charset/collation | All install/adoption/recovery scenarios | Required review |
 | Clean web install | Extracted package, empty DB, 21 checks, screenshots/HTTP | Real DB + web server | NOT RUN | None | DB/web runtime absent | Execute checklist without production data | Required | Review |
 | Demo web install | Separate DB, safe deterministic demo | Real DB + web server | NOT RUN | Automated suite only | External environment absent | Execute checklist and capture evidence | Required | Review |
 | CLI install | Interactive and controlled non-interactive install | Real DB + terminal | NOT RUN | Command exists; no real-DB run | DB absent | Test without recording secrets | Required | Review |
 | Legacy adoption | Non-destructive reconciliation | Prepared isolated legacy DB | NOT RUN | Automated coverage only | DB absent | Preview, confirm, hash/compare existing data | Required | Review |
 | Recovery | All listed failures remain non-destructive | Isolated disposable DB/filesystem | NOT RUN | Automated coverage only | Acceptance environment absent | Run each scenario independently | Required | Review |
-| Source ZIP | Extract, install dependencies/build/test/install | Clean extraction host | NOT RUN | No approved final ZIP | LICENSE and external gates pending | Build release candidate only, then accept extracted archive | Required | Review |
+| Source ZIP | Extract, install dependencies/build/test/install | Clean extraction host | NOT RUN | No approved final ZIP | LICENSE approval and external gates pending | Build release candidate only, then accept extracted archive | Required | Review |
 | Shared-hosting ZIP | Boot without Composer/Node; production vendor only | Clean hosting runtime | DISABLED | Redistribution report | Owner/legal vendor approval absent | Approve dependency inventory or retain source-only offering | Required if enabled | Required |
-| Documentation ZIP | Buyer-only, accurate, consistent, final license | Clean extraction | NOT RUN | Final license absent | Legal gate | Rebuild after approval and inspect | Required | Review |
+| Documentation ZIP | Buyer-only, accurate, consistent, final license | Clean extraction | NOT RUN | Final license not approved | Legal gate | Rebuild after approval and inspect | Required | Review |
 | Manifest/inventory | Archive/file hashes, counts, size, commit, no leaks | Extracted packages | NOT RUN | No accepted archives | ZIP gates pending | Verify sidecars and run release audit | Required | Review |
 | Asset provenance | Every included asset approved/verified/excluded | Repository + owner records | BLOCKED | `asset-provenance.json` | Frontend design provenance and owner approval pending | Complete evidence; keep uploads/favicon excluded unless cleared | Required | Required |
 | Vendor redistribution | Per-production-package license/notice decision | Isolated `--no-dev` tree | BLOCKED | `vendor-redistribution.json` | Inventory/owner legal decision pending | Review dependency set and notices | Required | Required |
@@ -55,7 +55,7 @@ There is no automatic updater; only offline licensing is operational. External a
 
 ## Owner actions still required
 
-1. Supply the approved final `LICENSE` and confirm license type, site/agency rights, redistribution, modification, support/update, refund, marketplace, attribution/white-label, offline behavior, jurisdiction, and liability positions.
+1. Complete licensor identity, address, contact, governing law, venue, and effective date; obtain legal approval of `LICENSE`; then record owner approval of the Single Site terms and policies.
 2. Approve asset provenance and vendor redistribution (or explicitly approve source-only distribution).
 3. Provide/approve isolated database, sandbox SMTP, and browser environments.
 4. Review resulting evidence and explicitly sign `owner-release-signoff.md`.
