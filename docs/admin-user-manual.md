@@ -67,3 +67,6 @@ Projects and services each have SEO title and SEO description fields. Keep title
 - Do not leave projects/services inactive if they should appear publicly.
 - Do not use unsafe links such as `javascript:`.
 - Always check mobile view after publishing content.
+
+## Phase H content
+Use Content → Custom Pages, Equipment, and Competencies for publication workflows. Appearance → Menu Items supports header/footer locations and one child level. Contact Messages supports unread/read/replied/archived states, internal notes, and safe replies. Partner Messages is the leadership module; no duplicate team module exists. See the dedicated `documentation/*-guide.md` files.

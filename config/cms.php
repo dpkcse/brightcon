@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'runtime_demo_mode' => (bool) env('CMS_RUNTIME_DEMO_MODE', false),
     'product' => [
         'name' => env('CMS_PRODUCT_NAME', 'Buildora CMS'),
         'short_name' => env('CMS_PRODUCT_SHORT_NAME', 'Buildora'),

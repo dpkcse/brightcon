@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Frontend\ContactController;
+use App\Http\Controllers\Frontend\CustomPageController;
 use App\Http\Controllers\Frontend\GalleryController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\ProjectController;
@@ -26,5 +27,6 @@ Route::middleware('cms.installed')->group(function (): void {
         Route::get('/competency', [PageController::class, 'competency'])->name('competency');
         Route::get('/equipment-list', [PageController::class, 'equipment'])->name('equipment.index');
         Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:5,1')->name('contact.store');
+        Route::get('/pages/{page}', [CustomPageController::class, 'show'])->name('pages.show');
     });
 });

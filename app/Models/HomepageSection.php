@@ -18,14 +18,14 @@ class HomepageSection extends Model
         'background_color',
         'background_image',
         'status',
-        'sort_order',
+        'sort_order', 'record_limit',
     ];
 
     protected function casts(): array
     {
         return [
-        'status' => 'boolean',
-        'sort_order' => 'integer',
+            'status' => 'boolean',
+            'sort_order' => 'integer', 'record_limit' => 'integer',
         ];
     }
 

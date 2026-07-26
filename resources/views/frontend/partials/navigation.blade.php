@@ -5,7 +5,8 @@
         ['label' => 'Competency', 'url' => url('/competency'), 'target' => '_self'], ['label' => 'Equipment List', 'url' => url('/equipment-list'), 'target' => '_self'],
         ['label' => 'Gallery', 'url' => url('/gallery'), 'target' => '_self'], ['label' => 'Contact', 'url' => url('/contact'), 'target' => '_self'],
     ]);
-    $items = $menuItems->isNotEmpty() ? $menuItems : $fallbackMenu;
+    $configured = $menuItems->where('menu_location','header')->whereNull('parent_id');
+    $items = $configured->isNotEmpty() ? $configured : $fallbackMenu;
     $normalize = fn ($path) => trim(parse_url($path, PHP_URL_PATH) ?: '/', '/');
 @endphp
 <nav class="navbar navbar-expand-lg frontend-nav sticky-top" data-bs-theme="dark">
@@ -18,13 +19,14 @@
             <ul class="navbar-nav gap-lg-1">
                 @foreach($items as $item)
                     @php
-                        $url = is_array($item) ? $item['url'] : $item->url;
+                        $url = is_array($item) ? $item['url'] : $item->resolvedUrl();
                         $label = is_array($item) ? $item['label'] : $item->label;
                         $target = in_array((is_array($item) ? $item['target'] : $item->target), ['_self', '_blank'], true) ? (is_array($item) ? $item['target'] : $item->target) : '_self';
                         $href = str_starts_with($url, 'http') || str_starts_with($url, '#') ? $url : url($url);
                         $active = $normalize(request()->path()) === $normalize($href) || (request()->is('/') && $normalize($href) === '');
                     @endphp
-                    <li class="nav-item"><a class="nav-link {{ $active ? 'active' : '' }}" href="{{ $href }}" target="{{ $target }}" @if($target === '_blank') rel="noopener" @endif>{{ $label }}</a></li>
+                    @php($children = is_array($item) ? collect() : $item->children->where('status',true))
+                    <li class="nav-item {{ $children->isNotEmpty() ? 'dropdown' : '' }}"><a class="nav-link {{ $active ? 'active' : '' }} {{ $children->isNotEmpty() ? 'dropdown-toggle' : '' }}" href="{{ $href }}" target="{{ $target }}" @if($children->isNotEmpty()) role="button" data-bs-toggle="dropdown" aria-expanded="false" @endif @if($target === '_blank') rel="noopener noreferrer" @endif>{{ $label }}</a>@if($children->isNotEmpty())<ul class="dropdown-menu">@foreach($children as $child)<li><a class="dropdown-item" href="{{ $child->resolvedUrl() }}" target="{{ $child->target }}" @if($child->target==='_blank') rel="noopener noreferrer" @endif>{{ $child->label }}</a></li>@endforeach</ul>@endif</li>
                 @endforeach
             </ul>
         </div>

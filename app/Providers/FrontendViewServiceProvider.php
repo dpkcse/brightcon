@@ -27,7 +27,7 @@ class FrontendViewServiceProvider extends ServiceProvider
             $view->with([
                 'siteSettings' => $settings->site(), 'themeSettings' => $settings->theme(),
                 'socialLinks' => $this->safeCollection('social_links', 'social_links_active_ordered', fn () => SocialLink::query()->active()->ordered()->get()),
-                'menuItems' => $this->safeCollection('menu_items', 'menu_items_active_ordered', fn () => MenuItem::query()->active()->ordered()->get()),
+                'menuItems' => $this->safeCollection('menu_items', 'menu_items_active_ordered', fn () => MenuItem::query()->with(['page', 'children.page'])->active()->ordered()->get()),
                 'footerLinks' => $this->safeCollection('footer_links', 'footer_links_active_ordered', fn () => FooterLink::query()->active()->ordered()->get()),
             ]);
         });
@@ -40,7 +40,7 @@ class FrontendViewServiceProvider extends ServiceProvider
                 return collect();
             }
 
-return Cache::rememberForever($key, $query);
+            return Cache::rememberForever($key, $query);
         } catch (QueryException $e) {
             if (preg_match('/(no such table|doesn.t exist|connection|unable to open database)/i', $e->getMessage())) {
                 return collect();

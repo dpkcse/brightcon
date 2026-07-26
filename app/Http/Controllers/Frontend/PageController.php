@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Competency;
+use App\Models\Equipment;
 use App\Models\FeatureItem;
 use App\Models\HomepageSection;
 use App\Models\Organization;
@@ -71,12 +73,16 @@ class PageController extends Controller
         $activeProjectsCount = Project::query()->active()->count();
         $activeServicesCount = Service::query()->active()->count();
 
-        return view('frontend.pages.competency', compact('servicesSection', 'activeProjectsCount', 'activeServicesCount'));
+        $competencies = Competency::query()->published()->ordered()->get();
+
+        return view('frontend.pages.competency', compact('servicesSection', 'activeProjectsCount', 'activeServicesCount', 'competencies'));
     }
 
     public function equipment(): View
     {
-        return view('frontend.pages.equipment-list');
+        $equipment = Equipment::query()->published()->ordered()->get();
+
+        return view('frontend.pages.equipment-list', compact('equipment'));
     }
 
     private function homepageSection(string $sectionKey, string $cacheKey): ?HomepageSection

@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\CompetencyController;
 use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\EquipmentController;
 use App\Http\Controllers\Admin\FeatureItemController;
 use App\Http\Controllers\Admin\FooterLinkController;
 use App\Http\Controllers\Admin\GalleryImageController;
@@ -10,6 +12,7 @@ use App\Http\Controllers\Admin\HomepageSectionController;
 use App\Http\Controllers\Admin\LicenseController;
 use App\Http\Controllers\Admin\MenuItemController;
 use App\Http\Controllers\Admin\OrganizationController;
+use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PartnerMessageController;
 use App\Http\Controllers\Admin\ProjectCategoryController;
 use App\Http\Controllers\Admin\ProjectController;
@@ -19,6 +22,7 @@ use App\Http\Controllers\Admin\Settings\ThemeSettingsController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SocialLinkController;
 use App\Http\Controllers\Admin\SystemInformationController;
+use App\Http\Controllers\Frontend\CustomPageController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->middleware('cms.installed')->group(function (): void {
@@ -47,6 +51,10 @@ Route::prefix('admin')->name('admin.')->middleware('cms.installed')->group(funct
         Route::resource('organizations', OrganizationController::class)->except(['show']);
         Route::resource('gallery-images', GalleryImageController::class)->parameters(['gallery-images' => 'galleryImage'])->except(['show']);
         Route::resource('partner-messages', PartnerMessageController::class)->parameters(['partner-messages' => 'partnerMessage'])->except(['show']);
+        Route::resource('pages', PageController::class)->except(['show']);
+        Route::get('pages/{page}/preview', [CustomPageController::class, 'preview'])->name('pages.preview');
+        Route::resource('equipment', EquipmentController::class)->except(['show']);
+        Route::resource('competencies', CompetencyController::class)->except(['show']);
         Route::get('/homepage-sections', [HomepageSectionController::class, 'index'])->name('homepage-sections.index');
         Route::get('/homepage-sections/{homepageSection}/edit', [HomepageSectionController::class, 'edit'])->name('homepage-sections.edit');
         Route::put('/homepage-sections/{homepageSection}', [HomepageSectionController::class, 'update'])->name('homepage-sections.update');
@@ -54,6 +62,8 @@ Route::prefix('admin')->name('admin.')->middleware('cms.installed')->group(funct
         Route::get('/contact-messages/{contactMessage}', [ContactMessageController::class, 'show'])->name('contact-messages.show');
         Route::patch('/contact-messages/{contactMessage}/mark-read', [ContactMessageController::class, 'markRead'])->name('contact-messages.mark-read');
         Route::patch('/contact-messages/{contactMessage}/mark-unread', [ContactMessageController::class, 'markUnread'])->name('contact-messages.mark-unread');
+        Route::patch('/contact-messages/{contactMessage}/status', [ContactMessageController::class, 'status'])->name('contact-messages.status');
+        Route::post('/contact-messages/{contactMessage}/reply', [ContactMessageController::class, 'reply'])->name('contact-messages.reply');
         Route::delete('/contact-messages/{contactMessage}', [ContactMessageController::class, 'destroy'])->name('contact-messages.destroy');
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     });

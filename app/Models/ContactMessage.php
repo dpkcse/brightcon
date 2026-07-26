@@ -15,13 +15,13 @@ class ContactMessage extends Model
         'message',
         'is_read',
         'ip_address',
-        'user_agent',
+        'user_agent', 'workflow_status', 'delivery_status', 'delivered_at', 'delivery_failure_code', 'replied_at', 'replied_by', 'internal_note', 'archived_at',
     ];
 
     protected function casts(): array
     {
         return [
-        'is_read' => 'boolean',
+            'is_read' => 'boolean', 'delivered_at' => 'datetime', 'replied_at' => 'datetime', 'archived_at' => 'datetime',
         ];
     }
 
