@@ -6,6 +6,8 @@
 /node_modules/
 
 /storage/*.key
+/storage/app/.installer-key
+/storage/app/.installation-partial
 /storage/logs/*
 !/storage/logs/.gitignore
 /storage/framework/cache/*
