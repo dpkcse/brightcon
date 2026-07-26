@@ -13,6 +13,13 @@ class EnsureApplicationNotInstalled
     {
         $state = app(InstallationStateService::class);
         if ($state->isInstalled()) {
+            if ($request->routeIs('install.complete') && $request->session()->has('installer.complete')) {
+                return $next($request);
+            }
+            if ($request->routeIs('install.process.redirect') && $request->session()->has('installer.complete')) {
+                return redirect()->route('install.complete');
+            }
+
             return redirect()->route('admin.login');
         }
         if (! $state->canRunInstaller()) {

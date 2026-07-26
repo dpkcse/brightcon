@@ -87,7 +87,8 @@ class InstallationFoundationTest extends TestCase
     public function test_review_response_and_session_exclude_secrets(): void
     {
         $payload = ['app_name' => 'Buildora CMS', 'app_url' => 'https://example.test', 'db_host' => 'localhost', 'db_port' => 3306, 'db_name' => 'buildora', 'db_user' => 'cms', 'db_password' => 'DatabaseSecret!1', 'admin_name' => 'Administrator', 'admin_email' => 'admin@example.test', 'admin_password' => 'LongAdminSecret!1', 'admin_password_confirmation' => 'LongAdminSecret!1', 'seed' => 'clean', 'storage_link' => 1];
-        $response = $this->post(route('install.review'), $payload)->assertOk()->assertDontSee('DatabaseSecret!1')->assertDontSee('LongAdminSecret!1');
+        $this->post(route('install.review.store'), $payload)->assertRedirect(route('install.review'));
+        $response = $this->get(route('install.review'))->assertOk()->assertDontSee('DatabaseSecret!1')->assertDontSee('LongAdminSecret!1');
         $this->assertArrayNotHasKey('db_password', session('installer.safe'));
         $this->assertArrayNotHasKey('admin_password', session('installer.safe'));
     }
@@ -100,8 +101,9 @@ class InstallationFoundationTest extends TestCase
             ->assertDontSee('name="db_password" autocomplete="new-password" required', false);
 
         $payload = $this->installerPayload('');
-        $this->post(route('install.review'), $payload)
-            ->assertOk()
+        $this->post(route('install.review.store'), $payload)
+            ->assertRedirect(route('install.review'));
+        $this->get(route('install.review'))->assertOk()
             ->assertDontSee('name="db_password" required', false)
             ->assertDontSee($payload['admin_password']);
 
@@ -132,11 +134,11 @@ class InstallationFoundationTest extends TestCase
         $payload['admin_password'] = '';
         $payload['admin_password_confirmation'] = '';
 
-        $this->post(route('install.review'), $payload)->assertSessionHasErrors('admin_password');
+        $this->post(route('install.review.store'), $payload)->assertSessionHasErrors('admin_password');
 
         $payload['admin_password'] = 'weak';
         $payload['admin_password_confirmation'] = 'weak';
-        $this->post(route('install.review'), $payload)->assertSessionHasErrors('admin_password');
+        $this->post(route('install.review.store'), $payload)->assertSessionHasErrors('admin_password');
     }
 
     public function test_installer_environment_writer_emits_an_unquoted_empty_value(): void

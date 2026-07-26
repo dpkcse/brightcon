@@ -7,6 +7,7 @@ use App\Http\Middleware\EnsureApplicationNotInstalled;
 use App\Http\Middleware\EnsureLicenseEntitlement;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Providers\FrontendViewServiceProvider;
+use App\Providers\InstallerServiceProvider;
 use App\Providers\LicensingServiceProvider;
 use App\Services\Installation\InstallationStateService;
 use Illuminate\Foundation\Application;
@@ -43,6 +44,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withProviders([
         FrontendViewServiceProvider::class,
+        InstallerServiceProvider::class,
         LicensingServiceProvider::class,
     ])
     ->withBindings([InstallationStateInterface::class => InstallationStateService::class])

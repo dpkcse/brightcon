@@ -11,9 +11,11 @@ Route::prefix('install')->name('install.')->middleware(['install.open', 'throttl
     Route::get('/application', [InstallerController::class, 'form'])->name('application');
     Route::get('/admin', [InstallerController::class, 'form'])->name('admin');
     Route::get('/data-mode', [InstallerController::class, 'form'])->name('data');
-    Route::post('/review', [InstallerController::class, 'review'])->name('review');
+    Route::post('/review', [InstallerController::class, 'review'])->name('review.store');
+    Route::get('/review', [InstallerController::class, 'reviewPage'])->name('review');
     Route::post('/summary', [InstallerController::class, 'review'])->name('summary');
     Route::get('/processing', fn () => redirect()->route('install.application'))->name('processing');
-    Route::post('/run', [InstallerController::class, 'process'])->middleware('throttle:3,10')->name('process');
+    Route::get('/run', [InstallerController::class, 'executionRedirect'])->name('process.redirect');
+    Route::post('/run', [InstallerController::class, 'process'])->middleware('throttle:installer.execution')->name('process');
     Route::get('/complete', [InstallerController::class, 'complete'])->name('complete');
 });
