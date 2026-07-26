@@ -5,7 +5,9 @@ use App\Http\Middleware\EnforceCmsMaintenance;
 use App\Http\Middleware\EnsureApplicationInstalled;
 use App\Http\Middleware\EnsureApplicationNotInstalled;
 use App\Http\Middleware\EnsureUserIsAdmin;
+use App\Http\Middleware\RequireValidLicense;
 use App\Providers\FrontendViewServiceProvider;
+use App\Providers\LicensingServiceProvider;
 use App\Services\Installation\InstallationStateService;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -41,11 +43,12 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withProviders([
         FrontendViewServiceProvider::class,
+        LicensingServiceProvider::class,
     ])
     ->withBindings([InstallationStateInterface::class => InstallationStateService::class])
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->redirectGuestsTo(fn () => route('admin.login'));
-        $middleware->alias(['admin' => EnsureUserIsAdmin::class, 'cms.maintenance' => EnforceCmsMaintenance::class, 'cms.installed' => EnsureApplicationInstalled::class, 'install.open' => EnsureApplicationNotInstalled::class]);
+        $middleware->alias(['admin' => EnsureUserIsAdmin::class, 'cms.maintenance' => EnforceCmsMaintenance::class, 'cms.installed' => EnsureApplicationInstalled::class, 'install.open' => EnsureApplicationNotInstalled::class, 'license.valid' => RequireValidLicense::class]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
