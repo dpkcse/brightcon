@@ -21,3 +21,10 @@ Seeded paths and tracked upload trees must be reviewed together: a path referenc
 ## Phase C safe fallback decision
 
 No new binary logo, favicon, or placeholder was introduced. Empty logo/favicon states use text or omit the icon, while existing buyer-uploaded paths retain precedence. This text-based fallback is original project implementation and is approved for commercial distribution; it carries no third-party asset provenance claim. Repository favicon and upload binaries remain unverified and excluded from an approved commercial candidate until individually cleared.
+
+# Phase D seeded-asset status
+
+No clean or demo seeder references a repository or uploaded binary asset. Sliders,
+services, projects, organizations, and the fictional partner message store null image
+fields and use text/code fallbacks. Gallery records are intentionally not seeded.
+The per-record decision is documented in `documentation/demo-asset-provenance.md`.
