@@ -37,7 +37,7 @@ class InstallationManager
             if (! $this->permissions->passes()) {
                 throw new RuntimeException('Required directories are not writable.');
             }
-            $db = ['driver' => 'mysql', 'host' => $input['db_host'], 'port' => $input['db_port'], 'database' => $input['db_name'], 'username' => $input['db_user'], 'password' => $input['db_password']];
+            $db = ['driver' => 'mysql', 'host' => $input['db_host'], 'port' => $input['db_port'], 'database' => $input['db_name'], 'username' => $input['db_user'], 'password' => (string) ($input['db_password'] ?? '')];
             $test = $this->database->test($db);
             if (! $test['passed']) {
                 throw new RuntimeException($test['message']);

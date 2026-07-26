@@ -13,7 +13,7 @@ class DatabaseConnectionTester
             return ['passed' => false, 'category' => 'unsupported_driver', 'message' => 'Only MySQL and MariaDB are supported.'];
         }
         $name = 'installer_probe';
-        config(["database.connections.$name" => ['driver' => 'mysql', 'host' => $credentials['host'], 'port' => $credentials['port'], 'database' => $credentials['database'], 'username' => $credentials['username'], 'password' => $credentials['password'], 'charset' => 'utf8mb4', 'collation' => 'utf8mb4_unicode_ci', 'prefix' => '', 'strict' => true, 'options' => [\PDO::ATTR_TIMEOUT => 5]]]);
+        config(["database.connections.$name" => ['driver' => 'mysql', 'host' => $credentials['host'], 'port' => $credentials['port'], 'database' => $credentials['database'], 'username' => $credentials['username'], 'password' => (string) ($credentials['password'] ?? ''), 'charset' => 'utf8mb4', 'collation' => 'utf8mb4_unicode_ci', 'prefix' => '', 'strict' => true, 'options' => [\PDO::ATTR_TIMEOUT => 5]]]);
         try {
             DB::connection($name)->getPdo();
 
