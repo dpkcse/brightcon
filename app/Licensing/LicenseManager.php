@@ -18,6 +18,30 @@ final class LicenseManager
     public function activate(string $provider, string $credential, string $host): LicenseDecision
     {
         $installationId = $this->installationId();
+        $decision = $this->verify($provider, $credential, $host);
+        if ($decision->status === LicenseStatus::AdapterUnavailable) {
+            return $decision;
+        }
+        if (! $decision->permitsUse() && $this->permitsUse()) {
+            return $decision;
+        }
+        DB::transaction(function () use ($provider, $credential, $host, $installationId, $decision): void {
+            LicenseActivation::query()->updateOrCreate(
+                ['installation_id' => $installationId],
+                ['provider' => $provider, 'status' => $decision->status,
+                    'external_reference' => $decision->externalReference ?: null,
+                    'credential_hash' => hash_hmac('sha256', $credential, $this->hashKey()),
+                    'host_hash' => hash_hmac('sha256', $this->normalizeHost($host), $this->hashKey()),
+                    'provider_data' => $decision->metadata, 'verified_at' => now(), 'expires_at' => $decision->expiresAt],
+            );
+        });
+
+        return $decision;
+    }
+
+    public function verify(string $provider, string $credential, string $host): LicenseDecision
+    {
+        $installationId = $this->installationId();
         try {
             $decision = $this->providers->provider($provider)->activate(new ActivationRequest(
                 $credential, $installationId, $host, (string) config('licensing.product_id'),
@@ -25,22 +49,6 @@ final class LicenseManager
         } catch (LicenseProviderException) {
             return new LicenseDecision(LicenseStatus::AdapterUnavailable, reason: 'The selected license provider is unavailable.');
         }
-
-        DB::transaction(function () use ($provider, $credential, $host, $installationId, $decision): void {
-            LicenseActivation::query()->updateOrCreate(
-                ['installation_id' => $installationId],
-                [
-                    'provider' => $provider,
-                    'status' => $decision->status,
-                    'external_reference' => $decision->externalReference ?: null,
-                    'credential_hash' => hash_hmac('sha256', $credential, $this->hashKey()),
-                    'host_hash' => hash_hmac('sha256', $this->normalizeHost($host), $this->hashKey()),
-                    'provider_data' => $decision->metadata,
-                    'verified_at' => now(),
-                    'expires_at' => $decision->expiresAt,
-                ],
-            );
-        });
 
         return $decision;
     }

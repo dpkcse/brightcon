@@ -17,3 +17,7 @@ Run `php artisan storage:link` where symlinks are supported. After confirming th
 For a manual upgrade, back up files, database, uploads, `.env`, and license state; test the backup; extract the versioned package into staging; merge buyer changes; install/build dependencies as documented; and run `php artisan migrate --force`. Never use `migrate:fresh`. Run `php artisan cms:requirements` when troubleshooting. Correct connection or permission configuration without exposing credentials. For inconsistent markers, interrupted migrations, storage-link failures, or legacy adoption, use `installation-recovery.md` rather than deleting data or state signals. `php artisan optimize:clear` may clear stale caches before corrected production caches are rebuilt.
 
 License metadata: Naxas Limited is the licensor; the owner-approved license is effective 27 July 2026. Legal and support contact: info.naxasltd@gmail.com. `LICENSE` controls.
+
+## License activation after installation
+
+Installation completion never calls or depends on the Naxas service. Sign in as administrator and open **Admin → License**. Portal activation remains pending deployment and disabled by default; manual signed-license activation remains operational.

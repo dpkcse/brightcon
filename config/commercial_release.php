@@ -59,7 +59,7 @@ return [
         'documentation/security-recommendations.md', 'documentation/support-policy-template.md', 'documentation/refund-policy-template.md',
         'documentation/single-site-license.md', 'documentation/white-label-policy.md', 'documentation/support-policy.md',
         'documentation/refund-policy.md', 'documentation/client-handover-policy.md', 'documentation/no-saas-policy.md',
-        'documentation/license-activation.md',
+        'documentation/license-activation.md', 'documentation/license-recovery.md',
     ],
     'asset_provenance' => [
         'approved' => ['public/build'],
