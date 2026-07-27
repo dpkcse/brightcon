@@ -23,6 +23,22 @@ return [
         'public_key' => env('CMS_LICENSE_OFFLINE_PUBLIC_KEY'),
     ],
 
+    // This endpoint is deployment-controlled and is never accepted from an admin request.
+    // Keep disabled until the Naxas service has completed acceptance testing.
+    'naxas_portal' => [
+        'enabled' => (bool) env('CMS_NAXAS_PORTAL_ENABLED', false),
+        'base_url' => env('CMS_NAXAS_LICENSE_SERVER_URL', 'https://licenses.naxasltd.com'),
+        'request_path' => '/api/v1/activation-requests',
+        'status_path' => '/api/v1/activation-requests/{request_id}/status',
+        'timeout_seconds' => 10,
+        'connect_timeout_seconds' => 5,
+        'retries' => 1,
+        'request_token_ttl_minutes' => 1440,
+        'allow_http_local' => (bool) env('CMS_NAXAS_ALLOW_HTTP_LOCAL', false),
+        'create_rate_limit' => 5,
+        'status_rate_limit' => 20,
+    ],
+
     // Non-operational entries are intentional capability declarations, not adapters.
     // An integration may be marked operational only after its official contract is
     // implemented and covered by provider-specific contract tests.

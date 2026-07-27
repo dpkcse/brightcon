@@ -40,6 +40,10 @@ Route::prefix('admin')->name('admin.')->middleware('cms.installed')->group(funct
         Route::get('/system-information', SystemInformationController::class)->name('system-information');
         Route::get('/license', [LicenseController::class, 'index'])->name('license.index');
         Route::post('/license', [LicenseController::class, 'activate'])->name('license.activate');
+        Route::post('/license/request-activation', [LicenseController::class, 'requestActivation'])
+            ->middleware('throttle:'.config('licensing.naxas_portal.create_rate_limit', 5).',60')->name('license.request-activation');
+        Route::post('/license/check-activation', [LicenseController::class, 'checkActivation'])
+            ->middleware('throttle:'.config('licensing.naxas_portal.status_rate_limit', 20).',60')->name('license.check-activation');
         Route::resource('social-links', SocialLinkController::class)->parameters(['social-links' => 'socialLink'])->except(['show']);
         Route::resource('menu-items', MenuItemController::class)->parameters(['menu-items' => 'menuItem'])->except(['show']);
         Route::resource('footer-links', FooterLinkController::class)->parameters(['footer-links' => 'footerLink'])->except(['show']);
