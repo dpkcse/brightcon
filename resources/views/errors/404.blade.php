@@ -1,6 +1,13 @@
+@php
+    $siteSettings = $siteSettings ?? null;
+    $themeSettings = $themeSettings ?? null;
+    $socialLinks = $socialLinks ?? collect();
+    $menuItems = $menuItems ?? collect();
+    $footerLinks = $footerLinks ?? collect();
+@endphp
 @extends('frontend.layouts.app')
 
-@section('title', 'Page Not Found | '.($siteSettings?->company_name ?: config('cms.defaults.company_name') ?: config('cms.product.name')))
+@section('title', 'Page Not Found | '.(data_get($siteSettings, 'company_name') ?: config('app.name')))
 @section('meta_description', 'The page you requested could not be found.')
 @section('robots', 'noindex, follow')
 
@@ -10,7 +17,7 @@
         <span class="section-kicker">404 Error</span>
         <h1 class="display-5 fw-bold mb-3">Page Not Found</h1>
         <p class="lead text-muted mb-4">The page may have moved, been removed, or the address may be incorrect.</p>
-        <a href="{{ route('home') }}" class="btn btn-primary-brand btn-lg">Back to Home</a>
+        <a href="{{ url('/') }}" class="btn btn-primary-brand btn-lg">Back to Home</a>
     </div>
 </section>
 @endsection

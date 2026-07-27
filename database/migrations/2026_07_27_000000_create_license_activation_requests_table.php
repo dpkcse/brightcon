@@ -21,11 +21,11 @@ return new class extends Migration
             $table->string('application_version', 50);
             $table->string('portal_url', 2048);
             $table->string('status', 32)->index();
-            $table->timestamp('requested_at');
-            $table->timestamp('expires_at')->index();
-            $table->timestamp('last_checked_at')->nullable();
-            $table->timestamp('approved_at')->nullable();
-            $table->timestamp('completed_at')->nullable();
+            $table->dateTime('requested_at');
+            $table->dateTime('expires_at')->index();
+            $table->dateTime('last_checked_at')->nullable();
+            $table->dateTime('approved_at')->nullable();
+            $table->dateTime('completed_at')->nullable();
             $table->string('failure_code', 64)->nullable();
             $table->string('safe_failure_message', 255)->nullable();
             $table->timestamps();

@@ -5,9 +5,13 @@ namespace Tests\Feature;
 use App\Licensing\LicenseManager;
 use App\Models\LicenseActivationRequest;
 use App\Models\User;
+use App\Services\Licensing\NaxasActivationService;
+use DateTimeInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
 class NaxasPortalActivationTest extends TestCase
@@ -49,6 +53,38 @@ class NaxasPortalActivationTest extends TestCase
         Log::shouldNotHaveReceived('info');
     }
 
+    public function test_request_business_dates_are_datetime_columns_with_required_expiry_and_nullable_lifecycle_dates(): void
+    {
+        $migration = file_get_contents(database_path('migrations/2026_07_27_000000_create_license_activation_requests_table.php'));
+
+        $this->assertStringContainsString("->dateTime('requested_at')", $migration);
+        $this->assertStringContainsString("->dateTime('expires_at')->index()", $migration);
+        foreach (['last_checked_at', 'approved_at', 'completed_at'] as $column) {
+            $this->assertStringContainsString("->dateTime('{$column}')->nullable()", $migration);
+        }
+        $this->assertStringNotContainsString("->timestamp('expires_at')", $migration);
+        $this->assertFalse(Schema::getColumns('license_activation_requests')[12]['nullable']);
+        $this->assertFalse(Schema::getColumns('license_activation_requests')[13]['nullable']);
+        $this->assertNull(LicenseActivationRequest::query()->create($this->requestAttributes())?->last_checked_at);
+    }
+
+    public function test_request_dates_cast_and_expiry_and_current_lookup_remain_datetime_safe(): void
+    {
+        $installation = app(LicenseManager::class)->installationId();
+        $older = LicenseActivationRequest::query()->create($this->requestAttributes([
+            'installation_uuid' => $installation, 'remote_request_id' => 'older', 'expires_at' => now()->subMinute(),
+        ]));
+        $current = LicenseActivationRequest::query()->create($this->requestAttributes([
+            'installation_uuid' => $installation, 'remote_request_id' => 'current',
+        ]));
+
+        $this->assertInstanceOf(DateTimeInterface::class, $current->requested_at);
+        $this->assertTrue($older->expires_at->isPast());
+        $this->assertTrue($current->expires_at->isFuture());
+        $this->assertSame($current->id, app(NaxasActivationService::class)->current()?->id);
+        $this->assertNull(DB::table('license_activation_requests')->where('id', $current->id)->value('approved_at'));
+    }
+
     public function test_approved_token_requires_local_signature_and_preserves_existing_valid_activation(): void
     {
         [$public, $private] = $this->keyPair();
@@ -85,6 +121,19 @@ class NaxasPortalActivationTest extends TestCase
         openssl_sign($payload, $signature, $private, OPENSSL_ALGO_SHA256);
 
         return $this->encode($payload).'.'.$this->encode($signature);
+    }
+
+    private function requestAttributes(array $overrides = []): array
+    {
+        return array_merge([
+            'installation_uuid' => 'df594840-2d8b-4f41-95b6-e75dc405312f', 'provider' => 'naxas_portal',
+            'remote_request_id' => 'request-'.uniqid(), 'request_token_hash' => str_repeat('a', 64),
+            'request_token_ciphertext' => 'BRQ-TEST', 'masked_request_token' => 'BRQ-****',
+            'normalized_domain' => 'example.com', 'product_reference' => 'buildora-cms',
+            'application_version' => '1.0.0', 'portal_url' => 'https://licenses.naxasltd.com/activate',
+            'status' => 'pending', 'requested_at' => now(), 'expires_at' => now()->addDay(),
+            'last_checked_at' => null, 'approved_at' => null, 'completed_at' => null,
+        ], $overrides);
     }
 
     private function encode(string $value): string
